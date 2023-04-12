@@ -14,11 +14,6 @@ const discordBotId = "881341335355920415";
 const guildData = {};
 const botData = {};
 const botId = "881341335355920415";
-// let gameScoreChannel;
-// let leaderboardChannel;
-// let seasonWinnersChannel;
-// let allServerUsers = [];
-// let currentServer;
 
 client.on("ready", async () => {
   await mongoose
@@ -41,7 +36,6 @@ client.on("ready", async () => {
   allBotData.forEach((serverBotData) => {
     botData[serverBotData.guildId] = serverBotData;
   });
-  console.log("botData", botData);
   console.log("botData", botData);
 });
 
@@ -126,9 +120,6 @@ process.on("unhandledRejection", (error) => {
 client.on("messageCreate", async (msg) => {
   var currentServerData = await BotData.findOne({ guildId: msg.guild.id });
   var currentServer = await AllServers.findOne({ guildId: msg.guild.id });
-  console.log("currentServerData", currentServerData);
-  console.log("currentServer@@@@@", currentServer);
-
   var allServerUsers = [];
   var banList = currentServerData.banList;
 
@@ -2353,10 +2344,9 @@ client.on("messageCreate", async (msg) => {
     }
 
     if (
-      (msg.content === `${commandSymbol}randomizecaptain` ||
-        msg.content === `${commandSymbol}randomizecaptains` ||
-        msg.content === `${commandSymbol}rc`) &&
-      msg.member.roles.cache.some((role) => role.name === "Scorer")
+      msg.content === `${commandSymbol}randomizecaptain` ||
+      msg.content === `${commandSymbol}randomizecaptains` ||
+      msg.content === `${commandSymbol}rc`
     ) {
       if (randomizedAlready === 0) {
         let newList = allServerUsers.sort((a, b) => b.lp - a.lp);
@@ -2445,21 +2435,15 @@ client.on("messageCreate", async (msg) => {
             msg.channel.send("Teams are already being chosen by captains.");
           }
         } else {
-          msg.channel.send("There isn't enough players to randomize captains.");
+          msg.channel.send(
+            "There aren't enough players to randomize captains."
+          );
         }
       } else {
         msg.channel.send(
-          "Teams were randomized already. \n $redraft if you wish to create new teams by randomizing captains."
+          "Teams were already randomized. \n $redraft if you wish to create new teams."
         );
       }
-    } else if (
-      msg.content === `${commandSymbol}randomizecaptain` ||
-      msg.content === `${commandSymbol}randomizecaptains` ||
-      msg.content === `${commandSymbol}rc`
-    ) {
-      msg.channel.send(
-        "Only members with **RC** role can randomize captains. \nIf there are no **RC** roles yet, admins can make a RC role."
-      );
     }
 
     process.on("unhandledRejection", (error) => {
