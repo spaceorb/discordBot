@@ -10,10 +10,9 @@ const { MessageEmbed } = require("discord.js");
 const { Console } = require("console");
 require("dotenv").config();
 const chart = new QuickChart();
-const discordBotId = "881341335355920415";
 const guildData = {};
 const botData = {};
-const botId = "881341335355920415";
+const botId = process.env.DISCORDBOT_ID;
 
 client.on("ready", async () => {
   await mongoose
