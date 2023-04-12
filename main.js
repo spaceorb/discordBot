@@ -12,7 +12,7 @@ require("dotenv").config();
 const chart = new QuickChart();
 const guildData = {};
 const botData = {};
-const botId = process.env.DISCORDBOT_ID;
+const botId = "781341335359208415";
 
 client.on("ready", async () => {
   await mongoose
