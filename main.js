@@ -1230,21 +1230,17 @@ client.on("messageCreate", async (msg) => {
     function removeOldMsg(oldMsg, newMsg) {
       console.log("LASTMSG", lastMsg);
 
-      if (lastMsg.length > 1) {
-        lastMsg.forEach((msg) => {
-          oldMsg.channel.messages
-            .fetch(msg)
-            .then(async (message) => {
-              await oldMsg.channel.send(newMsg);
-              if (message) {
-                message.delete();
-              } else {
-                console.log("error");
-              }
-            })
-            .catch((lastMsg = []));
-        });
-      }
+      oldMsg.channel.messages
+        .fetch(msg)
+        .then(async (message) => {
+          await oldMsg.channel.send(newMsg);
+          if (message) {
+            message.delete();
+          } else {
+            console.log("error");
+          }
+        })
+        .catch((lastMsg = []));
     }
     function removeSpaceChar(name) {
       let temp = name.split(" ");
