@@ -1230,17 +1230,32 @@ client.on("messageCreate", async (msg) => {
     function removeOldMsg(oldMsg, newMsg) {
       console.log("LASTMSG", lastMsg);
 
-      oldMsg.channel.messages
-        .fetch(msg)
-        .then(async (message) => {
-          await oldMsg.channel.send(newMsg);
-          if (message) {
-            message.delete();
-          } else {
-            console.log("error");
-          }
-        })
-        .catch((lastMsg = []));
+      lastMsg.forEach((msg, i) => {
+        if (i === 0) {
+          oldMsg.channel.messages
+            .fetch(msg)
+            .then(async (message) => {
+              await oldMsg.channel.send(newMsg);
+              if (message) {
+                message.delete();
+              } else {
+                console.log("error");
+              }
+            })
+            .catch((lastMsg = []));
+        } else {
+          oldMsg.channel.messages
+            .fetch(msg)
+            .then(async (message) => {
+              if (message) {
+                message.delete();
+              } else {
+                console.log("error");
+              }
+            })
+            .catch((lastMsg = []));
+        }
+      });
     }
     function removeSpaceChar(name) {
       let temp = name.split(" ");
@@ -3859,8 +3874,8 @@ client.on("messageCreate", async (msg) => {
     }
 
     if (msg.author.id === discordBotId && msg.content.includes(peopleSymbol)) {
-      if (!lastMsg.includes(msg.id)) {
-        lastMsg.push(msg.id);
+      if (lastMsg !== msg.id) {
+        lastMsg = msg.id;
       } else {
         lastMsgCopy = msg.id;
         console.log(lastMsgCopy);
@@ -3889,7 +3904,6 @@ client.on("messageCreate", async (msg) => {
       !msg.content.includes(peopleSymbol)
     ) {
       if (lastChMsg !== msg.id) {
-        lastChMsg = msg.id;
       } else {
         lastChMsgCopy = msg.id;
         console.log(lastChMsgCopy);
