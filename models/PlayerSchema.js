@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const PlayerSchema = new mongoose.Schema({
-  guildId: { type: String, required: true, unique: true },
+  guildId: { type: String, required: true },
   userId: { type: String, require: true },
   name: { type: String },
   lp: { type: Number, default: 1000 },
