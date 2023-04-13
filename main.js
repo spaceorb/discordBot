@@ -3904,6 +3904,8 @@ client.on("messageCreate", async (msg) => {
       !msg.content.includes(peopleSymbol)
     ) {
       if (lastChMsg !== msg.id) {
+        lastChMsg.push(msg.id);
+        msg.channel.send(`${msg.id}`);
       } else {
         lastChMsgCopy = msg.id;
         console.log(lastChMsgCopy);
