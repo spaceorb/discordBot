@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const PlayerSchema = new mongoose.Schema({
-  guildId: { type: String, required: true },
+  guildId: { type: String, required: true, unique: true },
   userId: { type: String, require: true },
   name: { type: String },
   lp: { type: Number, default: 1000 },
@@ -24,5 +24,5 @@ const PlayerSchema = new mongoose.Schema({
 });
 
 const player = mongoose.model("PlayerModels", PlayerSchema);
-player.createIndexes({ guildId: 1 });
+// player.createIndexes({ guildId: 1 });
 module.exports = player;

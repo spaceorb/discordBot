@@ -16,5 +16,6 @@ const AllServersSchema = new mongoose.Schema({
 });
 
 const AllServers = mongoose.model("ServerModels", AllServersSchema);
+AllServers.createIndexes({ guildId: 1 });
 
 module.exports = AllServers;
