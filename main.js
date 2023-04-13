@@ -12,7 +12,7 @@ require("dotenv").config();
 const chart = new QuickChart();
 const guildData = {};
 const botData = {};
-const discordBotId = "781341335359208415";
+const discordBotId = "881341335355920415";
 
 client.on("ready", async () => {
   await mongoose
