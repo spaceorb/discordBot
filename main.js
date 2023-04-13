@@ -1233,12 +1233,18 @@ client.on("messageCreate", async (msg) => {
       oldMsg.channel.messages
         .fetch(lastMsg[0])
         .then(async (message) => {
-          await oldMsg.channel.send(newMsg);
-          if (message) {
-            message.delete();
-          } else {
-            console.log("error");
-          }
+          await oldMsg.channel.send(newMsg).then((message) => {
+            if (message) {
+              message.delete();
+            } else {
+              lastMsg = message;
+            }
+          });
+          // if (message) {
+          //   message.delete();
+          // } else {
+          //   console.log("error");
+          // }
         })
         .catch((lastMsg = []));
     }
