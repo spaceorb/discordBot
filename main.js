@@ -1230,7 +1230,7 @@ client.on("messageCreate", async (msg) => {
     function removeOldMsg(oldMsg, newMsg) {
       console.log("LASTMSG", lastMsg);
 
-      if (lastMsg.length > 0) {
+      if (lastMsg.length > 1) {
         lastMsg.forEach((msg) => {
           oldMsg.channel.messages
             .fetch(msg)
