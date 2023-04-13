@@ -3858,7 +3858,7 @@ client.on("messageCreate", async (msg) => {
       msg.channel.send(`Only Scorers may unban someone.`);
     }
 
-    if (msg.author.id === discordBotId && msg.content.includes(peopleSymbol)) {
+    if (msg.author.id == discordBotId && msg.content.includes(peopleSymbol)) {
       if (!lastMsg.includes(msg.id)) {
         lastMsg.push(msg.id);
         msg.channel.send(`${msg.id}`);
@@ -3874,7 +3874,7 @@ client.on("messageCreate", async (msg) => {
     //   }
     // }
 
-    if (msg.author.id === discordBotId && !msg.content.includes(peopleSymbol)) {
+    if (msg.author.id == discordBotId && !msg.content.includes(peopleSymbol)) {
       if (lastRankMsg !== msg.id) {
         lastRankMsg = msg.id;
         if (lastRankMsgCopy.length == 0) lastRankMsgCopy = msg.id;
