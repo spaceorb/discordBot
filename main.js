@@ -1236,22 +1236,22 @@ client.on("messageCreate", async (msg) => {
             .fetch(msg)
             .then(async (message) => {
               await oldMsg.channel.send(newMsg);
-              if (message) {
-                message.delete();
-              } else {
-                console.log("error");
-              }
+              // if (message) {
+              //   message.delete();
+              // } else {
+              //   console.log("error");
+              // }
             })
             .catch((lastMsg = []));
         } else {
           oldMsg.channel.messages
             .fetch(msg)
             .then(async (message) => {
-              if (message) {
-                message.delete();
-              } else {
-                console.log("error");
-              }
+              // if (message) {
+              //   message.delete();
+              // } else {
+              //   console.log("error");
+              // }
             })
             .catch((lastMsg = []));
         }
