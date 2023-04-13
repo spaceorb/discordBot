@@ -3883,11 +3883,7 @@ client.on("messageCreate", async (msg) => {
       }
     }
 
-    if (
-      msg.author.id === discordBotId &&
-      !msgIncludesCrown &&
-      !msg.content.includes(peopleSymbol)
-    ) {
+    if (msg.author.id === discordBotId && !msgIncludesCrown) {
       if (lastChMsg !== msg.id) {
         lastChMsg.push(msg.id);
       } else {
