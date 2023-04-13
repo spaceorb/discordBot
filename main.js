@@ -3875,7 +3875,7 @@ client.on("messageCreate", async (msg) => {
 
     if (msg.author.id === discordBotId && msg.content.includes(peopleSymbol)) {
       if (lastMsg !== msg.id) {
-        lastMsg = msg.id;
+        lastMsg.push(msg.id);
       } else {
         lastMsgCopy = msg.id;
         console.log(lastMsgCopy);
