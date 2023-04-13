@@ -1231,14 +1231,14 @@ client.on("messageCreate", async (msg) => {
       console.log("LASTMSG", lastMsg);
 
       oldMsg.channel.messages
-        .fetch(msg)
+        .fetch(lastMsg[0])
         .then(async (message) => {
           await oldMsg.channel.send(newMsg);
-          // if (message) {
-          //   message.delete();
-          // } else {
-          //   console.log("error");
-          // }
+          if (message) {
+            message.delete();
+          } else {
+            console.log("error");
+          }
         })
         .catch((lastMsg = []));
     }
