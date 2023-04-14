@@ -727,6 +727,8 @@ client.on("messageCreate", async (msg) => {
               "**Team 2**:",
 
               `${team2.join("\n ")}`,
+              "\n",
+              `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
             ];
           } else if (inDraft.length > 0) {
             randomizedArr = [
@@ -740,6 +742,8 @@ client.on("messageCreate", async (msg) => {
               "**Team 2**:",
 
               `${team2.join("\n ")}`,
+              "\n",
+              `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
             ];
           }
         }
@@ -763,6 +767,8 @@ client.on("messageCreate", async (msg) => {
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
           `${team2.join("\n ")}`,
+          "\n",
+          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
         ];
       } else if (
         captains.length === 1 &&
@@ -822,6 +828,8 @@ client.on("messageCreate", async (msg) => {
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
           `${team2.join("\n ")}`,
+          "\n",
+          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
         ];
       } else if (
         captains.length === 2 &&
@@ -924,6 +932,8 @@ client.on("messageCreate", async (msg) => {
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
           `${team2.join("\n ")}`,
+          "\n",
+          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
         ];
       } else if (
         captains.length === 2 &&
@@ -944,6 +954,8 @@ client.on("messageCreate", async (msg) => {
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
           `${team2.join("\n ")}`,
+          "\n",
+          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
         ];
       } else if (
         captains.length === 2 &&
@@ -981,6 +993,8 @@ client.on("messageCreate", async (msg) => {
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
           `${team2.join("\n ")}`,
+          "\n",
+          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
         ];
       }
 
@@ -1620,6 +1634,10 @@ client.on("messageCreate", async (msg) => {
                 "**Team 2**:",
                 " ",
                 `${team2.join("\n ")}`,
+                "\n",
+                `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+
+                `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
               ];
               removeOldMsg(msg, randomizedArr.join(" "));
             } else {
@@ -1728,6 +1746,8 @@ client.on("messageCreate", async (msg) => {
             "**Team 2**:",
             " ",
             `${team2.join("\n ")}`,
+            "\n",
+            `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
           ];
           if (temp.length !== 0) {
             removeOldMsg(msg, randomizedArr.join(" "));
