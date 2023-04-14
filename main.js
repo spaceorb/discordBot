@@ -2229,10 +2229,15 @@ client.on("messageCreate", async (msg) => {
       let stop = 0;
       pinged = 0;
 
-      if (contents.length === 1 && captains.includes(`<@${msg.author.id}>`)) {
+      if (
+        contents.length === 1 &&
+        captains.some((element) => element.includes(`<@${msg.author.id}>`))
+      ) {
         msg.channel.send("You didn't pick anyone.");
         stop = 1;
-      } else if (!captains.includes(`<@${msg.author.id}>`)) {
+      } else if (
+        !captains.some((element) => element.includes(`<@${msg.author.id}>`))
+      ) {
         console.log("captains", captains);
         msg.channel.send("You're not captain.");
         stop = 1;
