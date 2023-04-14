@@ -702,11 +702,17 @@ client.on("messageCreate", async (msg) => {
             ? (biggerLength = team2.length)
             : (biggerLength = team1.length);
           for (let i = 0; i < biggerLength; i++) {
-            if (inDraft.includes(team1[i])) {
-              inDraft.splice(inDraft.indexOf(team1[i]), 1);
+            if (inDraft.some((element) => element.includes(team1[i]))) {
+              let index = inDraft.findIndex((element) =>
+                element.includes(team1[i])
+              );
+              inDraft.splice(index, 1);
             }
-            if (inDraft.includes(team2[i])) {
-              inDraft.splice(inDraft.indexOf(team2[i]), 1);
+            if (inDraft.some((element) => element.includes(team2[i]))) {
+              let index = inDraft.findIndex((element) =>
+                element.includes(team2[i])
+              );
+              inDraft.splice(index, 1);
             }
           }
 
