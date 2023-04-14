@@ -2301,9 +2301,9 @@ client.on("messageCreate", async (msg) => {
               inDraft.splice(index, 1);
             }
           }
+          updatePlayerCount();
+          removeOldMsg(msg, listArr.join(" "));
         }
-        updatePlayerCount();
-        removeOldMsg(msg, listArr.join(" "));
       } else if (
         captains[1].includes(`<@${msg.author.id}>`) &&
         contents.length <= 4 &&
@@ -2344,10 +2344,10 @@ client.on("messageCreate", async (msg) => {
               inDraft.splice(index, 1);
             }
           }
-        }
 
-        updatePlayerCount();
-        removeOldMsg(msg, listArr.join(" "));
+          updatePlayerCount();
+          removeOldMsg(msg, listArr.join(" "));
+        }
       }
     }
     if (
