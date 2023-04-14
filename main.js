@@ -312,8 +312,8 @@ client.on("messageCreate", async (msg) => {
           : turnMmrToTitle2(indexOfPlayer, newList.length)
       } ${name} ${
         indexOfPlayer === undefined
-          ? "**1000**"
-          : currentPlayer.value.split(" ")[1]
+          ? " **1000**"
+          : " " + currentPlayer.value.split(" ")[1]
       }`;
     };
     async function addDataToChart(msg, dataY, dataX, userId, clientA) {
