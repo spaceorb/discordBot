@@ -665,12 +665,12 @@ client.on("messageCreate", async (msg) => {
           captains.length + inDraft.length + team1.length + team2.length
         }**\n`,
         "\n",
-        "**Team 1**:\n",
-        `${captains[0] ? captains[0] + " :crown:\n" : null}`,
+        `**Team 1**: ${captains[0] ? ":crown:" : null}\n`,
+        `${captains[0] ? captains[0] : null}`,
         `${team1.join("\n")}`,
         "\n\n",
-        "**Team 2**:\n",
-        `${captains[1] ? captains[1] + " :crown:\n" : null}`,
+        `**Team 2**: ${captains[0] ? ":crown:" : null}\n`,
+        `${captains[0] ? captains[0] : null}`,
         `${team2.join("\n")}`,
         `\n**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
