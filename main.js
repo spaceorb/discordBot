@@ -1723,36 +1723,7 @@ client.on("messageCreate", async (msg) => {
             }
           }
         }
-
-        if (randomizedAlready === 1) {
-          randomizedArr = [
-            peopleSymbol,
-            `**${team1.length + team2.length + inDraft.length}**`,
-            "\n",
-            dashSymbol,
-
-            "\n",
-            "\n",
-            "**Team 1**:",
-            " ",
-            `${team1.join("\n ")}`,
-            "\n",
-            "\n",
-            "**Team 2**:",
-            " ",
-            `${team2.join("\n ")}`,
-            "\n",
-            `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-          ];
-          if (temp.length !== 0) {
-            removeOldMsg(msg, randomizedArr.join(" "));
-          }
-        } else {
-          if (temp.length !== 0) {
-            console.log("temp", temp);
-            removeOldMsg(msg, listArr.join(" "));
-          }
-        }
+        removeOldMsg(msg, listArr.join(" "));
       }
     }
 
