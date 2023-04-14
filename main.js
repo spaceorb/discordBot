@@ -665,6 +665,7 @@ client.on("messageCreate", async (msg) => {
       });
     }
     function updatePlayerCount() {
+      checkCaptains();
       listArr = [
         peopleSymbol,
         `**${
