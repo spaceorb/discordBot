@@ -285,7 +285,27 @@ client.on("messageCreate", async (msg) => {
         return "Over 7 days ago";
       }
     }
-    const checkListForMedals = () => {};
+    const checkListForMedals = () => {
+      const currentPlayer = allServerUsers.find(
+        (user) => user.userId === msg.author.id && user.guildId === msg.guild.id
+      );
+      // const currentPlayer = allServerUsers.find({
+      //   userId: msg.author.id,
+      //   guildId: msg.guild.id,
+      // });
+      let name;
+      console.log("current Player", currentPlayer);
+
+      if (
+        !captains.includes(`<@${msg.author.id}>`) &&
+        !team1.includes(`<@${msg.author.id}>`) &&
+        !team2.includes(`<@${msg.author.id}>`)
+      ) {
+        return `<@${msg.author.id}> ${currentPlayer.value}`;
+      } else {
+        return `<@${msg.author.id}>`;
+      }
+    };
     async function addDataToChart(msg, dataY, dataX, userId, clientA) {
       msg.guild.members.fetch(userId).then(async (member) => {
         let discordName;
@@ -1599,26 +1619,6 @@ client.on("messageCreate", async (msg) => {
             !team2.includes(`<@${msg.author.id}>`)
           ) {
             if (!startedPicks) {
-              const currentPlayer = allServerUsers.find(
-                (user) =>
-                  user.userId === msg.author.id && user.guildId === msg.guild.id
-              );
-              // const currentPlayer = allServerUsers.find({
-              //   userId: msg.author.id,
-              //   guildId: msg.guild.id,
-              // });
-              let name;
-              console.log("current Player", currentPlayer);
-
-              if (
-                !captains.includes(`<@${msg.author.id}>`) &&
-                !team1.includes(`<@${msg.author.id}>`) &&
-                !team2.includes(`<@${msg.author.id}>`)
-              ) {
-                name = `<@${msg.author.id}>`;
-              } else {
-                name = `<@${msg.author.id}>`;
-              }
               inDraft.push(name);
               updatePlayerCount();
 
