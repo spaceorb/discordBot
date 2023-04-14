@@ -119,8 +119,7 @@ process.on("unhandledRejection", (error) => {
 client.on("messageCreate", async (msg) => {
   var currentServerData = await BotData.findOne({ guildId: msg.guild.id });
   var currentServer = await AllServers.findOne({ guildId: msg.guild.id });
-  var allServerUsers = await PlayerModel.find({ guildId: msg.guild.id });
-  msg.channel.send(`${allServerUsers}`);
+  // var allServerUsers = await PlayerModel.find({guildId: msg.guild.id});
   var banList = currentServerData.banList;
 
   if (!banList.includes(`<@${msg.author.id}>`)) {
