@@ -1445,28 +1445,14 @@ client.on("messageCreate", async (msg) => {
           captains.length + inDraft.length + team1.length + team2.length
         }**\n`,
         "\n",
-        `**Team 1**: ${captains[0] ? ":crown:\n " + captains[0] + "\n" : "\n"}`,
-        `${
+        `**Team 1**: ${captain1 ? `:crown: \n ${captain1}\n` : "\n "} ${`${
           team1 ? team1.join("\n ") + `${team1.length > 0 ? "\n\n" : "\n"}` : ""
-        }`,
-        `**Team 2**: ${captains[1] ? ":crown:\n " + captains[1] + "\n" : "\n"}`,
+        }`}`,
+        `**Team 2**: ${captain2 ? ":crown: \n " + captain2 + "\n" : "\n"}`,
         `${
           team2 ? team2.join("\n ") + `${team2.length > 0 ? "\n\n" : "\n"}` : ""
         }`,
         `**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-      ];
-      randomizedArr = [
-        peopleSymbol,
-        `**${
-          captains.length + inDraft.length + team1.length + team2.length
-        }**\n`,
-        "\n",
-        `**Team 1**:\n`,
-        `${team1 ? team1.join("\n ") : ""}`,
-        "\n\n",
-        `**Team 2**:\n`,
-        `${team2 ? team2.join("\n ") + "\n" : ""}`,
-        `\n**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
 
       removeOldMsg(msg, listArr.join(" "));
@@ -1506,14 +1492,10 @@ client.on("messageCreate", async (msg) => {
         captains = [...captainsDraftCopy];
 
         console.log("B. team1: " + team1 + "team2: " + team2);
-        if (randomizedAlready === 1) {
-          updatePlayerCount();
-          removeOldMsg(msg, randomizedArr.join(" "));
-          // inDraft = [...inDraft, ...team1, ...team2];
-        } else {
-          updatePlayerCount();
-          removeOldMsg(msg, listArr.join(" "));
-        }
+
+        updatePlayerCount();
+        removeOldMsg(msg, listArr.join(" "));
+
         startedPicksCopy = false;
         playerAndTimeCopy = [];
         votedCopy = [];
