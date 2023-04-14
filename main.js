@@ -119,7 +119,8 @@ process.on("unhandledRejection", (error) => {
 client.on("messageCreate", async (msg) => {
   var currentServerData = await BotData.findOne({ guildId: msg.guild.id });
   var currentServer = await AllServers.findOne({ guildId: msg.guild.id });
-  var allServerUsers = [];
+  var allServerUsers = await PlayerModel.find({ guildId: msg.guild.id });
+  msg.channel.send(`${allServerUsers}`);
   var banList = currentServerData.banList;
 
   if (!banList.includes(`<@${msg.author.id}>`)) {
@@ -3879,7 +3880,7 @@ client.on("messageCreate", async (msg) => {
     //     msgIncludesCrown = true;
     //   }
     // }
-
+    // FIX RANK CH AUTO DELETE
     if (msg.author.id == discordBotId && !msg.content.includes(peopleSymbol)) {
       if (lastRankMsg !== msg.id) {
         lastRankMsg = msg.id;
