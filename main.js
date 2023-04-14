@@ -1940,7 +1940,6 @@ client.on("messageCreate", async (msg) => {
               msg.channel.send(
                 `There's atleast **8** players ready for a draft now.`
               );
-              msg.channel.send(listArr.join(" "));
               // alerted8People = true;
             }
           } else if (
