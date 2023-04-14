@@ -2421,11 +2421,11 @@ client.on("messageCreate", async (msg) => {
             1
           );
           if (randomizedAlready === 0 && !captains[0]) {
-            captains.push(temp);
+            captains.push(checkListForMedals(temp));
           } else if (randomizedAlready === 1) {
-            team1.push(temp);
+            team1.push(checkListForMedals(temp));
           } else {
-            team1.push(temp);
+            team1.push(checkListForMedals(temp));
           }
           console.log("working");
         }
