@@ -1638,15 +1638,13 @@ client.on("messageCreate", async (msg) => {
 
       if (contents.length === 1) {
         if (
-          (contents.length === 1 &&
-            inDraft.some((element) =>
-              element.includes(`<@${msg.author.id}>`)
-            ) === false) ||
+          inDraft.some((element) => element.includes(`<@${msg.author.id}>`)) ===
+            false &&
           captains.some((element) =>
             element.includes(`<@${msg.author.id}>`)
-          ) === false ||
+          ) === false &&
           team1.some((element) => element.includes(`<@${msg.author.id}>`)) ===
-            false ||
+            false &&
           team2.some((element) => element.includes(`<@${msg.author.id}>`)) ===
             false
         ) {
@@ -1720,9 +1718,9 @@ client.on("messageCreate", async (msg) => {
         let temp = [];
         for (let i = 1; i < contents.length; i++) {
           if (
-            !inDraft.some((element) => element.includes(contents[i])) ||
-            !captains.some((element) => element.includes(contents[i])) ||
-            !team1.some((element) => element.includes(contents[i])) ||
+            !inDraft.some((element) => element.includes(contents[i])) &&
+            !captains.some((element) => element.includes(contents[i])) &&
+            !team1.some((element) => element.includes(contents[i])) &&
             !team2.some((element) => element.includes(contents[i]))
           ) {
             if (!startedPicks) {
