@@ -676,19 +676,19 @@ client.on("messageCreate", async (msg) => {
         `**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
 
-      randomizedArr = [
-        peopleSymbol,
-        `**${
-          captains.length + inDraft.length + team1.length + team2.length
-        }**\n`,
-        "\n",
-        `**Team 1**:\n`,
-        `${team1 ? team1.join("\n ") : ""}`,
-        "\n\n",
-        `**Team 2**:\n`,
-        `${team2 ? team2.join("\n ") + "\n" : ""}`,
-        `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-      ];
+      // randomizedArr = [
+      //   peopleSymbol,
+      //   `**${
+      //     captains.length + inDraft.length + team1.length + team2.length
+      //   }**\n`,
+      //   "\n",
+      //   `**Team 1**:\n`,
+      //   `${team1 ? team1.join("\n ") : ""}`,
+      //   "\n\n",
+      //   `**Team 2**:\n`,
+      //   `${team2 ? team2.join("\n ") + "\n" : ""}`,
+      //   `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+      // ];
       // if (captains.length === 0) {
       //   if (team1.length === 0 && team2.length === 0) {
       //     if (
@@ -1634,12 +1634,11 @@ client.on("messageCreate", async (msg) => {
               });
             }
 
-            if (randomizedAlready === 1) {
-              updatePlayerCount();
-              removeOldMsg(msg, randomizedArr.join(" "));
-            } else {
-              removeOldMsg(msg, listArr.join(" "));
-            }
+            // if (randomizedAlready === 1) {
+            //   updatePlayerCount();
+            //   removeOldMsg(msg, randomizedArr.join(" "));
+            // } else {
+            removeOldMsg(msg, listArr.join(" "));
           } else {
             msg.reply("**Draft is locked** :lock:");
           }
