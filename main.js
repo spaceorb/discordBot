@@ -1631,6 +1631,12 @@ client.on("messageCreate", async (msg) => {
       command === `${commandSymbol}ln`
     ) {
       if (team1.length + team2.length + inDraft.length + captains.length < 24) {
+        console.log("captains", captains);
+        console.log(
+          "captains",
+          !captains.some((element) => element.includes(`<@${msg.author.id}>`))
+        );
+
         if (contents.length === 1) {
           if (
             (contents.length === 1 &&
