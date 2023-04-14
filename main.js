@@ -3329,7 +3329,6 @@ client.on("messageCreate", async (msg) => {
         if (i === 0) {
           sortedList.push(
             ` :first_place: ${turnMmrToTitle2(
-              finalList[i].lp,
               i,
               finalList.length
             )} ${finalList[i].userId} ${finalList[i].value}\n`
@@ -3337,7 +3336,6 @@ client.on("messageCreate", async (msg) => {
         } else if (i === 1) {
           sortedList.push(
             ` :second_place: ${turnMmrToTitle2(
-              finalList[i].lp,
               i,
               finalList.length
             )} ${finalList[i].userId} ${finalList[i].value}\n`
@@ -3345,7 +3343,6 @@ client.on("messageCreate", async (msg) => {
         } else if (i === 2) {
           sortedList.push(
             ` :third_place: ${turnMmrToTitle2(
-              finalList[i].lp,
               i,
               finalList.length
             )} ${finalList[i].userId} ${finalList[i].value}\n`
@@ -3355,7 +3352,6 @@ client.on("messageCreate", async (msg) => {
         } else if ((i + 1) % 10 == 0 && finalList.length > 20) {
           sortedList.push(
             ` ${i + 1}. ${turnMmrToTitle2(
-              finalList[i].lp,
               i,
               finalList.length
             )} ${finalList[i].userId} ${finalList[i].value}\n`
@@ -3363,7 +3359,6 @@ client.on("messageCreate", async (msg) => {
         } else {
           sortedList.push(
             ` ${i + 1}. ${turnMmrToTitle2(
-              finalList[i].lp,
               i,
               finalList.length
             )} ${finalList[i].userId} ${finalList[i].value}`
