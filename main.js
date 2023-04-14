@@ -3695,35 +3695,40 @@ client.on("messageCreate", async (msg) => {
     }
 
     if (command === `${commandSymbol}vote`) {
-      if (!voted.includes(msg.author.id) && contents.length > 1) {
-        if (inDraft.includes(contents[1])) {
-          msg.guild.members.fetch(msg.author.id).then((member) => {
-            var discordName;
-            if (member.nickname !== null) {
-              discordName = member.nickname;
-            } else if (member.nickname === null) {
-              discordName = member.user.username;
-            }
+      if (
+        !voted.some((ele) => ele.includes(msg.author.id)) &&
+        contents.length > 1
+      ) {
+        if (inDraft.some((ele) => ele.includes(contents[1]))) {
+          // msg.guild.members.fetch(msg.author.id).then((member) => {
+          //   var discordName;
+          //   if (member.nickname !== null) {
+          //     discordName = member.nickname;
+          //   } else if (member.nickname === null) {
+          //     discordName = member.user.username;
+          //   }
 
-            discordName = discordName.toUpperCase();
-            discordName = removeSpaceChar(discordName);
+          //   discordName = discordName.toUpperCase();
+          //   discordName = removeSpaceChar(discordName);
 
-            if (contents[1].toUpperCase() == discordName) {
-              msg.channel.send(`You can't vote for yourself.`);
-            } else if (!draftPool.includes(contents[1].toUpperCase())) {
-              voted.push(msg.author.id);
-              draftPool.push(contents[1].toUpperCase());
-              msg.channel.send(
-                `**${contents[1].toUpperCase()}** has been added to the Captain's Pool.\n\nCurrent Captain's Pool: **${draftPool.join(
-                  ", "
-                )}**`
-              );
-            } else if (draftPool.includes(contents[1].toUpperCase())) {
-              msg.channel.send(
-                `**${contents[1].toUpperCase()}** is already in the Captain's Pool.`
-              );
-            }
-          });
+          //   if (contents[1].toUpperCase() == discordName) {
+          if (contents[1] === msg.author.id) {
+            msg.channel.send(`You can't vote for yourself.`);
+          } else if (!draftPool.includes(contents[1])) {
+            voted.push(msg.author.id);
+            draftPool.push(contents[1]);
+            msg.channel.send(
+              `**${
+                contents[1]
+              }** has been added to the Captain's Pool.\n\nCurrent Captain's Pool: **${draftPool.join(
+                ", "
+              )}**`
+            );
+          } else if (draftPool.includes(contents[1])) {
+            msg.channel.send(
+              `**${contents[1]}** is already in the Captain's Pool.`
+            );
+          }
         } else {
           msg.channel.send(`**${contents[1]}** is not in the Draft List.`);
         }
