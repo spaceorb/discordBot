@@ -1979,23 +1979,23 @@ client.on("messageCreate", async (msg) => {
             } else {
               captains.push(checkListForMedals(`<@${msg.author.id}>`));
             }
-            let playerTimed = false;
-            let yourping = msg.createdTimestamp;
-            let d = new Date(yourping);
+            // let playerTimed = false;
+            // let yourping = msg.createdTimestamp;
+            // let d = new Date(yourping);
 
-            for (let i = 0; i < playerAndTime.length; i++) {
-              if (playerAndTime[i].name == `<@${msg.author.id}>`) {
-                playerTimed = true;
-              }
-            }
-            if (!playerTimed) {
-              playerAndTime.push({
-                name: `<@${msg.author.id}>`,
-                time: [d.getHours(), d.getMinutes()],
-                enteredBy: "self",
-                remainingTime: [],
-              });
-            }
+            // for (let i = 0; i < playerAndTime.length; i++) {
+            //   if (playerAndTime[i].name == `<@${msg.author.id}>`) {
+            //     playerTimed = true;
+            //   }
+            // }
+            // if (!playerTimed) {
+            //   playerAndTime.push({
+            //     name: `<@${msg.author.id}>`,
+            //     time: [d.getHours(), d.getMinutes()],
+            //     enteredBy: "self",
+            //     remainingTime: [],
+            //   });
+            // }
             // checkIfPlayerBanned(msg);
             updatePlayerCount();
             removeOldMsg(msg, listArr.join(" "));
@@ -2025,23 +2025,6 @@ client.on("messageCreate", async (msg) => {
             ) {
               if (!startedPicks) {
                 captains.push(checkListForMedals(`<@${msg.author.id}>`));
-                let playerTimed = false;
-                let yourping = msg.createdTimestamp;
-                let d = new Date(yourping);
-
-                for (let i = 0; i < playerAndTime.length; i++) {
-                  if (playerAndTime[i].name == `<@${msg.author.id}>`) {
-                    playerTimed = true;
-                  }
-                }
-                if (!playerTimed) {
-                  playerAndTime.push({
-                    name: `<@${msg.author.id}>`,
-                    time: [d.getHours(), d.getMinutes()],
-                    enteredBy: "self",
-                    remainingTime: [],
-                  });
-                }
                 updatePlayerCount();
                 removeOldMsg(msg, listArr.join(" "));
                 randomizedAlready = 0;
@@ -2094,11 +2077,15 @@ client.on("messageCreate", async (msg) => {
               randomizedAlready = 0;
               randomizedCount = 0;
             } else if (captains.length < 2) {
-              captains.push(checkListForMedals(`<@${msg.author.id}>`));
-              updatePlayerCount();
-              removeOldMsg(msg, listArr.join(" "));
-              randomizedAlready = 0;
-              randomizedCount = 0;
+              if (!startedPicks) {
+                captains.push(checkListForMedals(`<@${msg.author.id}>`));
+                updatePlayerCount();
+                removeOldMsg(msg, listArr.join(" "));
+                randomizedAlready = 0;
+                randomizedCount = 0;
+              } else {
+                msg.reply("**Draft is locked** :lock:");
+              }
             } else if (captains.length === 2) {
               msg.channel.send("There can't be 3 captains.");
             }
