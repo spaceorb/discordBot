@@ -1633,7 +1633,7 @@ client.on("messageCreate", async (msg) => {
       console.log("captains", captains);
       console.log(
         "captains",
-        !captains.some((element) => element.includes(`<@${msg.author.id}>`))
+        captains.some((element) => element.includes(`<@${msg.author.id}>`))
       );
 
       if (contents.length === 1) {
