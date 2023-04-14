@@ -3328,7 +3328,7 @@ client.on("messageCreate", async (msg) => {
       for (let i = 0; i < finalList.length; i++) {
         if (i === 0) {
           sortedList.push(
-            ` :first_place: ${turnMmrToTitle(
+            ` :first_place: ${turnMmrToTitle2(
               finalList[i].lp,
               i,
               finalList.length
@@ -3336,7 +3336,7 @@ client.on("messageCreate", async (msg) => {
           );
         } else if (i === 1) {
           sortedList.push(
-            ` :second_place: ${turnMmrToTitle(
+            ` :second_place: ${turnMmrToTitle2(
               finalList[i].lp,
               i,
               finalList.length
@@ -3344,7 +3344,7 @@ client.on("messageCreate", async (msg) => {
           );
         } else if (i === 2) {
           sortedList.push(
-            ` :third_place: ${turnMmrToTitle(
+            ` :third_place: ${turnMmrToTitle2(
               finalList[i].lp,
               i,
               finalList.length
@@ -3354,7 +3354,7 @@ client.on("messageCreate", async (msg) => {
           // if (i === 2) sortedList.push('\n');
         } else if ((i + 1) % 10 == 0 && finalList.length > 20) {
           sortedList.push(
-            ` ${i + 1}. ${turnMmrToTitle(
+            ` ${i + 1}. ${turnMmrToTitle2(
               finalList[i].lp,
               i,
               finalList.length
@@ -3362,7 +3362,7 @@ client.on("messageCreate", async (msg) => {
           );
         } else {
           sortedList.push(
-            ` ${i + 1}. ${turnMmrToTitle(
+            ` ${i + 1}. ${turnMmrToTitle2(
               finalList[i].lp,
               i,
               finalList.length
