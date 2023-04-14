@@ -2089,10 +2089,10 @@ client.on("messageCreate", async (msg) => {
 
         if (contents.length === 1) {
           if (
-            inDraft.includes(`<@${msg.author.id}>`) ||
-            captains.includes(`<@${msg.author.id}>`) ||
-            team1.includes(`<@${msg.author.id}>`) ||
-            team2.includes(`<@${msg.author.id}>`)
+            inDraft.some(element => element.includes(`<@${msg.author.id}>`)) ||
+            captains.some(element => element.includes(`<@${msg.author.id}>`)) ||
+            team1.some(element => element.includes(`<@${msg.author.id}>`)) ||
+            team2.some(element => element.includes(`<@${msg.author.id}>`))
           ) {
             removePerson(`<@${msg.author.id}>`);
             updatePlayerCount();
