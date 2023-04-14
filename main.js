@@ -2268,9 +2268,7 @@ client.on("messageCreate", async (msg) => {
       ) {
         if (
           contents.length === 2 &&
-          !inDraft.some(
-            (element) => element.toUpperCase() === contents[1].toUpperCase()
-          )
+          !inDraft.some((element) => element.includes(contents[1]))
         ) {
           if (contents[1] === `<@${msg.author.id}>`) {
             msg.reply(`You can't pick yourself.`);
@@ -2294,17 +2292,10 @@ client.on("messageCreate", async (msg) => {
           }
         } else {
           for (let i = 1; i < contents.length; i++) {
-            if (
-              inDraft.some(
-                (element) => element.toUpperCase() === contents[i].toUpperCase()
-              )
-            ) {
-              team1.push(contents[i]);
+            if (inDraft.some((element) => element.includes(contents[i]))) {
+              team1.push(checkListForMedals(contents[i]));
               inDraft.splice(
-                inDraft.findIndex(
-                  (element) =>
-                    element.toUpperCase() === contents[i].toUpperCase()
-                ),
+                inDraft.findIndex((element) => element.includes(contents[i])),
                 1
               );
             }
@@ -2319,9 +2310,7 @@ client.on("messageCreate", async (msg) => {
       ) {
         if (
           contents.length === 2 &&
-          !inDraft.some(
-            (element) => element.toUpperCase() === contents[1].toUpperCase()
-          )
+          !inDraft.some((element) => element.includes(contents[1]))
         ) {
           if (contents[1] === `<@${msg.author.id}>`) {
             msg.reply(`You can't pick yourself.`);
@@ -2345,16 +2334,11 @@ client.on("messageCreate", async (msg) => {
           }
         } else {
           for (let i = 1; i < contents.length; i++) {
-            if (
-              inDraft.some(
-                (element) => element.toUpperCase() === contents[i].toUpperCase()
-              )
-            ) {
-              team2.push(contents[i]);
+            if (inDraft.some((element) => element.includes(contents[i]))) {
+              team2.push(checkListForMedals(contents[i]));
               inDraft.splice(
-                inDraft.findIndex(
-                  (element) =>
-                    element.toUpperCase() === contents[i].toUpperCase()
+                inDraft.findIndex((element) =>
+                  element.includes(contents[i].toUpperCase())
                 ),
                 1
               );
