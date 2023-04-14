@@ -661,11 +661,12 @@ client.on("messageCreate", async (msg) => {
     function updatePlayerCount() {
       listArr = [
         peopleSymbol,
-        `\n**${
+        `**${
           captains.length + inDraft.length + team1.length + team2.length
-        }**`,
+        }**\n`,
         "\n",
         "**Team 1**:\n",
+        `${captains[0] ? captains[0] + "\n" : null}`,
         `${team1.join("\n")}`,
         "\n",
         "**Team 2**:\n",
