@@ -1074,7 +1074,9 @@ client.on("messageCreate", async (msg) => {
       }
 
       if (checkIfInDraft) {
-        if (inDraft.includes(person)) {
+        if (
+          inDraft.some((element) => element.includes(`<@${msg.author.id}>`))
+        ) {
           inDraft.splice(inDraft.indexOf(person), 1);
           listArr = [
             peopleSymbol,
@@ -1099,7 +1101,7 @@ client.on("messageCreate", async (msg) => {
       }
 
       if (checkIfInTeam1) {
-        if (team1.includes(person)) {
+        if (team1.some((element) => element.includes(`<@${msg.author.id}>`))) {
           team1.splice(team1.indexOf(person), 1);
           listArr = [
             peopleSymbol,
@@ -1124,7 +1126,7 @@ client.on("messageCreate", async (msg) => {
       }
 
       if (checkIfInTeam2) {
-        if (team2.includes(person)) {
+        if (team2.some((element) => element.includes(`<@${msg.author.id}>`))) {
           team2.splice(team2.indexOf(person), 1);
           listArr = [
             peopleSymbol,
@@ -1149,8 +1151,8 @@ client.on("messageCreate", async (msg) => {
       }
       console.log("hi");
       if (checkIfCaptain) {
-        if (captains[0] === person || captains[1] === person) {
-          if (captains[0] === person) {
+        if (captains[0].includes(person) || captains[1].includes(person)) {
+          if (captains[0].includes(person)) {
             if (team1.length > 0) {
               captains.splice(0, 1, team1[0]);
               team1.splice(0, 1);
@@ -1163,7 +1165,7 @@ client.on("messageCreate", async (msg) => {
                 captains.splice(0, 1);
               }
             }
-          } else if (captains[1] === person) {
+          } else if (captains[1].includes(person)) {
             if (team2.length > 0) {
               captains.splice(1, 1, team2[0]);
               team2.splice(0, 1);
@@ -2089,10 +2091,14 @@ client.on("messageCreate", async (msg) => {
 
         if (contents.length === 1) {
           if (
-            inDraft.some(element => element.includes(`<@${msg.author.id}>`)) ||
-            captains.some(element => element.includes(`<@${msg.author.id}>`)) ||
-            team1.some(element => element.includes(`<@${msg.author.id}>`)) ||
-            team2.some(element => element.includes(`<@${msg.author.id}>`))
+            inDraft.some((element) =>
+              element.includes(`<@${msg.author.id}>`)
+            ) ||
+            captains.some((element) =>
+              element.includes(`<@${msg.author.id}>`)
+            ) ||
+            team1.some((element) => element.includes(`<@${msg.author.id}>`)) ||
+            team2.some((element) => element.includes(`<@${msg.author.id}>`))
           ) {
             removePerson(`<@${msg.author.id}>`);
             updatePlayerCount();
