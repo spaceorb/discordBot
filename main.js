@@ -285,15 +285,20 @@ client.on("messageCreate", async (msg) => {
         return "Over 7 days ago";
       }
     }
-    const checkListForMedals = () => {
+    const checkListForMedals = (name) => {
       const currentPlayer = allServerUsers.find(
-        (user) =>
-          user.userId === `<@${msg.author.id}>` && user.guildId === msg.guild.id
+        (user) => user.userId === name && user.guildId === msg.guild.id
       );
-      // const currentPlayer = allServerUsers.find({
-      //   userId: msg.author.id,
-      //   guildId: msg.guild.id,
-      // });
+      let newList = allServerUsers.sort((a, b) => b.lp - a.lp);
+      let finalList = [];
+      let playedSeason = false;
+      newList.map((a) => (a.playedSeason ? finalList.push(a) : null));
+      finalList.map((a) =>
+        a.userId == `<@${userId}>`
+          ? (playedSeason = true)
+          : console.log("Person did not play this season")
+      );
+      console.log("finallist", finalList);
       console.log("current Player", currentPlayer);
 
       if (
