@@ -2245,6 +2245,7 @@ client.on("messageCreate", async (msg) => {
         msg.member.roles.cache.some((role) => role.name === "Scorer"))
     ) {
       startedPicks = true;
+      peopleSymbol = ":lock:";
       msg.channel.send(
         `**Draft is now locked** :lock: by, <@${msg.author.id}>\n**Please wait until a Scorer is ready to $redraft for other players.\nYou may type $next to auto join the next draft list.**\n`
       );
