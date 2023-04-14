@@ -297,9 +297,9 @@ client.on("messageCreate", async (msg) => {
       for (let i = 0; i < newList.length; i++) {
         newList[i].userId === name ? (indexOfPlayer = i) : null;
       }
-      console.log("indexOfPlayer", indexOfPlayer);
+      // console.log("indexOfPlayer", indexOfPlayer);
 
-      console.log("current Player", currentPlayer);
+      // console.log("current Player", currentPlayer);
 
       // if (
       //   !captains.includes(name) &&
@@ -1630,210 +1630,195 @@ client.on("messageCreate", async (msg) => {
       command === `${commandSymbol}1n` ||
       command === `${commandSymbol}ln`
     ) {
-      if (team1.length + team2.length + inDraft.length + captains.length < 24) {
-        console.log("captains", captains);
-        console.log(
-          "captains",
-          !captains.some((element) => element.includes(`<@${msg.author.id}>`))
-        );
+      console.log("captains", captains);
+      console.log(
+        "captains",
+        !captains.some((element) => element.includes(`<@${msg.author.id}>`))
+      );
 
-        if (contents.length === 1) {
-          if (
-            (contents.length === 1 &&
-              !inDraft.some((element) =>
-                element.includes(`<@${msg.author.id}>`)
-              )) ||
-            !captains.some((element) =>
+      if (contents.length === 1) {
+        if (
+          (contents.length === 1 &&
+            !inDraft.some((element) =>
               element.includes(`<@${msg.author.id}>`)
-            ) ||
-            !team1.some((element) => element.includes(`<@${msg.author.id}>`)) ||
-            !team2.some((element) => element.includes(`<@${msg.author.id}>`))
-          ) {
-            if (!startedPicks) {
-              inDraft.push(checkListForMedals(`<@${msg.author.id}>`));
-              updatePlayerCount();
+            )) ||
+          !captains.some((element) =>
+            element.includes(`<@${msg.author.id}>`)
+          ) ||
+          !team1.some((element) => element.includes(`<@${msg.author.id}>`)) ||
+          !team2.some((element) => element.includes(`<@${msg.author.id}>`))
+        ) {
+          if (!startedPicks) {
+            inDraft.push(checkListForMedals(`<@${msg.author.id}>`));
+            updatePlayerCount();
 
-              if (
-                inDraft.length +
-                  captains.length +
-                  team1.length +
-                  team2.length >=
-                  8 &&
-                !alerted8People
-              ) {
-                msg.channel.send(
-                  `There's atleast **8** players ready for a draft now.`
-                );
-
-                alerted8People = true;
-              }
-              let playerTimed = false;
-              let yourping = msg.createdTimestamp;
-              let d = new Date(yourping);
-
-              for (let i = 0; i < playerAndTime.length; i++) {
-                if (playerAndTime[i].name == `<@${msg.author.id}>`) {
-                  playerTimed = true;
-                }
-              }
-              if (!playerTimed) {
-                playerAndTime.push({
-                  name: `<@${msg.author.id}>`,
-                  time: [d.getHours(), d.getMinutes()],
-                  enteredBy: "self",
-                  remainingTime: [],
-                });
-              }
-
-              if (randomizedAlready === 1) {
-                randomizedArr = [
-                  peopleSymbol,
-                  `**${team1.length + team2.length + inDraft.length}**`,
-                  "\n",
-                  dashSymbol,
-                  `\n **Draft List**:\n ${inDraft.join(
-                    `${"\n"} ${dashSymbol}`
-                  )}`,
-                  "\n",
-                  "\n",
-                  "**Team 1**:",
-                  " ",
-                  `${team1.join("   ")}`,
-                  "\n",
-                  "\n",
-                  "**Team 2**:",
-                  " ",
-                  `${team2.join("   ")}`,
-                ];
-                removeOldMsg(msg, randomizedArr.join(" "));
-              } else {
-                removeOldMsg(msg, listArr.join(" "));
-              }
-            } else {
-              msg.reply("**Draft is locked** :lock:");
-            }
-          } else if (
-            inDraft.some((element) =>
-              element.includes(`<@${msg.author.id}>`)
-            ) ||
-            captains.some((element) =>
-              element.includes(`<@${msg.author.id}>`)
-            ) ||
-            team1.some((element) => element.includes(`<@${msg.author.id}>`)) ||
-            team2.some((element) => element.includes(`<@${msg.author.id}>`))
-          ) {
-            msg.reply(`You're already in the draft.`);
-          }
-        } else if (contents.length > 1) {
-          let temp = [];
-          for (let i = 1; i < contents.length; i++) {
             if (
-              !inDraft.some((element) => element.includes(contents[i])) ||
-              !captains.some((element) => element.includes(contents[i])) ||
-              !team1.some((element) => element.includes(contents[i])) ||
-              !team2.some((element) => element.includes(contents[i]))
+              inDraft.length + captains.length + team1.length + team2.length >=
+                8 &&
+              !alerted8People
             ) {
-              if (!startedPicks) {
-                if (
-                  contents[i][0] === "<" &&
-                  contents[i][contents[i].length - 1] === ">" &&
-                  contents[i].length >= 17
-                ) {
-                  inDraft.push(checkListForMedals(contents[i]));
-                  temp.push(checkListForMedals(contents[i]));
-                }
-              } else {
-                msg.reply(`${contents[i]} sorry, draft is locked :lock:`);
-              }
-            } else if (
-              inDraft.some((element) => element.includes(contents[i])) ||
-              captains.some((element) => element.includes(contents[i])) ||
-              team1.some((element) => element.includes(contents[i])) ||
-              team2.some((element) => element.includes(contents[i]))
-            ) {
-              msg.reply(`${contents[i]} is already in the draft.`);
+              msg.channel.send(
+                `There's atleast **8** players ready for a draft now.`
+              );
+
+              alerted8People = true;
             }
-          }
-
-          if (
-            inDraft.length + captains.length + team1.length + team2.length >=
-              8 &&
-            !alerted8People
-          ) {
-            msg.channel.send(
-              `There's atleast **8** players ready for a draft now.`
-            );
-
-            alerted8People = true;
-          }
-          // checkIfPlayerBanned(msg);
-
-          updatePlayerCount();
-          let timeStamp = msg.createdTimestamp;
-          let e = new Date(timeStamp);
-
-          for (let j = 0; j < contents.length; j++) {
             let playerTimed = false;
+            let yourping = msg.createdTimestamp;
+            let d = new Date(yourping);
 
             for (let i = 0; i < playerAndTime.length; i++) {
-              if (playerAndTime[i].name == contents[j]) {
+              if (playerAndTime[i].name == `<@${msg.author.id}>`) {
                 playerTimed = true;
               }
             }
-
             if (!playerTimed) {
-              for (let i = 1; i < contents.length; i++) {
-                if (
-                  contents[i][0] === "<" &&
-                  contents[i][contents[i].length - 1] === ">" &&
-                  contents[i].length >= 17 &&
-                  !playerAndTime.find((x) => x.name == contents[i])
-                ) {
-                  playerAndTime.push({
-                    name: contents[i],
-                    time: [e.getHours(), e.getMinutes()],
-                    enteredBy: msg.author.id,
-                    remainingTime: [],
-                  });
-                }
+              playerAndTime.push({
+                name: `<@${msg.author.id}>`,
+                time: [d.getHours(), d.getMinutes()],
+                enteredBy: "self",
+                remainingTime: [],
+              });
+            }
+
+            if (randomizedAlready === 1) {
+              randomizedArr = [
+                peopleSymbol,
+                `**${team1.length + team2.length + inDraft.length}**`,
+                "\n",
+                dashSymbol,
+                `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+                "\n",
+                "\n",
+                "**Team 1**:",
+                " ",
+                `${team1.join("   ")}`,
+                "\n",
+                "\n",
+                "**Team 2**:",
+                " ",
+                `${team2.join("   ")}`,
+              ];
+              removeOldMsg(msg, randomizedArr.join(" "));
+            } else {
+              removeOldMsg(msg, listArr.join(" "));
+            }
+          } else {
+            msg.reply("**Draft is locked** :lock:");
+          }
+        } else if (
+          inDraft.some((element) => element.includes(`<@${msg.author.id}>`)) ||
+          captains.some((element) => element.includes(`<@${msg.author.id}>`)) ||
+          team1.some((element) => element.includes(`<@${msg.author.id}>`)) ||
+          team2.some((element) => element.includes(`<@${msg.author.id}>`))
+        ) {
+          msg.reply(`You're already in the draft.`);
+        }
+      } else if (contents.length > 1) {
+        let temp = [];
+        for (let i = 1; i < contents.length; i++) {
+          if (
+            !inDraft.some((element) => element.includes(contents[i])) ||
+            !captains.some((element) => element.includes(contents[i])) ||
+            !team1.some((element) => element.includes(contents[i])) ||
+            !team2.some((element) => element.includes(contents[i]))
+          ) {
+            if (!startedPicks) {
+              if (
+                contents[i][0] === "<" &&
+                contents[i][contents[i].length - 1] === ">" &&
+                contents[i].length >= 17
+              ) {
+                inDraft.push(checkListForMedals(contents[i]));
+                temp.push(checkListForMedals(contents[i]));
+              }
+            } else {
+              msg.reply(`${contents[i]} sorry, draft is locked :lock:`);
+            }
+          } else if (
+            inDraft.some((element) => element.includes(contents[i])) ||
+            captains.some((element) => element.includes(contents[i])) ||
+            team1.some((element) => element.includes(contents[i])) ||
+            team2.some((element) => element.includes(contents[i]))
+          ) {
+            msg.reply(`${contents[i]} is already in the draft.`);
+          }
+        }
+
+        if (
+          inDraft.length + captains.length + team1.length + team2.length >= 8 &&
+          !alerted8People
+        ) {
+          msg.channel.send(
+            `There's atleast **8** players ready for a draft now.`
+          );
+
+          alerted8People = true;
+        }
+        // checkIfPlayerBanned(msg);
+
+        updatePlayerCount();
+        let timeStamp = msg.createdTimestamp;
+        let e = new Date(timeStamp);
+
+        for (let j = 0; j < contents.length; j++) {
+          let playerTimed = false;
+
+          for (let i = 0; i < playerAndTime.length; i++) {
+            if (playerAndTime[i].name == contents[j]) {
+              playerTimed = true;
+            }
+          }
+
+          if (!playerTimed) {
+            for (let i = 1; i < contents.length; i++) {
+              if (
+                contents[i][0] === "<" &&
+                contents[i][contents[i].length - 1] === ">" &&
+                contents[i].length >= 17 &&
+                !playerAndTime.find((x) => x.name == contents[i])
+              ) {
+                playerAndTime.push({
+                  name: contents[i],
+                  time: [e.getHours(), e.getMinutes()],
+                  enteredBy: msg.author.id,
+                  remainingTime: [],
+                });
               }
             }
           }
+        }
 
-          if (randomizedAlready === 1) {
-            randomizedArr = [
-              peopleSymbol,
-              `**${team1.length + team2.length + inDraft.length}**`,
-              "\n",
-              dashSymbol,
-              `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-              "\n",
-              "\n",
-              "**Team 1**:",
-              " ",
-              `${team1.join("   ")}`,
-              "\n",
-              "\n",
-              "**Team 2**:",
-              " ",
-              `${team2.join("   ")}`,
-            ];
-            if (temp.length !== 0) {
-              removeOldMsg(msg, randomizedArr.join(" "));
-            }
-          } else {
-            if (temp.length !== 0) {
-              console.log("temp", temp);
-              removeOldMsg(msg, listArr.join(" "));
-            }
+        if (randomizedAlready === 1) {
+          randomizedArr = [
+            peopleSymbol,
+            `**${team1.length + team2.length + inDraft.length}**`,
+            "\n",
+            dashSymbol,
+            `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+            "\n",
+            "\n",
+            "**Team 1**:",
+            " ",
+            `${team1.join("   ")}`,
+            "\n",
+            "\n",
+            "**Team 2**:",
+            " ",
+            `${team2.join("   ")}`,
+          ];
+          if (temp.length !== 0) {
+            removeOldMsg(msg, randomizedArr.join(" "));
+          }
+        } else {
+          if (temp.length !== 0) {
+            console.log("temp", temp);
+            removeOldMsg(msg, listArr.join(" "));
           }
         }
-      } else {
-        msg.channel.send(
-          "The draft is full. If you wish to enter the next draft type **$next**"
-        );
       }
     }
+
     if (command === `${commandSymbol}next`) {
       if (contents.length === 1) {
         if (
