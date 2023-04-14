@@ -1290,8 +1290,9 @@ client.on("messageCreate", async (msg) => {
         const xIndex = xArray.findIndex((element) => element.includes(x));
         const yIndex = yArray.findIndex((element) => element.includes(y));
 
+        const temp = xArray[xIndex];
         xArray[xIndex] = yArray[yIndex];
-        yArray[yIndex] = xArray[xIndex];
+        yArray[yIndex] = temp;
       }
     }
 
