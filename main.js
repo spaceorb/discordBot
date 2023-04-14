@@ -2127,35 +2127,18 @@ client.on("messageCreate", async (msg) => {
     }
 
     if (command === `${commandSymbol}uncaptain`) {
-      msg.guild.members.fetch(msg.author.id).then((member) => {
-        var discordName;
-        // if (member.nickname !== null) {
-        //   discordName = member.nickname;
-        // } else if (member.nickname === null) {
-        //   discordName = member.user.username;
-        // }
+      if (captains.some((element) => element.includes(`<@${msg.author.id}>`))) {
+        const index = captains.findIndex((element) =>
+          element.includes(`<@${msg.author.id}>`)
+        );
+        captains.splice(index, 1);
 
-        // discordName = discordName.toUpperCase();
-        // discordName = discordName.replace(/[^a-z]+/gi, "").split("");
-        // // console.log(onlyLettersArray)
-        // discordName = discordName.join("");
-        if (
-          captains.some((element) => element.includes(`<@${msg.author.id}>`))
-        ) {
-          console.log("Found captain");
-
-          const index = captains.findIndex((element) =>
-            element.includes(`<@${msg.author.id}>`)
-          );
-          captains.splice(index, 1);
-
-          inDraft.push(checkListForMedals(`<@${member.id}>`));
-          updatePlayerCount();
-          removeOldMsg(msg, listArr.join(" "));
-        } else {
-          msg.reply("You were never captain.");
-        }
-      });
+        inDraft.push(checkListForMedals(`<@${msg.author.id}>`));
+        updatePlayerCount();
+        removeOldMsg(msg, listArr.join(" "));
+      } else {
+        msg.reply("You were never captain.");
+      }
     }
     if (
       command === `${commandSymbol}out` ||
