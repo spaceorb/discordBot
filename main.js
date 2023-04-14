@@ -2128,19 +2128,11 @@ client.on("messageCreate", async (msg) => {
 
     if (command === `${commandSymbol}uncaptain`) {
       if (captains.some((element) => element.includes(`<@${msg.author.id}>`))) {
-        const index = captains.findIndex((element) =>
-          element.includes(`<@${msg.author.id}>`)
-        );
-        team1.splice(index, 1);
-
-        const index2 = team1.findIndex((element) =>
-          element.includes(`<@${msg.author.id}>`)
-        );
-        team1.splice(index2, 1);
-        const index3 = team2.findIndex((element) =>
-          element.includes(`<@${msg.author.id}>`)
-        );
-        team2.splice(index3, 1);
+        if (captains[0].includes(`<@${msg.author.id}>`)) {
+          captains.slice(1);
+        } else if (captains[0].includes(`<@${msg.author.id}>`)) {
+          captains.slice(0, 1);
+        }
 
         inDraft.push(checkListForMedals(`<@${msg.author.id}>`));
         updatePlayerCount();
