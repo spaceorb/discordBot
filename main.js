@@ -1067,6 +1067,8 @@ client.on("messageCreate", async (msg) => {
     }
     function removePerson(person) {
       if (typeof person === "object") {
+        console.log("hi person is object");
+
         var checkIfCaptain = person.some((r) => captains.indexOf(r) >= 0);
         var checkIfInDraft = person.some((r) => inDraft.indexOf(r) >= 0);
         var checkIfInTeam1 = person.some((r) => team1.indexOf(r) >= 0);
@@ -1149,7 +1151,7 @@ client.on("messageCreate", async (msg) => {
           ];
         }
       }
-      console.log("hi");
+
       if (checkIfCaptain) {
         if (captains[0].includes(person) || captains[1].includes(person)) {
           if (captains[0].includes(person)) {
@@ -1177,6 +1179,7 @@ client.on("messageCreate", async (msg) => {
       }
 
       if (typeof person === "string") {
+        console.log("hi person is string");
         if (inDraft.includes(person)) {
           inDraft.splice(inDraft.indexOf(person), 1);
           listArr = [
