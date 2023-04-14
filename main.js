@@ -2128,7 +2128,6 @@ client.on("messageCreate", async (msg) => {
 
     if (command === `${commandSymbol}uncaptain`) {
       const userId = msg.author.id;
-
       if (captains.some((element) => element.includes(`<@${msg.author.id}>`))) {
         console.log("Found captain");
         captains = captains.filter(
@@ -2302,9 +2301,10 @@ client.on("messageCreate", async (msg) => {
               );
             }
           }
+
+          updatePlayerCount();
+          removeOldMsg(msg, listArr.join(" "));
         }
-        updatePlayerCount();
-        removeOldMsg(msg, listArr.join(" "));
       } else if (
         captains[1].includes(`<@${msg.author.id}>`) &&
         contents.length <= 4 &&
@@ -2339,16 +2339,15 @@ client.on("messageCreate", async (msg) => {
             if (inDraft.some((element) => element.includes(contents[i]))) {
               team2.push(checkListForMedals(contents[i]));
               inDraft.splice(
-                inDraft.findIndex((element) =>
-                  element.includes(contents[i].toUpperCase())
-                ),
+                inDraft.findIndex((element) => element.includes(contents[i])),
                 1
               );
             }
           }
+
+          updatePlayerCount();
+          removeOldMsg(msg, listArr.join(" "));
         }
-        updatePlayerCount();
-        removeOldMsg(msg, listArr.join(" "));
       }
     }
 
