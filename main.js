@@ -673,7 +673,7 @@ client.on("messageCreate", async (msg) => {
         `${
           team2 ? team2.join("\n ") + `${team2.length > 0 ? "\n\n" : "\n"}` : ""
         }`,
-        ` **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+        `**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
 
       randomizedArr = [
@@ -1506,7 +1506,7 @@ client.on("messageCreate", async (msg) => {
         `${
           team2 ? team2.join("\n ") + `${team2.length > 0 ? "\n\n" : "\n"}` : ""
         }`,
-        ` **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+        `**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
       randomizedArr = [
         peopleSymbol,
