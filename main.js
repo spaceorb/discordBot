@@ -1969,14 +1969,20 @@ client.on("messageCreate", async (msg) => {
     ) {
       if (randomizedAlready === 0) {
         if (contents.length === 1) {
-          if (captains.includes(`<@${msg.author.id}>`)) {
+          if (
+            captains.some((element) => element.includes(`<@${msg.author.id}>`))
+          ) {
             msg.reply("You are already captain.");
             personIn = true;
           } else if (
             captains.length < 2 &&
-            inDraft.includes(`<@${msg.author.id}>`)
+            inDraft.some((element) => element.includes(`<@${msg.author.id}>`))
           ) {
-            inDraft.splice(inDraft.indexOf(`<@${msg.author.id}>`), 1);
+            const index = inDraft.findIndex((element) =>
+              element.includes(`<@${msg.author.id}>`)
+            );
+            inDraft.splice(index, 1);
+
             if (captains.includes("")) {
               captains.splice(captains.indexOf(""), 1, `<@${msg.author.id}>`);
             } else {
@@ -1988,9 +1994,13 @@ client.on("messageCreate", async (msg) => {
             randomizedAlready = 0;
             randomizedCount = 0;
           } else if (captains.length < 2) {
-            if (team1.includes(`<@${msg.author.id}>`)) {
+            if (
+              team1.some((element) => element.includes(`<@${msg.author.id}>`))
+            ) {
               msg.reply(`You are already in team 1.`);
-            } else if (team2.includes(`<@${msg.author.id}>`)) {
+            } else if (
+              team2.some((element) => element.includes(`<@${msg.author.id}>`))
+            ) {
               msg.reply(`You are already in team 2.`);
             } else if (
               contents.length === 1 &&
