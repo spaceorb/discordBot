@@ -2258,6 +2258,7 @@ client.on("messageCreate", async (msg) => {
         msg.member.roles.cache.some((role) => role.name === "Scorer"))
     ) {
       startedPicks = false;
+      peopleSymbol = ":unlock:";
       msg.channel.send(
         `**Draft has been unlocked** :unlock: by, <@${msg.author.id}>`
       );
