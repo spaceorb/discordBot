@@ -286,6 +286,7 @@ client.on("messageCreate", async (msg) => {
       }
     }
     const checkListForMedals = (name) => {
+      name = `<@${name}>`;
       const currentPlayer = allServerUsers.find(
         (user) => user.userId === `<@${name}>` && user.guildId === msg.guild.id
       );
@@ -295,26 +296,26 @@ client.on("messageCreate", async (msg) => {
       console.log("newList", newList);
 
       for (let i = 0; i < newList.length; i++) {
-        newList[i].userId === `<@${name}>` ? (indexOfPlayer = i) : null;
+        newList[i].userId === name ? (indexOfPlayer = i) : null;
       }
       console.log("indexOfPlayer", indexOfPlayer);
 
       console.log("current Player", currentPlayer);
 
       if (
-        !captains.includes(`<@${name}>`) &&
-        !team1.includes(`<@${name}>`) &&
-        !team2.includes(`<@${name}>`)
+        !captains.includes(name) &&
+        !team1.includes(name) &&
+        !team2.includes(name)
       ) {
         return `${
           indexOfPlayer === undefined
             ? bronze
             : turnMmrToTitle2(indexOfPlayer, newList.length)
-        } <@${name}> ${
+        } name ${
           indexOfPlayer === undefined ? " **1000** (0-0)" : currentPlayer.value
         }`;
       } else {
-        return `<@${name}>`;
+        return name;
       }
     };
     async function addDataToChart(msg, dataY, dataX, userId, clientA) {
