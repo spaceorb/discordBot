@@ -286,7 +286,6 @@ client.on("messageCreate", async (msg) => {
       }
     }
     const checkListForMedals = (name) => {
-      name = name !== `<@${name}>` ? `<@${name}>` : name;
       const currentPlayer = allServerUsers.find(
         (user) => user.userId === name && user.guildId === msg.guild.id
       );
@@ -302,21 +301,18 @@ client.on("messageCreate", async (msg) => {
 
       console.log("current Player", currentPlayer);
 
-      if (
-        !captains.includes(name) &&
-        !team1.includes(name) &&
-        !team2.includes(name)
-      ) {
-        return `${
-          indexOfPlayer === undefined
-            ? bronze
-            : turnMmrToTitle2(indexOfPlayer, newList.length)
-        } ${name} ${
-          indexOfPlayer === undefined ? " **1000** (0-0)" : currentPlayer.value
-        }`;
-      } else {
-        return name;
-      }
+      // if (
+      //   !captains.includes(name) &&
+      //   !team1.includes(name) &&
+      //   !team2.includes(name)
+      // ) {
+      return `${
+        indexOfPlayer === undefined
+          ? bronze
+          : turnMmrToTitle2(indexOfPlayer, newList.length)
+      } ${name} ${
+        indexOfPlayer === undefined ? " **1000** (0-0)" : currentPlayer.value
+      }`;
     };
     async function addDataToChart(msg, dataY, dataX, userId, clientA) {
       msg.guild.members.fetch(userId).then(async (member) => {
@@ -1631,7 +1627,7 @@ client.on("messageCreate", async (msg) => {
             !team2.includes(`<@${msg.author.id}>`)
           ) {
             if (!startedPicks) {
-              inDraft.push(checkListForMedals(msg.author.id));
+              inDraft.push(checkListForMedals(`<@${msg.author.id}>`));
               updatePlayerCount();
 
               if (
