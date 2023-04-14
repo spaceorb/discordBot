@@ -724,12 +724,12 @@ client.on("messageCreate", async (msg) => {
               "\n",
               "**Team 1**:",
 
-              `${team1.join("\n")}`,
+              `${team1.join("\n ")}`,
               "\n",
               "\n",
               "**Team 2**:",
 
-              `${team2.join("\n")}`,
+              `${team2.join("\n ")}`,
             ];
           } else if (inDraft.length > 0) {
             randomizedArr = [
@@ -741,12 +741,12 @@ client.on("messageCreate", async (msg) => {
               "\n",
               "**Team 1**:",
 
-              `${team1.join("\n")}`,
+              `${team1.join("\n ")}`,
               "\n",
               "\n",
               "**Team 2**:",
 
-              `${team2.join("\n")}`,
+              `${team2.join("\n ")}`,
             ];
           }
         }
@@ -767,12 +767,12 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          `${team1.join("\n")}`,
+          `${team1.join("\n ")}`,
           "\n",
           "\n",
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
-          `${team2.join("\n")}`,
+          `${team2.join("\n ")}`,
         ];
       } else if (
         captains.length === 1 &&
@@ -791,7 +791,7 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          `${team1.join("\n")}`,
+          `${team1.join("\n ")}`,
           "\n",
           "\n",
           "**Team 2**:",
@@ -813,7 +813,7 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          `${team1.join("\n")}`,
+          `${team1.join("\n ")}`,
           "\n",
           "\n",
           "**Team 2**:",
@@ -840,7 +840,7 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
-          `${team2.join("\n")}`,
+          `${team2.join("\n ")}`,
         ];
       } else if (
         captains.length === 2 &&
@@ -923,7 +923,7 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          `${team1.join("\n")}`,
+          `${team1.join("\n ")}`,
           "\n",
           "\n",
           "**Team 2**:",
@@ -941,7 +941,7 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          `${team1.join("\n")}`,
+          `${team1.join("\n ")}`,
           "\n",
           "\n",
           "**Team 2**:",
@@ -966,7 +966,7 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
-          `${team2.join("\n")}`,
+          `${team2.join("\n ")}`,
         ];
       } else if (
         captains.length === 2 &&
@@ -984,12 +984,12 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          `${team1.join("\n")}`,
+          `${team1.join("\n ")}`,
           "\n",
           "\n",
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
-          `${team2.join("\n")}`,
+          `${team2.join("\n ")}`,
         ];
       } else if (
         captains.length === 2 &&
@@ -1027,12 +1027,12 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          `${team1.join("\n")}`,
+          `${team1.join("\n ")}`,
           "\n",
           "\n",
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
-          `${team2.join("\n")}`,
+          `${team2.join("\n ")}`,
         ];
       }
 
@@ -1066,7 +1066,7 @@ client.on("messageCreate", async (msg) => {
             "\n",
             "**Team 1**:",
             `\n:crown: `,
-            `${team1.join("\n")}`,
+            `${team1.join("\n ")}`,
             "\n",
             "\n",
             "**Team 2**:",
@@ -1091,7 +1091,7 @@ client.on("messageCreate", async (msg) => {
             "\n",
             "**Team 1**:",
             `\n:crown: `,
-            `${team1.join("\n")}`,
+            `${team1.join("\n ")}`,
             "\n",
             "\n",
             "**Team 2**:",
@@ -1116,7 +1116,7 @@ client.on("messageCreate", async (msg) => {
             "\n",
             "**Team 1**:",
             `\n:crown: `,
-            `${team1.join("\n")}`,
+            `${team1.join("\n ")}`,
             "\n",
             "\n",
             "**Team 2**:",
@@ -1171,7 +1171,7 @@ client.on("messageCreate", async (msg) => {
             "\n",
             "**Team 1**:",
             `\n:crown: `,
-            `${team1.join("\n")}`,
+            `${team1.join("\n ")}`,
             "\n",
             "\n",
             "**Team 2**:",
@@ -1195,7 +1195,7 @@ client.on("messageCreate", async (msg) => {
             "\n",
             "**Team 1**:",
             `\n:crown: `,
-            `${team1.join("\n")}`,
+            `${team1.join("\n ")}`,
             "\n",
             "\n",
             "**Team 2**:",
@@ -1219,7 +1219,7 @@ client.on("messageCreate", async (msg) => {
             "\n",
             "**Team 1**:",
             `\n:crown: `,
-            `${team1.join("\n")}`,
+            `${team1.join("\n ")}`,
             "\n",
             "\n",
             "**Team 2**:",
@@ -1666,12 +1666,12 @@ client.on("messageCreate", async (msg) => {
                 "\n",
                 "**Team 1**:",
                 " ",
-                `${team1.join("\n")}`,
+                `${team1.join("\n ")}`,
                 "\n",
                 "\n",
                 "**Team 2**:",
                 " ",
-                `${team2.join("\n")}`,
+                `${team2.join("\n ")}`,
               ];
               removeOldMsg(msg, randomizedArr.join(" "));
             } else {
@@ -1774,12 +1774,12 @@ client.on("messageCreate", async (msg) => {
             "\n",
             "**Team 1**:",
             " ",
-            `${team1.join("\n")}`,
+            `${team1.join("\n ")}`,
             "\n",
             "\n",
             "**Team 2**:",
             " ",
-            `${team2.join("\n")}`,
+            `${team2.join("\n ")}`,
           ];
           if (temp.length !== 0) {
             removeOldMsg(msg, randomizedArr.join(" "));
