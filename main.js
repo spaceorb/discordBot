@@ -201,6 +201,7 @@ client.on("messageCreate", async (msg) => {
       oldListArr2,
     } = currentServerData;
 
+    peopleSymbol = startedPicks ? ":lock:" : ":unlock:";
     const updateLeaderboard = async () => {
       for (let i = 0; i < allServerUsers.length; i++) {
         PlayerModel.findOneAndUpdate(
