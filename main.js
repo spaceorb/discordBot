@@ -3831,7 +3831,7 @@ client.on("messageCreate", async (msg) => {
             .roles.cache.some((role) => role.name === "Scorer")
         ) {
           msg.reply("You can't ban Scorers.");
-        } else if (contents[1] === `<@${botId}>`) {
+        } else if (contents[1] === `<@${discordBotId}>`) {
           msg.reply("You can't ban me.");
         } else {
           banList.push(contents[1]);
