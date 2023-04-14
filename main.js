@@ -2420,10 +2420,8 @@ client.on("messageCreate", async (msg) => {
             inDraft.findIndex((ele) => ele.includes(temp)),
             1
           );
-          if (randomizedAlready === 0 && !captains[0]) {
+          if (!captains[0]) {
             captains.push(checkListForMedals(temp));
-          } else if (randomizedAlready === 1) {
-            team1.push(checkListForMedals(temp));
           } else {
             team1.push(checkListForMedals(temp));
           }
@@ -2446,10 +2444,8 @@ client.on("messageCreate", async (msg) => {
             inDraft.findIndex((ele) => ele.includes(temp)),
             1
           );
-          if (randomizedAlready === 0 && !captains[1]) {
+          if (!captains[1]) {
             captains.push(checkListForMedals(temp));
-          } else if (randomizedAlready === 1) {
-            team2.push(checkListForMedals(temp));
           } else {
             team2.push(checkListForMedals(temp));
           }
