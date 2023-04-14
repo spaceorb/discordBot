@@ -665,9 +665,7 @@ client.on("messageCreate", async (msg) => {
           captains.length + inDraft.length + team1.length + team2.length
         }**\n`,
         "\n",
-        `**Team 1**: ${captains[0] ? " :crown:\n captains[0]" : ""}
-        }
-        }`,
+        `**Team 1**: ${captains[0] ? ":crown:\n" + captains[0] : ""}`,
         `${team1 ? team1.join("\n ") : ""}`,
         "\n\n",
         `**Team 2**: ${
