@@ -675,7 +675,7 @@ client.on("messageCreate", async (msg) => {
                   ? team1.join("\n ") + `${team1.length > 0 ? "\n\n" : "\n"}`
                   : ""
               }`
-            : "\n" + team1.join("\n ") + "\n"
+            : `${team1 ? "\n" + team1.join("\n ") + "\n" : "\n\n"}`
         }`,
         `**Team 2**: ${captains[1] ? ":crown:\n " + captains[1] + "\n" : "\n"}`,
         `${
