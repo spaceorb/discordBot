@@ -3823,6 +3823,7 @@ client.on("messageCreate", async (msg) => {
       ) {
         const extractUserId = (str) => str.replace(/\D+/g, "");
         const userId = extractUserId(contents[1]);
+        msg.channel.send(`${userId}`);
         if (contents[1] === `<@${currentServer[0].guildOwnerId}>`) {
           msg.reply("You can't ban the Server Owner.");
         } else if (
@@ -3831,7 +3832,7 @@ client.on("messageCreate", async (msg) => {
             .roles.cache.some((role) => role.name === "Scorer")
         ) {
           msg.reply("You can't ban Scorers.");
-        } else if (contents[1] === `<@${discordBotId}>`) {
+        } else if (contents[1] == `<@${discordBotId}>`) {
           msg.reply("You can't ban me.");
         } else {
           banList.push(contents[1]);
