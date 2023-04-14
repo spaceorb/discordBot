@@ -311,7 +311,7 @@ client.on("messageCreate", async (msg) => {
           ? bronze
           : turnMmrToTitle2(indexOfPlayer, newList.length)
       } ${name} ${
-        indexOfPlayer === undefined ? " **1000** (0-0) " : currentPlayer.value
+        indexOfPlayer === undefined ? " **1000**" : currentPlayer.value[0]
       }`;
     };
     async function addDataToChart(msg, dataY, dataX, userId, clientA) {
@@ -2090,18 +2090,23 @@ client.on("messageCreate", async (msg) => {
     if (command === `${commandSymbol}uncaptain`) {
       const userId = msg.author.id;
       if (team1.length > 0 || team2.length > 0) {
-        msg.reply("You ");
-      }
-      if (captains.some((element) => element.includes(`<@${msg.author.id}>`))) {
-        console.log("Found captain");
-        captains = captains.filter(
-          (element) => !element.includes(`<@${msg.author.id}>`)
+        msg.reply(
+          "You can't uncaptain when teams are forming. $redraft or $out. "
         );
-        inDraft.push(checkListForMedals(`<@${msg.author.id}>`));
-        updatePlayerCount();
-        removeOldMsg(msg, listArr.join(" "));
       } else {
-        msg.reply("You were never captain.");
+        if (
+          captains.some((element) => element.includes(`<@${msg.author.id}>`))
+        ) {
+          console.log("Found captain");
+          captains = captains.filter(
+            (element) => !element.includes(`<@${msg.author.id}>`)
+          );
+          inDraft.push(checkListForMedals(`<@${msg.author.id}>`));
+          updatePlayerCount();
+          removeOldMsg(msg, listArr.join(" "));
+        } else {
+          msg.reply("You were never captain.");
+        }
       }
     }
 
