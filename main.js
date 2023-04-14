@@ -2412,8 +2412,14 @@ client.on("messageCreate", async (msg) => {
       for (let i = 1; i < contents.length; i++) {
         let temp = "";
         if (contents[i]) temp = contents[i];
-        if (inDraft.includes(temp) && !team1.includes(temp)) {
-          inDraft.splice(inDraft.indexOf(temp), 1);
+        if (
+          inDraft.some((ele) => ele.includes(temp)) &&
+          !team1.some((ele) => ele.includes(temp))
+        ) {
+          inDraft.splice(
+            inDraft.findIndex((ele) => ele.includes(temp)),
+            1
+          );
           if (randomizedAlready === 0 && !captains[0]) {
             captains.push(temp);
           } else if (randomizedAlready === 1) {
@@ -2423,14 +2429,9 @@ client.on("messageCreate", async (msg) => {
           }
           console.log("working");
         }
-        updatePlayerCount();
       }
       updatePlayerCount();
-      if (randomizedAlready === 1) {
-        removeOldMsg(msg, randomizedArr.join(" "));
-      } else {
-        removeOldMsg(msg, listArr.join(" "));
-      }
+      removeOldMsg(msg, listArr.join(" "));
     }
 
     if (command === `${commandSymbol}team2` && contents.length > 1) {
