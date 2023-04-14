@@ -1417,6 +1417,7 @@ client.on("messageCreate", async (msg) => {
       msg.content === `${commandSymbol}ping`
     ) {
       updatePeopleSymbol();
+      updatePlayerCount();
       if (randomizedAlready === 1) {
         removeOldMsg(msg, randomizedArr.join(" "));
       } else {
