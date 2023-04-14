@@ -1633,11 +1633,15 @@ client.on("messageCreate", async (msg) => {
       if (team1.length + team2.length + inDraft.length + captains.length < 24) {
         if (contents.length === 1) {
           if (
-            contents.length === 1 &&
-            !inDraft.includes(`<@${msg.author.id}>`) &&
-            !captains.includes(`<@${msg.author.id}>`) &&
-            !team1.includes(`<@${msg.author.id}>`) &&
-            !team2.includes(`<@${msg.author.id}>`)
+            (contents.length === 1 &&
+              !inDraft.some((element) =>
+                element.includes(`<@${msg.author.id}>`)
+              )) ||
+            !captains.some((element) =>
+              element.includes(`<@${msg.author.id}>`)
+            ) ||
+            !team1.some((element) => element.includes(`<@${msg.author.id}>`)) ||
+            !team2.some((element) => element.includes(`<@${msg.author.id}>`))
           ) {
             if (!startedPicks) {
               inDraft.push(checkListForMedals(`<@${msg.author.id}>`));
@@ -1703,10 +1707,14 @@ client.on("messageCreate", async (msg) => {
               msg.reply("**Draft is locked** :lock:");
             }
           } else if (
-            captains.includes(`<@${msg.author.id}>`) ||
-            inDraft.includes(`<@${msg.author.id}>`) ||
-            team1.includes(`<@${msg.author.id}>`) ||
-            team2.includes(`<@${msg.author.id}>`)
+            inDraft.some((element) =>
+              element.includes(`<@${msg.author.id}>`)
+            ) ||
+            captains.some((element) =>
+              element.includes(`<@${msg.author.id}>`)
+            ) ||
+            team1.some((element) => element.includes(`<@${msg.author.id}>`)) ||
+            team2.some((element) => element.includes(`<@${msg.author.id}>`))
           ) {
             msg.reply(`You're already in the draft.`);
           }
@@ -1714,10 +1722,10 @@ client.on("messageCreate", async (msg) => {
           let temp = [];
           for (let i = 1; i < contents.length; i++) {
             if (
-              !inDraft.includes(contents[i]) &&
-              !captains.includes(contents[i]) &&
-              !team1.includes(contents[i]) &&
-              !team2.includes(contents[i])
+              !inDraft.some((element) => element.includes(contents[i])) ||
+              !captains.some((element) => element.includes(contents[i])) ||
+              !team1.some((element) => element.includes(contents[i])) ||
+              !team2.some((element) => element.includes(contents[i]))
             ) {
               if (!startedPicks) {
                 if (
@@ -2143,17 +2151,17 @@ client.on("messageCreate", async (msg) => {
         if (contents.length > 1) {
           for (let i = 1; i < contents.length; i++) {
             if (
-              inDraft.includes(contents[i]) ||
-              captains.includes(contents[i]) ||
-              team1.includes(contents[i]) ||
-              team2.includes(contents[i])
+              inDraft.some((element) => element.includes(contents[i])) ||
+              captains.some((element) => element.includes(contents[i])) ||
+              team1.some((element) => element.includes(contents[i])) ||
+              team2.some((element) => element.includes(contents[i]))
             ) {
               if (randomizedAlready === 1) {
                 removePerson(contents[i]);
-                randomizedDraftList.splice(
-                  randomizedDraftList.indexOf(contents[i]),
-                  1
+                const index = randomizedDraftList.findIndex((element) =>
+                  element.includes(contents[i])
                 );
+                randomizedDraftList.splice(index, 1);
               } else {
                 removePerson(contents[i]);
               }
