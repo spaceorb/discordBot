@@ -313,7 +313,7 @@ client.on("messageCreate", async (msg) => {
       } ${name} ${
         indexOfPlayer === undefined
           ? " **1000**"
-          : currentPlayer.value.split(" ")[0]
+          : currentPlayer.value.split(" ")[1]
       }`;
     };
     async function addDataToChart(msg, dataY, dataX, userId, clientA) {
