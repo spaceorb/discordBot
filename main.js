@@ -1619,7 +1619,8 @@ client.on("messageCreate", async (msg) => {
               // });
               // i;
               // turnMmrToTitle(currentPlayer.lp, i, finalList.length);
-              inDraft.push(checkListForMedals());
+              const player = checkListForMedals();
+              inDraft.push(player);
               updatePlayerCount();
 
               if (
