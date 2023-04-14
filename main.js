@@ -1994,10 +1994,16 @@ client.on("messageCreate", async (msg) => {
               msg.reply(`You are already in team 2.`);
             } else if (
               contents.length === 1 &&
-              !inDraft.some((element) => element.includes(contents[i])) &&
-              !captains.some((element) => element.includes(contents[i])) &&
-              !team1.some((element) => element.includes(contents[i])) &&
-              !team2.some((element) => element.includes(contents[i]))
+              !inDraft.some((element) =>
+                element.includes(`<@${msg.author.id}>`)
+              ) &&
+              !captains.some((element) =>
+                element.includes(`<@${msg.author.id}>`)
+              ) &&
+              !team1.some((element) =>
+                element.includes(`<@${msg.author.id}>`)
+              ) &&
+              !team2.some((element) => element.includes(`<@${msg.author.id}>`))
             ) {
               if (!startedPicks) {
                 captains.push(checkListForMedals(`<@${msg.author.id}>`));
