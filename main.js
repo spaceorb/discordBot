@@ -1279,19 +1279,19 @@ client.on("messageCreate", async (msg) => {
     function swapNames(x, y) {
       const arraysToSearch = [inDraft, team1, team2, captains];
       let xArray, yArray;
-    
+
       // Find the arrays containing x and y
       for (const array of arraysToSearch) {
-        if (array.includes(x)) xArray = array;
-        if (array.includes(y)) yArray = array;
+        if (array.some((element) => element.includes(x))) xArray = array;
+        if (array.some((element) => element.includes(y))) yArray = array;
       }
-    
+
       if (xArray && yArray) {
-        const xIndex = xArray.indexOf(x);
-        const yIndex = yArray.indexOf(y);
-    
-        xArray[xIndex] = y;
-        yArray[yIndex] = x;
+        const xIndex = xArray.findIndex((element) => element.includes(x));
+        const yIndex = yArray.findIndex((element) => element.includes(y));
+
+        xArray[xIndex] = yArray[yIndex];
+        yArray[yIndex] = xArray[xIndex];
       }
     }
 
