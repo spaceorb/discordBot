@@ -2224,13 +2224,13 @@ client.on("messageCreate", async (msg) => {
         contents.length === 1 &&
         captains.some((element) => element.includes(`<@${msg.author.id}>`))
       ) {
-        msg.channel.send("You didn't pick anyone.");
+        msg.reply("You didn't pick anyone.");
         stop = 1;
       } else if (
         !captains.some((element) => element.includes(`<@${msg.author.id}>`))
       ) {
         console.log("captains", captains);
-        msg.channel.send("You're not captain.");
+        msg.reply("You're not captain.");
         stop = 1;
       }
 
@@ -2283,7 +2283,7 @@ client.on("messageCreate", async (msg) => {
       ) {
         if (
           contents.length === 2 &&
-          !inDraft.some((element) => element.includes(`<@${msg.author.id}>`))
+          !inDraft.some((element) => element.includes(contents[1]))
         ) {
           if (contents[1] === `<@${msg.author.id}>`) {
             msg.reply(`You can't pick yourself.`);
