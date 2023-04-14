@@ -200,7 +200,8 @@ client.on("messageCreate", async (msg) => {
       oldListArr1,
       oldListArr2,
     } = currentServerData;
-
+    const captain1 = captains[0] ? captains[0] : "";
+    const captain2 = captains[1] ? captains[1] : "";
     const updatePeopleSymbol = () => {
       peopleSymbol = startedPicks ? ":lock:" : ":unlock:";
     };
@@ -665,14 +666,10 @@ client.on("messageCreate", async (msg) => {
           captains.length + inDraft.length + team1.length + team2.length
         }**\n`,
         "\n",
-        `**Team 1**: ${
-          captains[0] ? `:crown: \n ${captains[0]}\n` : "\n "
-        } ${`${
+        `**Team 1**: ${captain1 ? `:crown: \n ${captain1}\n` : "\n "} ${`${
           team1 ? team1.join("\n ") + `${team1.length > 0 ? "\n\n" : "\n"}` : ""
         }`}`,
-        `**Team 2**: ${
-          captains[1] ? ":crown: \n " + captains[1] + "\n" : "\n"
-        }`,
+        `**Team 2**: ${captain2 ? ":crown: \n " + captain2 + "\n" : "\n"}`,
         `${
           team2 ? team2.join("\n ") + `${team2.length > 0 ? "\n\n" : "\n"}` : ""
         }`,
