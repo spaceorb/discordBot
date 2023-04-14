@@ -302,19 +302,19 @@ client.on("messageCreate", async (msg) => {
       console.log("current Player", currentPlayer);
 
       if (
-        !captains.includes(`<@${msg.author.id}>`) &&
-        !team1.includes(`<@${msg.author.id}>`) &&
-        !team2.includes(`<@${msg.author.id}>`)
+        !captains.includes(`<@${name}>`) &&
+        !team1.includes(`<@${name}>`) &&
+        !team2.includes(`<@${name}>`)
       ) {
         return `${
           indexOfPlayer === undefined
             ? bronze
             : turnMmrToTitle2(indexOfPlayer, newList.length)
-        } <@${msg.author.id}> ${
+        } <@${name}> ${
           indexOfPlayer === undefined ? " **1000** (0-0)" : currentPlayer.value
         }`;
       } else {
-        return `<@${msg.author.id}>`;
+        return `<@${name}>`;
       }
     };
     async function addDataToChart(msg, dataY, dataX, userId, clientA) {
