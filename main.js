@@ -1279,18 +1279,17 @@ client.on("messageCreate", async (msg) => {
     function swapNames(x, y) {
       const arraysToSearch = [inDraft, team1, team2, captains];
       let xArray, yArray;
-
+    
       // Find the arrays containing x and y
       for (const array of arraysToSearch) {
         if (array.includes(x)) xArray = array;
         if (array.includes(y)) yArray = array;
       }
-
-      // Swap x and y in their respective arrays
+    
       if (xArray && yArray) {
         const xIndex = xArray.indexOf(x);
         const yIndex = yArray.indexOf(y);
-
+    
         xArray[xIndex] = y;
         yArray[yIndex] = x;
       }
