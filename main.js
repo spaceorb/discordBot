@@ -1639,14 +1639,16 @@ client.on("messageCreate", async (msg) => {
       if (contents.length === 1) {
         if (
           (contents.length === 1 &&
-            !inDraft.some((element) =>
+            inDraft.some((element) =>
               element.includes(`<@${msg.author.id}>`)
-            )) ||
-          !captains.some((element) =>
+            ) === false) ||
+          captains.some((element) =>
             element.includes(`<@${msg.author.id}>`)
-          ) ||
-          !team1.some((element) => element.includes(`<@${msg.author.id}>`)) ||
-          !team2.some((element) => element.includes(`<@${msg.author.id}>`))
+          ) === false ||
+          team1.some((element) => element.includes(`<@${msg.author.id}>`)) ===
+            false ||
+          team2.some((element) => element.includes(`<@${msg.author.id}>`)) ===
+            false
         ) {
           if (!startedPicks) {
             inDraft.push(checkListForMedals(`<@${msg.author.id}>`));
