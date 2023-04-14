@@ -293,7 +293,6 @@ client.on("messageCreate", async (msg) => {
       //   userId: msg.author.id,
       //   guildId: msg.guild.id,
       // });
-      let name;
       console.log("current Player", currentPlayer);
 
       if (
@@ -1619,7 +1618,7 @@ client.on("messageCreate", async (msg) => {
             !team2.includes(`<@${msg.author.id}>`)
           ) {
             if (!startedPicks) {
-              inDraft.push(name);
+              inDraft.push(checkListForMedals);
               updatePlayerCount();
 
               if (
