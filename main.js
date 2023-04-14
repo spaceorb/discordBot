@@ -292,10 +292,12 @@ client.on("messageCreate", async (msg) => {
       let newList = allServerUsers.sort((a, b) => b.lp - a.lp);
       newList.filter((a) => a.playedSeason);
       let indexOfPlayer;
+      console.log("newList", newList);
 
       for (let i = 0; i < newList.length; i++) {
         newList.userId === `<@${name}>` ? (indexOfPlayer = i) : null;
       }
+      console.log("indexOfPlayer", indexOfPlayer);
 
       console.log("current Player", currentPlayer);
 
