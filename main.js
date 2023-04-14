@@ -659,8 +659,7 @@ client.on("messageCreate", async (msg) => {
       });
     }
     function updatePlayerCount() {
-      console.log("team1", team1);
-      console.log("team2", team2);
+      msg.channel.send(team1);
 
       listArr = [
         peopleSymbol,
