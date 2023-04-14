@@ -672,7 +672,6 @@ client.on("messageCreate", async (msg) => {
         `**Team 2**: ${captains[1] ? " :crown:" : null}\n`,
         `${captains[1] ? captains[1] + "\n" : null}`,
         `${team2 ? team2.join("\n") : null}`,
-        "\n",
         `\n**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
 
