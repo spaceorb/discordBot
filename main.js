@@ -665,14 +665,14 @@ client.on("messageCreate", async (msg) => {
           captains.length + inDraft.length + team1.length + team2.length
         }**\n`,
         "\n",
-        `**Team 1**: ${captains[0] ? " :crown:" : ""}\n`,
+        `**Team 1**: ${captains[0] ? " :crown:" : ""}${team1 ? "\n" : ""}`,
         `${captains[0] ? captains[0] + "\n" : ""}`,
         `${team1 ? team1.join("\n ") : ""}`,
         "\n\n",
-        `**Team 2**: ${captains[1] ? " :crown:" : ""}\n`,
+        `**Team 2**: ${captains[1] ? " :crown:" : ""}${team2 ? "\n" : ""}`,
         `${captains[1] ? captains[1] + "\n" : ""}`,
         `${team2 ? team2.join("\n ") + "\n" : ""}`,
-        `\n**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+        `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
 
       randomizedArr = [
@@ -686,7 +686,7 @@ client.on("messageCreate", async (msg) => {
         "\n\n",
         `**Team 2**:\n`,
         `${team2 ? team2.join("\n ") + "\n" : ""}`,
-        `\n**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+        `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
       // if (captains.length === 0) {
       //   if (team1.length === 0 && team2.length === 0) {
