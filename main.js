@@ -13,6 +13,8 @@ const chart = new QuickChart();
 const guildData = {};
 const botData = {};
 const discordBotId = "881341335355920415";
+const locked = ":lock:";
+const unlocked = ":unlock:";
 
 client.on("ready", async () => {
   await mongoose
@@ -3823,7 +3825,6 @@ client.on("messageCreate", async (msg) => {
       ) {
         const extractUserId = (str) => str.replace(/\D+/g, "");
         const userId = extractUserId(contents[1]);
-        msg.channel.send(`${userId}`);
         if (contents[1] === `<@${currentServer[0].guildOwnerId}>`) {
           msg.reply("You can't ban the Server Owner.");
         } else if (
