@@ -1388,7 +1388,6 @@ client.on("messageCreate", async (msg) => {
       seasonWinnersChannel = currentServer[0].guildWinnersChannel;
       gameScoreChannel = currentServer[0].guildDraftResultChannel;
     }
-    console.log("CURRENT SERVER", currentServer);
     // console.log("leaderboardChannel!", leaderboardChannel);
 
     // console.log("gameScoreChannel!", gameScoreChannel);
