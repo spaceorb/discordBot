@@ -1994,13 +1994,13 @@ client.on("messageCreate", async (msg) => {
               msg.reply(`You are already in team 2.`);
             } else if (
               contents.length === 1 &&
-              !inDraft.includes(`<@${msg.author.id}>`) &&
-              !captains.includes(`<@${msg.author.id}>`) &&
-              !team1.includes(`<@${msg.author.id}>`) &&
-              !team2.includes(`<@${msg.author.id}>`)
+              !inDraft.some((element) => element.includes(contents[i])) &&
+              !captains.some((element) => element.includes(contents[i])) &&
+              !team1.some((element) => element.includes(contents[i])) &&
+              !team2.some((element) => element.includes(contents[i]))
             ) {
               if (!startedPicks) {
-                captains.push(`<@${msg.author.id}>`);
+                captains.push(checkListForMedals(`<@${msg.author.id}>`));
                 updatePlayerCount();
                 removeOldMsg(msg, listArr.join(" "));
                 randomizedAlready = 0;
@@ -2032,9 +2032,12 @@ client.on("messageCreate", async (msg) => {
               personIn = true;
             } else if (
               captains.length < 2 &&
-              inDraft.includes(`<@${msg.author.id}>`)
+              inDraft.some((element) => element.includes(`<@${msg.author.id}>`))
             ) {
-              inDraft.splice(inDraft.indexOf(`<@${msg.author.id}>`), 1);
+              const index = inDraft.findIndex((element) =>
+                element.includes(`<@${msg.author.id}>`)
+              );
+              inDraft.splice(index, 1);
               if (captains.includes("")) {
                 captains.splice(captains.indexOf(""), 1, `<@${msg.author.id}>`);
               } else {
