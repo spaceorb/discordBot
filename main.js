@@ -201,7 +201,10 @@ client.on("messageCreate", async (msg) => {
       oldListArr2,
     } = currentServerData;
 
-    peopleSymbol = startedPicks ? ":lock:" : ":unlock:";
+    const updatePeopleSymbol = () => {
+      peopleSymbol = startedPicks ? ":lock:" : ":unlock:";
+    };
+    updatePeopleSymbol();
     const updateLeaderboard = async () => {
       for (let i = 0; i < allServerUsers.length; i++) {
         PlayerModel.findOneAndUpdate(
@@ -1413,6 +1416,7 @@ client.on("messageCreate", async (msg) => {
       msg.content === `${commandSymbol}list` ||
       msg.content === `${commandSymbol}ping`
     ) {
+      updatePeopleSymbol();
       if (randomizedAlready === 1) {
         removeOldMsg(msg, randomizedArr.join(" "));
       } else {
