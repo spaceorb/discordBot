@@ -2143,7 +2143,12 @@ client.on("messageCreate", async (msg) => {
           captains.some((element) => element.includes(`<@${msg.author.id}>`))
         ) {
           console.log("Found captain");
-          captains.splice(captains.indexOf(discordName), 1);
+
+          const index = captains.findIndex((element) =>
+            element.includes(`<@${msg.author.id}>`)
+          );
+          captains.splice(index, 1);
+
           inDraft.push(checkListForMedals(`<@${member.id}>`));
           updatePlayerCount();
           removeOldMsg(msg, listArr.join(" "));
