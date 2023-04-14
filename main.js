@@ -286,7 +286,7 @@ client.on("messageCreate", async (msg) => {
       }
     }
     const checkListForMedals = (name) => {
-      name = `<@${name}>`;
+      name = name !== `<@${name}>` ? `<@${name}>` : name;
       const currentPlayer = allServerUsers.find(
         (user) => user.userId === `<@${name}>` && user.guildId === msg.guild.id
       );
