@@ -2246,7 +2246,6 @@ client.on("messageCreate", async (msg) => {
 
     if (command === `${commandSymbol}pick`) {
       let stop = 0;
-      pinged = 0;
 
       if (
         contents.length === 1 &&
@@ -2435,7 +2434,6 @@ client.on("messageCreate", async (msg) => {
         team1Copy = [];
         team2Copy = [];
         inDraftCopy = [];
-        pinged = 0;
         team1re = [];
         team2re = [];
         randomizedCount = 0;
