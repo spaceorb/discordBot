@@ -1929,6 +1929,7 @@ client.on("messageCreate", async (msg) => {
                 captains.push(checkListForMedals(`<@${msg.author.id}>`));
               }
               // checkIfPlayerBanned(msg);
+              checkCaptains();
               updatePlayerCount();
               removeOldMsg(msg, listArr.join(" "));
               randomizedAlready = 0;
@@ -1936,6 +1937,7 @@ client.on("messageCreate", async (msg) => {
             } else if (captains.length < 2) {
               if (!startedPicks) {
                 captains.push(checkListForMedals(`<@${msg.author.id}>`));
+                checkCaptains();
                 updatePlayerCount();
                 removeOldMsg(msg, listArr.join(" "));
                 randomizedAlready = 0;
@@ -1985,6 +1987,8 @@ client.on("messageCreate", async (msg) => {
             (element) => !element.includes(`<@${msg.author.id}>`)
           );
           inDraft.push(checkListForMedals(`<@${msg.author.id}>`));
+          checkCaptains();
+
           updatePlayerCount();
           removeOldMsg(msg, listArr.join(" "));
         } else {
