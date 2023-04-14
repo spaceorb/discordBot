@@ -200,11 +200,11 @@ client.on("messageCreate", async (msg) => {
       oldListArr1,
       oldListArr2,
     } = currentServerData;
-    let captain1;
-    let captain2;
+    let captainA;
+    let captainB;
     const checkCaptains = () => {
-      captain1 = captains[0] ? captains[0] : "";
-      captain2 = captains[1] ? captains[1] : "";
+      captainA = captains[0] ? captains[0] : "";
+      captainB = captains[1] ? captains[1] : "";
     };
 
     const updatePeopleSymbol = () => {
@@ -672,10 +672,10 @@ client.on("messageCreate", async (msg) => {
           captains.length + inDraft.length + team1.length + team2.length
         }**\n`,
         "\n",
-        `**Team 1**: ${captain1 ? `:crown: \n ${captain1}\n` : "\n "} ${`${
+        `**Team 1**: ${captainA ? `:crown: \n ${captainA}\n` : "\n "} ${`${
           team1 ? team1.join("\n ") + `${team1.length > 0 ? "\n\n" : "\n"}` : ""
         }`}`,
-        `**Team 2**: ${captain2 ? ":crown: \n " + captain2 + "\n" : "\n"}`,
+        `**Team 2**: ${captainB ? ":crown: \n " + captainB + "\n" : "\n"}`,
         `${
           team2 ? team2.join("\n ") + `${team2.length > 0 ? "\n\n" : "\n"}` : ""
         }`,
@@ -2299,8 +2299,6 @@ client.on("messageCreate", async (msg) => {
     ) {
       if (randomizedAlready === 0) {
         let newList = allServerUsers.sort((a, b) => b.lp - a.lp);
-
-        let isTop10 = false;
 
         for (let i = 0; i < 10; i++) {
           if (newList[i]) {
