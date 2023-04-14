@@ -3870,7 +3870,7 @@ client.on("messageCreate", async (msg) => {
     if (
       msg.author.id == discordBotId &&
       msg.content.includes(peopleSymbol) &&
-      !msg.content.includes("locked")
+      msg.content.includes("**team2:**")
     ) {
       if (!lastMsg.includes(msg.id)) {
         lastMsg.push(msg.id);
