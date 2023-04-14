@@ -296,6 +296,7 @@ client.on("messageCreate", async (msg) => {
       for (let i = 0; i < newList.length; i++) {
         newList.userId === `<@${name}>` ? (indexOfPlayer = i) : null;
       }
+
       console.log("current Player", currentPlayer);
 
       if (
@@ -303,11 +304,11 @@ client.on("messageCreate", async (msg) => {
         !team1.includes(`<@${msg.author.id}>`) &&
         !team2.includes(`<@${msg.author.id}>`)
       ) {
-        return `${turnMmrToTitle(
-          currentPlayer.lp,
-          indexOfPlayer,
-          newList.length
-        )} <@${msg.author.id}> ${currentPlayer.value}`;
+        return `${
+          indexOfPlayer === undefined
+            ? bronze
+            : turnMmrToTitle2(indexOfPlayer, newList.length)
+        } <@${msg.author.id}> ${currentPlayer.value}`;
       } else {
         return `<@${msg.author.id}>`;
       }
