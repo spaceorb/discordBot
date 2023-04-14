@@ -285,6 +285,18 @@ client.on("messageCreate", async (msg) => {
         return "Over 7 days ago";
       }
     }
+    function checkListForMedals() {
+      const currentPlayer = allServerUsers.find({ userId: msg.author.id });
+      if (
+        !captains.includes(`<@${msg.author.id}>`) &&
+        !team1.includes(`<@${msg.author.id}>`) &&
+        !team2.includes(`<@${msg.author.id}>`)
+      ) {
+        return `<@${msg.author.id}> - ${currentPlayer.value}`;
+      } else {
+        return `<@${msg.author.id}>`;
+      }
+    }
     async function addDataToChart(msg, dataY, dataX, userId, clientA) {
       msg.guild.members.fetch(userId).then(async (member) => {
         let discordName;
@@ -480,6 +492,7 @@ client.on("messageCreate", async (msg) => {
             ? (playedSeason = true)
             : console.log("Person did not play this season")
         );
+        console.log("finallist", finalList);
 
         if (playedSeason) {
           for (let i = 0; i < finalList.length; i++) {
@@ -1601,7 +1614,12 @@ client.on("messageCreate", async (msg) => {
               // discordName = discordName.replace(/[^a-z]+/gi, "").split("");
               // // console.log(onlyLettersArray)
               // discordName = discordName.join("");
-              inDraft.push(`<@${msg.author.id}>`);
+              // const currentPlayer = allServerUsers.find({
+              //   userId: msg.author.id,
+              // });
+              // i;
+              // turnMmrToTitle(currentPlayer.lp, i, finalList.length);
+              inDraft.push(checkListForMedals);
               updatePlayerCount();
 
               if (
