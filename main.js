@@ -2341,23 +2341,19 @@ client.on("messageCreate", async (msg) => {
     if (command === `${commandSymbol}swap`) {
       if (contents[1] && contents[2]) {
         if (
-          (inDraft.includes(contents[1].toUpperCase()) ||
-            team1.includes(contents[1].toUpperCase()) ||
-            team2.includes(contents[1].toUpperCase()) ||
-            captains.includes(contents[1].toUpperCase())) &&
-          (inDraft.includes(contents[2].toUpperCase()) ||
-            team1.includes(contents[2].toUpperCase()) ||
-            team2.includes(contents[2].toUpperCase()) ||
-            captains.includes(contents[2].toUpperCase()))
+          (inDraft.some((element) => element.includes(contents[1])) ||
+            team1.some((element) => element.includes(contents[1])) ||
+            team2.some((element) => element.includes(contents[1])) ||
+            captains.some((element) => element.includes(contents[1]))) &&
+          (inDraft.some((element) => element.includes(contents[2])) ||
+            team1.some((element) => element.includes(contents[2])) ||
+            team2.some((element) => element.includes(contents[2])) ||
+            captains.some((element) => element.includes(contents[2])))
         ) {
           swapNames(contents[1], contents[2]);
           updatePlayerCount();
 
-          if (randomizedAlready === 0) {
-            removeOldMsg(msg, listArr.join(" "));
-          } else {
-            removeOldMsg(msg, randomizedArr.join(" "));
-          }
+          removeOldMsg(msg, listArr.join(" "));
         } else {
           msg.channel.send("Both players must be in the draft.");
         }
