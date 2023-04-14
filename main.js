@@ -285,22 +285,7 @@ client.on("messageCreate", async (msg) => {
         return "Over 7 days ago";
       }
     }
-    const checkListForMedals = () => {
-      const currentPlayer = allServerUsers.find({
-        userId: msg.author.id,
-        guildId: msg.guild.id,
-      });
-      console.log("current Player", currentPlayer);
-      if (
-        !captains.includes(`<@${msg.author.id}>`) &&
-        !team1.includes(`<@${msg.author.id}>`) &&
-        !team2.includes(`<@${msg.author.id}>`)
-      ) {
-        return `<@${msg.author.id}>`;
-      } else {
-        return `<@${msg.author.id}>`;
-      }
-    };
+    const checkListForMedals = () => {};
     async function addDataToChart(msg, dataY, dataX, userId, clientA) {
       msg.guild.members.fetch(userId).then(async (member) => {
         let discordName;
@@ -1614,16 +1599,27 @@ client.on("messageCreate", async (msg) => {
             !team2.includes(`<@${msg.author.id}>`)
           ) {
             if (!startedPicks) {
-              // discordName = discordName.replace(/[^a-z]+/gi, "").split("");
-              // // console.log(onlyLettersArray)
-              // discordName = discordName.join("");
+              const currentPlayer = allServerUsers.find(
+                (user) =>
+                  user.userId === msg.author.id && user.guildId === msg.guild.id
+              );
               // const currentPlayer = allServerUsers.find({
               //   userId: msg.author.id,
+              //   guildId: msg.guild.id,
               // });
-              // i;
-              // turnMmrToTitle(currentPlayer.lp, i, finalList.length);
-              const player = checkListForMedals;
-              inDraft.push(player);
+              let name;
+              console.log("current Player", currentPlayer);
+
+              if (
+                !captains.includes(`<@${msg.author.id}>`) &&
+                !team1.includes(`<@${msg.author.id}>`) &&
+                !team2.includes(`<@${msg.author.id}>`)
+              ) {
+                name = `<@${msg.author.id}>`;
+              } else {
+                name = `<@${msg.author.id}>`;
+              }
+              inDraft.push(name);
               updatePlayerCount();
 
               if (
