@@ -1876,8 +1876,8 @@ client.on("messageCreate", async (msg) => {
                 inDraft.splice(0, 1);
               }
               updatePlayerCount();
-              removeOldMsg(msg, randomizedArr.join(" "));
-              randomizedCopy = randomizedArr.join(" ");
+              removeOldMsg(msg, listArr.join(" "));
+              randomizedCopy = listArr.join(" ");
               randomizedAlready = 1;
             }
             randomizedCount++;
