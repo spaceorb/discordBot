@@ -665,13 +665,9 @@ client.on("messageCreate", async (msg) => {
           captains.length + inDraft.length + team1.length + team2.length
         }**\n`,
         "\n",
-        `**Team 1**: ${
-          captains[0]
-            ? ` :crown:\n${
-                captains[0] ? captains[0] + `${team1 ? "\n" : ""}` : ""
-              }`
-            : ""
-        }${team1 ? "\n" : ""}`,
+        `**Team 1**: ${captains[0] ? " :crown:\n captains[0]" : ""}
+        }
+        }`,
         `${team1 ? team1.join("\n ") : ""}`,
         "\n\n",
         `**Team 2**: ${
@@ -680,7 +676,7 @@ client.on("messageCreate", async (msg) => {
                 captains[1] ? captains[1] + `${team2 ? "\n" : ""}` : ""
               }`
             : ""
-        }${team2 ? "\n" : ""}`,
+        }`,
         `${team2 ? team2.join("\n ") + "\n" : ""}`,
         `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
