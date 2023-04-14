@@ -1521,21 +1521,6 @@ client.on("messageCreate", async (msg) => {
       ];
 
       removeOldMsg(msg, listArr.join(" "));
-
-      listArr = [
-        peopleSymbol,
-        `**${captains.length + inDraft.length + team1.length + team2.length}**`,
-        "\n",
-        `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-        "\n",
-        "\n",
-        "**Team 1**:",
-        "\n",
-        "\n",
-        "**Team 2**:",
-        team2.join("\n"),
-      ];
-
       resetPeople = [];
       randomizedCount = 0;
       namesWithSpaces = [];
