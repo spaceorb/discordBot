@@ -285,8 +285,11 @@ client.on("messageCreate", async (msg) => {
         return "Over 7 days ago";
       }
     }
-    function checkListForMedals() {
-      const currentPlayer = allServerUsers.find({ userId: msg.author.id });
+    const checkListForMedals = () => {
+      const currentPlayer = allServerUsers.find({
+        userId: msg.author.id,
+        guildId: msg.guild.id,
+      });
       console.log("current Player", currentPlayer);
       if (
         !captains.includes(`<@${msg.author.id}>`) &&
@@ -297,7 +300,7 @@ client.on("messageCreate", async (msg) => {
       } else {
         return `<@${msg.author.id}>`;
       }
-    }
+    };
     async function addDataToChart(msg, dataY, dataX, userId, clientA) {
       msg.guild.members.fetch(userId).then(async (member) => {
         let discordName;
