@@ -2239,21 +2239,24 @@ client.on("messageCreate", async (msg) => {
       }
 
       if (
-        captains[0] === `<@${msg.author.id}>` &&
+        captains[0].includes(`<@${msg.author.id}>`) &&
         contents.length <= 4 &&
         stop === 0
       ) {
-        if (contents.length === 2 && !inDraft.includes(contents[1])) {
+        if (
+          contents.length === 2 &&
+          !inDraft.some((element) => element.includes(`<@${msg.author.id}>`))
+        ) {
           if (contents[1] === `<@${msg.author.id}>`) {
             msg.reply(`You can't pick yourself.`);
           } else if (
-            team1.includes(contents[1]) ||
-            captains[0] === contents[1]
+            team1.some((element) => element.includes(`<@${msg.author.id}>`)) ||
+            captains[0].includes(contents[1])
           ) {
             msg.reply(`${contents[1]} is on team 1 already.`);
           } else if (
-            team2.includes(contents[1]) ||
-            captains[1] === contents[1]
+            team2.some((element) => element.includes(`<@${msg.author.id}>`)) ||
+            captains[1].includes(contents[1])
           ) {
             msg.reply(`${contents[1]} is on team 2 already.`);
           } else {
@@ -2266,33 +2269,36 @@ client.on("messageCreate", async (msg) => {
           }
         } else {
           for (let i = 1; i < contents.length; i++) {
-            if (inDraft.includes(contents[i])) {
-              team1.push(contents[i]);
-              inDraft.splice(inDraft.indexOf(contents[i]), 1);
+            if (inDraft.some((element) => element.includes(contents[i]))) {
+              team1.push(checkListForMedals(contents[i]));
+              const index = inDraft.findIndex((element) =>
+                element.includes(contents[i])
+              );
+              inDraft.splice(index, 1);
             }
           }
         }
         updatePlayerCount();
         removeOldMsg(msg, listArr.join(" "));
       } else if (
-        captains[1] === `<@${msg.author.id}>` &&
+        captains[1].includes(`<@${msg.author.id}>`) &&
         contents.length <= 4 &&
         stop === 0
       ) {
         if (
           contents.length === 2 &&
-          !inDraft.includes(contents[1].toUpperCase())
+          !inDraft.some((element) => element.includes(`<@${msg.author.id}>`))
         ) {
           if (contents[1] === `<@${msg.author.id}>`) {
             msg.reply(`You can't pick yourself.`);
           } else if (
-            team1.includes(contents[1]) ||
-            captains[0] === contents[1]
+            team1.some((element) => element.includes(contents[1])) ||
+            captains[0].includes(contents[1])
           ) {
             msg.reply(`${contents[1]} is on team 1 already.`);
           } else if (
-            team2.includes(contents[1]) ||
-            captains[1] === contents[1]
+            team2.some((element) => element.includes(contents[1])) ||
+            captains[1].includes(contents[1])
           ) {
             msg.reply(`${contents[1]} is on team 2 already.`);
           } else {
@@ -2305,9 +2311,13 @@ client.on("messageCreate", async (msg) => {
           }
         } else {
           for (let i = 1; i < contents.length; i++) {
-            if (inDraft.includes(contents[i])) {
-              team2.push(contents[i]);
-              inDraft.splice(inDraft.indexOf(contents[i]), 1);
+            if (inDraft.some((element) => element.includes(contents[i]))) {
+              team2.push(checkListForMedals(contents[i]));
+
+              const index = inDraft.findIndex((element) =>
+                element.includes(contents[i])
+              );
+              inDraft.splice(index, 1);
             }
           }
         }
@@ -3328,40 +3338,35 @@ client.on("messageCreate", async (msg) => {
       for (let i = 0; i < finalList.length; i++) {
         if (i === 0) {
           sortedList.push(
-            ` :first_place: ${turnMmrToTitle2(
-              i,
-              finalList.length
-            )} ${finalList[i].userId} ${finalList[i].value}\n`
+            ` :first_place: ${turnMmrToTitle2(i, finalList.length)} ${
+              finalList[i].userId
+            } ${finalList[i].value}\n`
           );
         } else if (i === 1) {
           sortedList.push(
-            ` :second_place: ${turnMmrToTitle2(
-              i,
-              finalList.length
-            )} ${finalList[i].userId} ${finalList[i].value}\n`
+            ` :second_place: ${turnMmrToTitle2(i, finalList.length)} ${
+              finalList[i].userId
+            } ${finalList[i].value}\n`
           );
         } else if (i === 2) {
           sortedList.push(
-            ` :third_place: ${turnMmrToTitle2(
-              i,
-              finalList.length
-            )} ${finalList[i].userId} ${finalList[i].value}\n`
+            ` :third_place: ${turnMmrToTitle2(i, finalList.length)} ${
+              finalList[i].userId
+            } ${finalList[i].value}\n`
           );
 
           // if (i === 2) sortedList.push('\n');
         } else if ((i + 1) % 10 == 0 && finalList.length > 20) {
           sortedList.push(
-            ` ${i + 1}. ${turnMmrToTitle2(
-              i,
-              finalList.length
-            )} ${finalList[i].userId} ${finalList[i].value}\n`
+            ` ${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
+              finalList[i].userId
+            } ${finalList[i].value}\n`
           );
         } else {
           sortedList.push(
-            ` ${i + 1}. ${turnMmrToTitle2(
-              i,
-              finalList.length
-            )} ${finalList[i].userId} ${finalList[i].value}`
+            ` ${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
+              finalList[i].userId
+            } ${finalList[i].value}`
           );
         }
       }
