@@ -61,7 +61,16 @@ client.on("guildCreate", async (guild) => {
     };
   });
 
-  // Create channels on guild join
+  // Create roles required on guild join
+  await guild.roles.create({
+    data: {
+      name: "Scorer",
+      color: "#DC143C",
+      permissions: "DEFAULT",
+    },
+  });
+
+  // Create required channels on guild join
   const draftResultChannel = await guild.channels.create("draft-result", {
     type: "GUILD_TEXT",
   });
@@ -1228,8 +1237,6 @@ client.on("messageCreate", async (msg) => {
     }
 
     function removeOldMsg(oldMsg, newMsg) {
-      console.log("LASTMSG", lastMsg);
-
       oldMsg.channel.messages
         .fetch(lastMsg[0])
         .then(async (message) => {
@@ -1249,21 +1256,7 @@ client.on("messageCreate", async (msg) => {
         .catch((lastMsg = []));
     }
     function removeSpaceChar(name) {
-      let temp = name.split(" ");
-      if (temp.length > 1 && !namesWithSpaces.includes(name)) {
-        namesWithSpaces.push(name);
-      }
-
-      let temp2 = [];
-      for (let i = 0; i < temp.length; i++) {
-        if (temp[i] == " " || temp[i] == "!" || temp[i] == ".") {
-          console.log("a");
-        } else {
-          temp2.push(temp[i]);
-        }
-      }
-      let result = temp2.join("").toUpperCase();
-      return result;
+      return name.replace(/[^\w]/gi, "");
     }
     function swapNames(x, y) {
       let copy;
