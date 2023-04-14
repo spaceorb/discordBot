@@ -287,12 +287,13 @@ client.on("messageCreate", async (msg) => {
     }
     function checkListForMedals() {
       const currentPlayer = allServerUsers.find({ userId: msg.author.id });
+      console.log("current Player", currentPlayer);
       if (
         !captains.includes(`<@${msg.author.id}>`) &&
         !team1.includes(`<@${msg.author.id}>`) &&
         !team2.includes(`<@${msg.author.id}>`)
       ) {
-        return `<@${msg.author.id}> - ${currentPlayer.value}`;
+        return `<@${msg.author.id}>`;
       } else {
         return `<@${msg.author.id}>`;
       }
