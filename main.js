@@ -1740,8 +1740,10 @@ client.on("messageCreate", async (msg) => {
                 msg.reply(`${contents[i]} sorry, draft is locked :lock:`);
               }
             } else if (
-              inDraft.includes(contents[i]) ||
-              captains.includes(contents[i])
+              inDraft.some((element) => element.includes(contents[i])) ||
+              captains.some((element) => element.includes(contents[i])) ||
+              team1.some((element) => element.includes(contents[i])) ||
+              team2.some((element) => element.includes(contents[i]))
             ) {
               msg.reply(`${contents[i]} is already in the draft.`);
             }
@@ -1779,7 +1781,7 @@ client.on("messageCreate", async (msg) => {
                   contents[i][0] === "<" &&
                   contents[i][contents[i].length - 1] === ">" &&
                   contents[i].length >= 17 &&
-                  !playerAndTime.map((x) => x.name).includes(contents[i])
+                  !playerAndTime.find((x) => x.name == contents[i])
                 ) {
                   playerAndTime.push({
                     name: contents[i],
