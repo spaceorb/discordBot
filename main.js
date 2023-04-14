@@ -1986,7 +1986,7 @@ client.on("messageCreate", async (msg) => {
             if (captains.includes("")) {
               captains.splice(captains.indexOf(""), 1, `<@${msg.author.id}>`);
             } else {
-              captains.push(`<@${msg.author.id}>`);
+              captains.push(checkListForMedals(`<@${msg.author.id}>`));
             }
             // checkIfPlayerBanned(msg);
             updatePlayerCount();
@@ -2057,7 +2057,7 @@ client.on("messageCreate", async (msg) => {
               if (captains.includes("")) {
                 captains.splice(captains.indexOf(""), 1, `<@${msg.author.id}>`);
               } else {
-                captains.push(`<@${msg.author.id}>`);
+                captains.push(checkListForMedals(`<@${msg.author.id}>`));
               }
               // checkIfPlayerBanned(msg);
               updatePlayerCount();
@@ -2065,7 +2065,7 @@ client.on("messageCreate", async (msg) => {
               randomizedAlready = 0;
               randomizedCount = 0;
             } else if (captains.length < 2) {
-              captains.push(`<@${msg.author.id}>`);
+              captains.push(checkListForMedals(`<@${msg.author.id}>`));
               updatePlayerCount();
               removeOldMsg(msg, listArr.join(" "));
               randomizedAlready = 0;
