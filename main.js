@@ -2435,45 +2435,29 @@ client.on("messageCreate", async (msg) => {
     }
 
     if (command === `${commandSymbol}team2` && contents.length > 1) {
-      let emptyTeam1 = false;
       for (let i = 1; i < contents.length; i++) {
         let temp = "";
         if (contents[i]) temp = contents[i];
-        if (inDraft.includes(temp) && !team2.includes(temp)) {
-          inDraft.splice(inDraft.indexOf(temp), 1);
-          if (
-            randomizedAlready === 0 &&
-            !captains[1] &&
-            captains.length === 2
-          ) {
-            captains.push(temp);
-          } else if (randomizedAlready === 0 && !captains[1] && !captains[0]) {
-            msg.channel.send(
-              `Team 1 is empty, so player(s) will be moved to team 1.\n\n `
-            );
-            captains.push(temp);
-            emptyTeam1 = true;
+        if (
+          inDraft.some((ele) => ele.includes(temp)) &&
+          !team2.some((ele) => ele.includes(temp))
+        ) {
+          inDraft.splice(
+            inDraft.findIndex((ele) => ele.includes(temp)),
+            1
+          );
+          if (randomizedAlready === 0 && !captains[1]) {
+            captains.push(checkListForMedals(temp));
           } else if (randomizedAlready === 1) {
-            team2.push(temp);
-          } else if (emptyTeam1) {
-            team1.push(temp);
+            team2.push(checkListForMedals(temp));
           } else {
-            if (captains[0] && !captains[1]) {
-              captains.push(temp);
-            } else {
-              team2.push(temp);
-            }
+            team2.push(checkListForMedals(temp));
           }
+          console.log("working");
         }
-        updatePlayerCount();
       }
-      emptyTeam1 = false;
       updatePlayerCount();
-      if (randomizedAlready === 1) {
-        removeOldMsg(msg, randomizedArr.join(" "));
-      } else {
-        removeOldMsg(msg, listArr.join(" "));
-      }
+      removeOldMsg(msg, listArr.join(" "));
     }
 
     if (
