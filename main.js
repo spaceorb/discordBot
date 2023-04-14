@@ -1180,8 +1180,11 @@ client.on("messageCreate", async (msg) => {
 
       if (typeof person === "string") {
         console.log("hi person is string");
-        if (inDraft.includes(person)) {
-          inDraft.splice(inDraft.indexOf(person), 1);
+        if (inDraft.some((element) => element.includes(person))) {
+          const index = inDraft.findIndex((element) =>
+            element.includes(person)
+          );
+          inDraft.splice(index, 1);
           listArr = [
             peopleSymbol,
             `**${
