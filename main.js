@@ -1277,81 +1277,22 @@ client.on("messageCreate", async (msg) => {
       return name.replace(/[^\w]/gi, "");
     }
     function swapNames(x, y) {
-      let copy;
-      if (
-        inDraft.includes(x.toUpperCase()) &&
-        !inDraft.includes(y.toUpperCase())
-      ) {
-        copy = x.toUpperCase();
-        inDraft.splice(inDraft.indexOf(x.toUpperCase()), 1, y.toUpperCase());
-        if (team1.includes(y.toUpperCase())) {
-          team1.splice(team1.indexOf(y.toUpperCase()), 1, copy);
-        }
-        if (team2.includes(y.toUpperCase())) {
-          team2.splice(team2.indexOf(y.toUpperCase()), 1, copy);
-        }
-        if (captains.includes(y.toUpperCase())) {
-          captains.splice(captains.indexOf(y.toUpperCase()), 1, copy);
-        }
-      } else if (
-        team1.includes(x.toUpperCase()) &&
-        !team1.includes(y.toUpperCase())
-      ) {
-        copy = x.toUpperCase();
-        team1.splice(team1.indexOf(x.toUpperCase()), 1, y.toUpperCase());
-        if (inDraft.includes(y.toUpperCase())) {
-          inDraft.splice(inDraft.indexOf(y.toUpperCase()), 1, copy);
-        }
-        if (team2.includes(y.toUpperCase())) {
-          team2.splice(team2.indexOf(y.toUpperCase()), 1, copy);
-        }
-        if (captains.includes(y.toUpperCase())) {
-          captains.splice(captains.indexOf(y.toUpperCase()), 1, copy);
-        }
-      } else if (
-        team2.includes(x.toUpperCase()) &&
-        !team2.includes(y.toUpperCase())
-      ) {
-        copy = x.toUpperCase();
-        team2.splice(team2.indexOf(x.toUpperCase()), 1, y.toUpperCase());
-        if (inDraft.includes(y.toUpperCase())) {
-          inDraft.splice(inDraft.indexOf(y.toUpperCase()), 1, copy);
-        }
-        if (team1.includes(y.toUpperCase())) {
-          team1.splice(team1.indexOf(y.toUpperCase()), 1, copy);
-        }
-        if (captains.includes(y.toUpperCase())) {
-          captains.splice(captains.indexOf(y.toUpperCase()), 1, copy);
-        }
-      } else if (captains.includes(x.toUpperCase())) {
-        copy = x.toUpperCase();
-        if (
-          captains.includes(x.toUpperCase()) &&
-          captains.includes(y.toUpperCase())
-        ) {
-          if (captains[0] === x.toUpperCase()) {
-            captains.splice(0, 1, y.toUpperCase());
-            captains.splice(1, 1, x.toUpperCase());
-          } else if (captains[0] === y.toUpperCase()) {
-            captains.splice(0, 1, x.toUpperCase());
-            captains.splice(1, 1, y.toUpperCase());
-          }
-        } else {
-          captains.splice(
-            captains.indexOf(x.toUpperCase()),
-            1,
-            y.toUpperCase()
-          );
-          if (inDraft.includes(y.toUpperCase())) {
-            inDraft.splice(inDraft.indexOf(y.toUpperCase()), 1, copy);
-          }
-          if (team1.includes(y.toUpperCase())) {
-            team1.splice(team1.indexOf(y.toUpperCase()), 1, copy);
-          }
-          if (team2.includes(y.toUpperCase())) {
-            team2.splice(team2.indexOf(y.toUpperCase()), 1, copy);
-          }
-        }
+      const arraysToSearch = [inDraft, team1, team2, captains];
+      let xArray, yArray;
+
+      // Find the arrays containing x and y
+      for (const array of arraysToSearch) {
+        if (array.includes(x)) xArray = array;
+        if (array.includes(y)) yArray = array;
+      }
+
+      // Swap x and y in their respective arrays
+      if (xArray && yArray) {
+        const xIndex = xArray.indexOf(x);
+        const yIndex = yArray.indexOf(y);
+
+        xArray[xIndex] = y;
+        yArray[yIndex] = x;
       }
     }
 
