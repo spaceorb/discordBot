@@ -1625,7 +1625,7 @@ client.on("messageCreate", async (msg) => {
             !team2.includes(`<@${msg.author.id}>`)
           ) {
             if (!startedPicks) {
-              inDraft.push(checkListForMedals());
+              inDraft.push(checkListForMedals(msg.author.id));
               updatePlayerCount();
 
               if (
