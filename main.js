@@ -860,7 +860,6 @@ client.on("messageCreate", async (msg) => {
           "**Team 1**:",
           `\n ${captains[0]} :crown:\n`,
           "\n",
-          "\n",
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
         ];
@@ -881,7 +880,6 @@ client.on("messageCreate", async (msg) => {
           "**Team 1**:",
           `\n ${captains[0]} :crown:\n`,
           "\n",
-          "\n",
           "**Team 2**:",
           captains[1],
           team2.join("\n"),
@@ -898,7 +896,6 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]} :crown:\n`,
-          "\n",
           "\n",
           "**Team 2**:",
           captains[1],
