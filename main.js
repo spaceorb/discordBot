@@ -295,7 +295,7 @@ client.on("messageCreate", async (msg) => {
       console.log("newList", newList);
 
       for (let i = 0; i < newList.length; i++) {
-        newList.userId === `<@${name}>` ? (indexOfPlayer = i) : null;
+        newList[i].userId === `<@${name}>` ? (indexOfPlayer = i) : null;
       }
       console.log("indexOfPlayer", indexOfPlayer);
 
