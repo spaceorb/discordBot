@@ -2245,28 +2245,19 @@ client.on("messageCreate", async (msg) => {
     }
 
     if (command === `${commandSymbol}pick`) {
-      let stop = 0;
-      pinged = 0;
-
       if (
         contents.length === 1 &&
         captains.some((element) => element.includes(`<@${msg.author.id}>`))
       ) {
         msg.reply("You didn't pick anyone.");
-        stop = 1;
       } else if (
         !captains.some((element) => element.includes(`<@${msg.author.id}>`))
       ) {
         console.log("captains", captains);
         msg.reply("You're not captain.");
-        stop = 1;
       }
 
-      if (
-        captains[0].includes(`<@${msg.author.id}>`) &&
-        contents.length <= 4 &&
-        stop === 0
-      ) {
+      if (captains[0].includes(`<@${msg.author.id}>`) && contents.length <= 4) {
         if (
           contents.length === 2 &&
           !inDraft.some((element) => element.includes(contents[1]))
@@ -2306,8 +2297,7 @@ client.on("messageCreate", async (msg) => {
         }
       } else if (
         captains[1].includes(`<@${msg.author.id}>`) &&
-        contents.length <= 4 &&
-        stop === 0
+        contents.length <= 4
       ) {
         if (
           contents.length === 2 &&
