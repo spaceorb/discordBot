@@ -1979,6 +1979,23 @@ client.on("messageCreate", async (msg) => {
             } else {
               captains.push(checkListForMedals(`<@${msg.author.id}>`));
             }
+            let playerTimed = false;
+            let yourping = msg.createdTimestamp;
+            let d = new Date(yourping);
+
+            for (let i = 0; i < playerAndTime.length; i++) {
+              if (playerAndTime[i].name == `<@${msg.author.id}>`) {
+                playerTimed = true;
+              }
+            }
+            if (!playerTimed) {
+              playerAndTime.push({
+                name: `<@${msg.author.id}>`,
+                time: [d.getHours(), d.getMinutes()],
+                enteredBy: "self",
+                remainingTime: [],
+              });
+            }
             // checkIfPlayerBanned(msg);
             updatePlayerCount();
             removeOldMsg(msg, listArr.join(" "));
@@ -2008,6 +2025,23 @@ client.on("messageCreate", async (msg) => {
             ) {
               if (!startedPicks) {
                 captains.push(checkListForMedals(`<@${msg.author.id}>`));
+                let playerTimed = false;
+                let yourping = msg.createdTimestamp;
+                let d = new Date(yourping);
+
+                for (let i = 0; i < playerAndTime.length; i++) {
+                  if (playerAndTime[i].name == `<@${msg.author.id}>`) {
+                    playerTimed = true;
+                  }
+                }
+                if (!playerTimed) {
+                  playerAndTime.push({
+                    name: `<@${msg.author.id}>`,
+                    time: [d.getHours(), d.getMinutes()],
+                    enteredBy: "self",
+                    remainingTime: [],
+                  });
+                }
                 updatePlayerCount();
                 removeOldMsg(msg, listArr.join(" "));
                 randomizedAlready = 0;
@@ -2034,7 +2068,11 @@ client.on("messageCreate", async (msg) => {
         }
         if (contents.length === 2) {
           if (contents[1] === `<@${msg.author.id}>`) {
-            if (captains.includes(`<@${msg.author.id}>`)) {
+            if (
+              captains.some((element) =>
+                element.includes(`<@${msg.author.id}>`)
+              )
+            ) {
               msg.reply("You are already captain.");
               personIn = true;
             } else if (
