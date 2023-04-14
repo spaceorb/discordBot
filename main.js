@@ -2139,10 +2139,12 @@ client.on("messageCreate", async (msg) => {
         // discordName = discordName.replace(/[^a-z]+/gi, "").split("");
         // // console.log(onlyLettersArray)
         // discordName = discordName.join("");
-        if (captains.includes(`<@${msg.author.id}>`)) {
+        if (
+          captains.some((element) => element.includes(`<@${msg.author.id}>`))
+        ) {
           console.log("Found captain");
           captains.splice(captains.indexOf(discordName), 1);
-          inDraft.push(`<@${member.id}>`);
+          inDraft.push(checkListForMedals(`<@${member.id}>`));
           updatePlayerCount();
           removeOldMsg(msg, listArr.join(" "));
         } else {
