@@ -200,8 +200,13 @@ client.on("messageCreate", async (msg) => {
       oldListArr1,
       oldListArr2,
     } = currentServerData;
-    const captain1 = captains[0] ? captains[0] : "";
-    const captain2 = captains[1] ? captains[1] : "";
+    let captain1;
+    let captain2;
+    const checkCaptains = () => {
+      captain1 = captains[0] ? captains[0] : "";
+      captain2 = captains[1] ? captains[1] : "";
+    };
+
     const updatePeopleSymbol = () => {
       peopleSymbol = startedPicks ? ":lock:" : ":unlock:";
     };
@@ -1847,6 +1852,7 @@ client.on("messageCreate", async (msg) => {
             //   });
             // }
             // checkIfPlayerBanned(msg);
+            checkCaptains();
             updatePlayerCount();
             removeOldMsg(msg, listArr.join(" "));
             randomizedAlready = 0;
@@ -1875,6 +1881,7 @@ client.on("messageCreate", async (msg) => {
             ) {
               if (!startedPicks) {
                 captains.push(checkListForMedals(`<@${msg.author.id}>`));
+                checkCaptains();
                 updatePlayerCount();
                 removeOldMsg(msg, listArr.join(" "));
                 randomizedAlready = 0;
