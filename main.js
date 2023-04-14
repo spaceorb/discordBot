@@ -672,14 +672,12 @@ client.on("messageCreate", async (msg) => {
                 captains.length + inDraft.length + team1.length + team2.length
               }**`,
               "\n",
-              `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-              "\n",
-              "\n",
               "**Team 1**:",
               "\n",
               "\n",
               "**Team 2**:",
               team2.join("\n"),
+              `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
             ];
           } else {
             listArr = [
@@ -688,14 +686,12 @@ client.on("messageCreate", async (msg) => {
                 captains.length + inDraft.length + team1.length + team2.length
               }**`,
               "\n",
-              `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-              "\n",
-              "\n",
               "**Team 1**:",
               "\n",
               "\n",
               "**Team 2**:",
               team2.join("\n"),
+              `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
             ];
           }
         } else {
@@ -737,9 +733,6 @@ client.on("messageCreate", async (msg) => {
               peopleSymbol,
               `**${team1.length + team2.length + inDraft.length}**`,
               "\n",
-              `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-              "\n",
-              "\n",
               "**Team 1**:",
               `${team1.join("\n ")}`,
               "\n",
@@ -762,9 +755,6 @@ client.on("messageCreate", async (msg) => {
             captains.length + inDraft.length + team1.length + team2.length
           }**`,
           "\n",
-          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-          "\n",
-          "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
           `${team1.join("\n ")}`,
@@ -786,9 +776,6 @@ client.on("messageCreate", async (msg) => {
             captains.length + inDraft.length + team1.length + team2.length
           }**`,
           "\n",
-          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-          "\n",
-          "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
           `${team1.join("\n ")}`,
@@ -807,9 +794,6 @@ client.on("messageCreate", async (msg) => {
           `**${
             captains.length + inDraft.length + team1.length + team2.length
           }**`,
-          "\n",
-          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-          "\n",
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
@@ -831,9 +815,6 @@ client.on("messageCreate", async (msg) => {
             captains.length + inDraft.length + team1.length + team2.length
           }**`,
           "\n",
-          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-          "\n",
-          "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
           "\n",
@@ -854,9 +835,6 @@ client.on("messageCreate", async (msg) => {
             captains.length + inDraft.length + team1.length + team2.length
           }**`,
           "\n",
-          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-          "\n",
-          "\n",
           "**Team 1**:",
           `\n ${captains[0]} :crown:\n`,
           "\n",
@@ -874,9 +852,6 @@ client.on("messageCreate", async (msg) => {
             captains.length + inDraft.length + team1.length + team2.length
           }**`,
           "\n",
-          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-          "\n",
-          "\n",
           "**Team 1**:",
           `\n ${captains[0]} :crown:\n`,
           "\n",
@@ -890,9 +865,6 @@ client.on("messageCreate", async (msg) => {
           `**${
             captains.length + inDraft.length + team1.length + team2.length
           }**`,
-          "\n",
-          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-          "\n",
           "\n",
           "**Team 1**:",
           `\n ${captains[0]} :crown:\n`,
@@ -912,9 +884,6 @@ client.on("messageCreate", async (msg) => {
             captains.length + inDraft.length + team1.length + team2.length
           }**`,
           "\n",
-          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-          "\n",
-          "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
           `${team1.join("\n ")}`,
@@ -929,9 +898,6 @@ client.on("messageCreate", async (msg) => {
           `**${
             captains.length + inDraft.length + team1.length + team2.length
           }**`,
-          "\n",
-          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-          "\n",
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
@@ -952,9 +918,6 @@ client.on("messageCreate", async (msg) => {
             captains.length + inDraft.length + team1.length + team2.length
           }**`,
           "\n",
-          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-          "\n",
-          "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
           "\n",
@@ -972,9 +935,6 @@ client.on("messageCreate", async (msg) => {
           `**${
             captains.length + inDraft.length + team1.length + team2.length
           }**`,
-          "\n",
-          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-          "\n",
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
@@ -996,9 +956,6 @@ client.on("messageCreate", async (msg) => {
             captains.length + inDraft.length + team1.length + team2.length
           }**`,
           "\n",
-          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-          "\n",
-          "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
           "\n",
@@ -1015,9 +972,6 @@ client.on("messageCreate", async (msg) => {
           `**${
             captains.length + inDraft.length + team1.length + team2.length
           }**`,
-          "\n",
-          `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-          "\n",
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
@@ -1055,7 +1009,7 @@ client.on("messageCreate", async (msg) => {
             }**`,
             "\n",
             dashSymbol,
-            `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+
             "\n",
             "\n",
             "**Team 1**:",
@@ -1080,7 +1034,7 @@ client.on("messageCreate", async (msg) => {
             }**`,
             "\n",
             dashSymbol,
-            `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+
             "\n",
             "\n",
             "**Team 1**:",
@@ -1105,7 +1059,7 @@ client.on("messageCreate", async (msg) => {
             }**`,
             "\n",
             dashSymbol,
-            `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+
             "\n",
             "\n",
             "**Team 1**:",
@@ -1160,7 +1114,7 @@ client.on("messageCreate", async (msg) => {
             }**`,
             "\n",
             dashSymbol,
-            `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+
             "\n",
             "\n",
             "**Team 1**:",
@@ -1184,7 +1138,7 @@ client.on("messageCreate", async (msg) => {
             }**`,
             "\n",
             dashSymbol,
-            `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+
             "\n",
             "\n",
             "**Team 1**:",
@@ -1208,7 +1162,7 @@ client.on("messageCreate", async (msg) => {
             }**`,
             "\n",
             dashSymbol,
-            `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+
             "\n",
             "\n",
             "**Team 1**:",
@@ -1655,7 +1609,7 @@ client.on("messageCreate", async (msg) => {
                 `**${team1.length + team2.length + inDraft.length}**`,
                 "\n",
                 dashSymbol,
-                `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+
                 "\n",
                 "\n",
                 "**Team 1**:",
@@ -1763,7 +1717,7 @@ client.on("messageCreate", async (msg) => {
             `**${team1.length + team2.length + inDraft.length}**`,
             "\n",
             dashSymbol,
-            `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+
             "\n",
             "\n",
             "**Team 1**:",
