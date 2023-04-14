@@ -2250,17 +2250,17 @@ client.on("messageCreate", async (msg) => {
       ) {
         if (
           contents.length === 2 &&
-          !inDraft.some((element) => element.includes(`<@${msg.author.id}>`))
+          !inDraft.some((element) => element.includes(contents[1]))
         ) {
           if (contents[1] === `<@${msg.author.id}>`) {
             msg.reply(`You can't pick yourself.`);
           } else if (
-            team1.some((element) => element.includes(`<@${msg.author.id}>`)) ||
+            team1.some((element) => element.includes(contents[1])) ||
             captains[0].includes(contents[1])
           ) {
             msg.reply(`${contents[1]} is on team 1 already.`);
           } else if (
-            team2.some((element) => element.includes(`<@${msg.author.id}>`)) ||
+            team2.some((element) => element.includes(contents[1])) ||
             captains[1].includes(contents[1])
           ) {
             msg.reply(`${contents[1]} is on team 2 already.`);
