@@ -1619,7 +1619,7 @@ client.on("messageCreate", async (msg) => {
               // });
               // i;
               // turnMmrToTitle(currentPlayer.lp, i, finalList.length);
-              const player = checkListForMedals();
+              const player = checkListForMedals;
               inDraft.push(player);
               updatePlayerCount();
 
