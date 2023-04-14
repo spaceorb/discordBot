@@ -311,7 +311,7 @@ client.on("messageCreate", async (msg) => {
           ? bronze
           : turnMmrToTitle2(indexOfPlayer, newList.length)
       } ${name} ${
-        indexOfPlayer === undefined ? " **1000** (0-0)" : currentPlayer.value
+        indexOfPlayer === undefined ? " **1000** (0-0) " : currentPlayer.value
       }`;
     };
     async function addDataToChart(msg, dataY, dataX, userId, clientA) {
