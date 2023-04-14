@@ -286,9 +286,7 @@ client.on("messageCreate", async (msg) => {
       }
     }
     const checkListForMedals = (name) => {
-      const currentPlayer = allServerUsers.find(
-        (user) => user.userId === `<@${name}>` && user.guildId === msg.guild.id
-      );
+      const currentPlayer = allServerUsers.find();
       let newList = allServerUsers.sort((a, b) => b.lp - a.lp);
       newList.filter((a) => a.playedSeason);
       let indexOfPlayer;
@@ -311,7 +309,7 @@ client.on("messageCreate", async (msg) => {
             ? bronze
             : turnMmrToTitle2(indexOfPlayer, newList.length)
         } <@${msg.author.id}> ${
-          indexOfPlayer === undefined ? "1000" : currentPlayer.value
+          indexOfPlayer === undefined ? "**1000** (0-0)" : currentPlayer.value
         }`;
       } else {
         return `<@${msg.author.id}>`;
