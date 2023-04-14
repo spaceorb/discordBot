@@ -491,7 +491,7 @@ client.on("messageCreate", async (msg) => {
                   style: "bold",
                 },
               },
-              tickFormat: "",
+              tickF,
             },
             cutoutPercentage: 50,
             rotation: -1.5707963267948966,
@@ -723,12 +723,12 @@ client.on("messageCreate", async (msg) => {
               "\n",
               "\n",
               "**Team 1**:",
-              "",
+
               `${team1.join("\n")}`,
               "\n",
               "\n",
               "**Team 2**:",
-              "",
+
               `${team2.join("\n")}`,
             ];
           } else if (inDraft.length > 0) {
@@ -740,12 +740,12 @@ client.on("messageCreate", async (msg) => {
               "\n",
               "\n",
               "**Team 1**:",
-              "",
+
               `${team1.join("\n")}`,
               "\n",
               "\n",
               "**Team 2**:",
-              "",
+
               `${team2.join("\n")}`,
             ];
           }
@@ -767,12 +767,10 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          "",
           `${team1.join("\n")}`,
           "\n",
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
-          "",
           `${team2.join("\n")}`,
         ];
       } else if (
@@ -792,7 +790,6 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          "",
           `${team1.join("\n")}`,
           "\n",
           "**Team 2**:",
@@ -814,7 +811,6 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          "",
           `${team1.join("\n")}`,
           "\n",
           "**Team 2**:",
@@ -837,12 +833,10 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          "",
           "\n",
           "\n",
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
-          "",
           `${team2.join("\n")}`,
         ];
       } else if (
@@ -926,7 +920,6 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          "",
           `${team1.join("\n")}`,
           "\n",
           "**Team 2**:",
@@ -944,7 +937,6 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          "",
           `${team1.join("\n")}`,
           "\n",
           "**Team 2**:",
@@ -966,11 +958,9 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          "",
           "\n",
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
-          "",
           `${team2.join("\n")}`,
         ];
       } else if (
@@ -989,12 +979,10 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          "",
           `${team1.join("\n")}`,
           "\n",
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
-          "",
           `${team2.join("\n")}`,
         ];
       } else if (
@@ -1013,7 +1001,6 @@ client.on("messageCreate", async (msg) => {
           "\n",
           "**Team 1**:",
           `\n ${captains[0]}  :crown:\n`,
-          "",
           "\n",
           "**Team 2**:",
           `\n ${captains[1]}  :crown:\n`,
