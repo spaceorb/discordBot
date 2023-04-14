@@ -1103,7 +1103,7 @@ client.on("messageCreate", async (msg) => {
       }
 
       if (checkIfInTeam1) {
-        if (team1.some((element) => element.includes(`<@${msg.author.id}>`))) {
+        if (team1.some((element) => element.includes(person))) {
           team1.splice(team1.indexOf(person), 1);
           listArr = [
             peopleSymbol,
@@ -1128,7 +1128,7 @@ client.on("messageCreate", async (msg) => {
       }
 
       if (checkIfInTeam2) {
-        if (team2.some((element) => element.includes(`<@${msg.author.id}>`))) {
+        if (team2.some((element) => element.includes(person))) {
           team2.splice(team2.indexOf(person), 1);
           listArr = [
             peopleSymbol,
@@ -1203,8 +1203,9 @@ client.on("messageCreate", async (msg) => {
           ];
         }
 
-        if (team1.includes(person)) {
-          team1.splice(team1.indexOf(person), 1);
+        if (team1.some((element) => element.includes(person))) {
+          const index = team1.findIndex((element) => element.includes(person));
+          team1.splice(index, 1);
           listArr = [
             peopleSymbol,
             `**${
@@ -1226,8 +1227,9 @@ client.on("messageCreate", async (msg) => {
           ];
         }
 
-        if (team2.includes(person)) {
-          team2.splice(team2.indexOf(person), 1);
+        if (team2.some((element) => element.includes(person))) {
+          const index = team2.findIndex((element) => element.includes(person));
+          team2.splice(index, 1);
           listArr = [
             peopleSymbol,
             `**${
@@ -1249,8 +1251,11 @@ client.on("messageCreate", async (msg) => {
           ];
         }
 
-        if (captains.includes(person)) {
-          if (captains[0] === person) {
+        if (captains.some((element) => element.includes(person))) {
+          const index = captains.findIndex((element) =>
+            element.includes(person)
+          );
+          if (captains[0].includes(person)) {
             if (team1.length > 0) {
               captains.splice(0, 1, team1[0]);
               team1.splice(0, 1);
@@ -1263,7 +1268,7 @@ client.on("messageCreate", async (msg) => {
                 captains.splice(0, 1);
               }
             }
-          } else if (captains[1] === person) {
+          } else if (captains[1].includes(person)) {
             if (team2.length > 0) {
               captains.splice(1, 1, team2[0]);
               team2.splice(0, 1);
