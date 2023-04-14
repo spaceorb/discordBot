@@ -311,7 +311,7 @@ client.on("messageCreate", async (msg) => {
           indexOfPlayer === undefined
             ? bronze
             : turnMmrToTitle2(indexOfPlayer, newList.length)
-        } name ${
+        } ${name} ${
           indexOfPlayer === undefined ? " **1000** (0-0)" : currentPlayer.value
         }`;
       } else {
