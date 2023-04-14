@@ -119,7 +119,7 @@ process.on("unhandledRejection", (error) => {
 client.on("messageCreate", async (msg) => {
   var currentServerData = await BotData.findOne({ guildId: msg.guild.id });
   var currentServer = await AllServers.findOne({ guildId: msg.guild.id });
-  // var allServerUsers = await PlayerModel.find({guildId: msg.guild.id});
+  var allServerUsers = await PlayerModel.find({ guildId: msg.guild.id });
   var banList = currentServerData.banList;
 
   if (!banList.includes(`<@${msg.author.id}>`)) {
@@ -193,7 +193,7 @@ client.on("messageCreate", async (msg) => {
     const updateLeaderboard = async () => {
       for (let i = 0; i < allServerUsers.length; i++) {
         PlayerModel.findOneAndUpdate(
-          { userId: allServerUsers[i].userId },
+          { userId: allServerUsers[i].userId, guildId: msg.guild.id },
           {
             $set: {
               value: ` **${allServerUsers[i].lp}** (${allServerUsers[i].totalWin}-${allServerUsers[i].totalLoss})`,
