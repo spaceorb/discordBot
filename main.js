@@ -290,15 +290,12 @@ client.on("messageCreate", async (msg) => {
         (user) => user.userId === name && user.guildId === msg.guild.id
       );
       let newList = allServerUsers.sort((a, b) => b.lp - a.lp);
-      let finalList = [];
-      let playedSeason = false;
-      newList.map((a) => (a.playedSeason ? finalList.push(a) : null));
-      finalList.map((a) =>
-        a.userId == `<@${userId}>`
-          ? (playedSeason = true)
-          : console.log("Person did not play this season")
-      );
-      console.log("finallist", finalList);
+      newList.filter((a) => a.playedSeason);
+      let indexOfPlayer;
+
+      for (let i = 0; i < newList.length; i++) {
+        newList.userId === `<@${name}>` ? (indexOfPlayer = i) : null;
+      }
       console.log("current Player", currentPlayer);
 
       if (
@@ -306,7 +303,11 @@ client.on("messageCreate", async (msg) => {
         !team1.includes(`<@${msg.author.id}>`) &&
         !team2.includes(`<@${msg.author.id}>`)
       ) {
-        return `<@${msg.author.id}> ${currentPlayer.value}`;
+        return `${turnMmrToTitle(
+          currentPlayer.lp,
+          indexOfPlayer,
+          newList.length
+        )} <@${msg.author.id}> ${currentPlayer.value}`;
       } else {
         return `<@${msg.author.id}>`;
       }
