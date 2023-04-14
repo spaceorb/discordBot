@@ -2245,63 +2245,33 @@ client.on("messageCreate", async (msg) => {
     }
 
     if (command === `${commandSymbol}pick`) {
+      let stop = 0;
+      pinged = 0;
+
       if (
         contents.length === 1 &&
         captains.some((element) => element.includes(`<@${msg.author.id}>`))
       ) {
-        msg.reply("You didn't pick anyone.");
+        msg.channel.send("You didn't pick anyone.");
+        stop = 1;
       } else if (
         !captains.some((element) => element.includes(`<@${msg.author.id}>`))
       ) {
         console.log("captains", captains);
-        msg.reply("You're not captain.");
+        msg.channel.send("You're not captain.");
+        stop = 1;
       }
 
-      if (captains[0].includes(`<@${msg.author.id}>`) && contents.length <= 4) {
-        if (
-          contents.length === 2 &&
-          !inDraft.some((element) => element.includes(contents[1]))
-        ) {
-          if (contents[1] === `<@${msg.author.id}>`) {
-            msg.reply(`You can't pick yourself.`);
-          } else if (
-            team1.some((element) => element.includes(contents[1])) ||
-            captains[0].includes(contents[1])
-          ) {
-            msg.reply(`${contents[1]} is on team 1 already.`);
-          } else if (
-            team2.some((element) => element.includes(contents[1])) ||
-            captains[1].includes(contents[1])
-          ) {
-            msg.reply(`${contents[1]} is on team 2 already.`);
-          } else {
-            console.log("team1", team1);
-            console.log("team2", team2);
-            console.log("inDraft", inDraft);
-            console.log("captains", captains);
-
-            msg.reply(`${contents[1]} is not in the draft.`);
-          }
-        } else {
-          for (let i = 1; i < contents.length; i++) {
-            if (inDraft.some((element) => element.includes(contents[i]))) {
-              team1.push(checkListForMedals(contents[i]));
-              const index = inDraft.findIndex((element) =>
-                element.includes(contents[i])
-              );
-              inDraft.splice(index, 1);
-            }
-          }
-          updatePlayerCount();
-          removeOldMsg(msg, listArr.join(" "));
-        }
-      } else if (
-        captains[1].includes(`<@${msg.author.id}>`) &&
-        contents.length <= 4
+      if (
+        captains[0].includes(`<@${msg.author.id}>`) &&
+        contents.length <= 4 &&
+        stop === 0
       ) {
         if (
           contents.length === 2 &&
-          !inDraft.some((element) => element.includes(contents[1]))
+          !inDraft.some(
+            (element) => element.toUpperCase() === contents[1].toUpperCase()
+          )
         ) {
           if (contents[1] === `<@${msg.author.id}>`) {
             msg.reply(`You can't pick yourself.`);
@@ -2325,21 +2295,78 @@ client.on("messageCreate", async (msg) => {
           }
         } else {
           for (let i = 1; i < contents.length; i++) {
-            if (inDraft.some((element) => element.includes(contents[i]))) {
-              team2.push(checkListForMedals(contents[i]));
-
-              const index = inDraft.findIndex((element) =>
-                element.includes(contents[i])
+            if (
+              inDraft.some(
+                (element) => element.toUpperCase() === contents[i].toUpperCase()
+              )
+            ) {
+              team1.push(contents[i]);
+              inDraft.splice(
+                inDraft.findIndex(
+                  (element) =>
+                    element.toUpperCase() === contents[i].toUpperCase()
+                ),
+                1
               );
-              inDraft.splice(index, 1);
             }
           }
-
-          updatePlayerCount();
-          removeOldMsg(msg, listArr.join(" "));
         }
+        updatePlayerCount();
+        removeOldMsg(msg, listArr.join(" "));
+      } else if (
+        captains[1].includes(`<@${msg.author.id}>`) &&
+        contents.length <= 4 &&
+        stop === 0
+      ) {
+        if (
+          contents.length === 2 &&
+          !inDraft.some(
+            (element) => element.toUpperCase() === contents[1].toUpperCase()
+          )
+        ) {
+          if (contents[1] === `<@${msg.author.id}>`) {
+            msg.reply(`You can't pick yourself.`);
+          } else if (
+            team1.some((element) => element.includes(contents[1])) ||
+            captains[0].includes(contents[1])
+          ) {
+            msg.reply(`${contents[1]} is on team 1 already.`);
+          } else if (
+            team2.some((element) => element.includes(contents[1])) ||
+            captains[1].includes(contents[1])
+          ) {
+            msg.reply(`${contents[1]} is on team 2 already.`);
+          } else {
+            console.log("team1", team1);
+            console.log("team2", team2);
+            console.log("inDraft", inDraft);
+            console.log("captains", captains);
+
+            msg.reply(`${contents[1]} is not in the draft.`);
+          }
+        } else {
+          for (let i = 1; i < contents.length; i++) {
+            if (
+              inDraft.some(
+                (element) => element.toUpperCase() === contents[i].toUpperCase()
+              )
+            ) {
+              team2.push(contents[i]);
+              inDraft.splice(
+                inDraft.findIndex(
+                  (element) =>
+                    element.toUpperCase() === contents[i].toUpperCase()
+                ),
+                1
+              );
+            }
+          }
+        }
+        updatePlayerCount();
+        removeOldMsg(msg, listArr.join(" "));
       }
     }
+
     if (
       command === `${commandSymbol}lock` &&
       (captains.includes(`<@${msg.author.id}>`) ||
