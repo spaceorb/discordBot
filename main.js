@@ -311,7 +311,7 @@ client.on("messageCreate", async (msg) => {
             ? bronze
             : turnMmrToTitle2(indexOfPlayer, newList.length)
         } <@${msg.author.id}> ${
-          indexOfPlayer === undefined ? "**1000** (0-0)" : currentPlayer.value
+          indexOfPlayer === undefined ? " **1000** (0-0)" : currentPlayer.value
         }`;
       } else {
         return `<@${msg.author.id}>`;
@@ -1715,8 +1715,8 @@ client.on("messageCreate", async (msg) => {
                   contents[i][contents[i].length - 1] === ">" &&
                   contents[i].length >= 17
                 ) {
-                  inDraft.push(contents[i]);
-                  temp.push(contents[i]);
+                  inDraft.push(checkListForMedals(contents[i]));
+                  temp.push(checkListForMedals(contents[i]));
                 }
               } else {
                 msg.reply(`${contents[i]} sorry, draft is locked :lock:`);
