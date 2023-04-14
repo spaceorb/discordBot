@@ -287,7 +287,7 @@ client.on("messageCreate", async (msg) => {
     }
     const checkListForMedals = (name) => {
       const currentPlayer = allServerUsers.find(
-        (user) => user.userId === name && user.guildId === msg.guild.id
+        (user) => user.userId === `@<${name}>` && user.guildId === msg.guild.id
       );
       let newList = allServerUsers.sort((a, b) => b.lp - a.lp);
       newList.filter((a) => a.playedSeason);
