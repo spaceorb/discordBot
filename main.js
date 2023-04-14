@@ -306,11 +306,11 @@ client.on("messageCreate", async (msg) => {
       //   !team1.includes(name) &&
       //   !team2.includes(name)
       // ) {
-      return `${name}${
+      return `${
         indexOfPlayer === undefined
           ? bronze
           : turnMmrToTitle2(indexOfPlayer, newList.length)
-      }${
+      } ${name} ${
         indexOfPlayer === undefined ? " **1000** (0-0) " : currentPlayer.value
       }`;
     };
