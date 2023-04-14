@@ -2127,12 +2127,13 @@ client.on("messageCreate", async (msg) => {
     }
 
     if (command === `${commandSymbol}uncaptain`) {
-      if (captains.some((element) => element.includes(`<@${msg.author.id}>`))) {
-        const index = captains.findIndex((element) =>
-          element.includes(`<@${msg.author.id}>`)
-        );
-        captains.splice(index, 1);
+      const userId = msg.author.id;
 
+      if (captains.some((element) => element.includes(`<@${msg.author.id}>`))) {
+        console.log("Found captain");
+        captains = captains.filter(
+          (element) => !element.includes(`<@${msg.author.id}>`)
+        );
         inDraft.push(checkListForMedals(`<@${msg.author.id}>`));
         updatePlayerCount();
         removeOldMsg(msg, listArr.join(" "));
@@ -2140,6 +2141,7 @@ client.on("messageCreate", async (msg) => {
         msg.reply("You were never captain.");
       }
     }
+
     if (
       command === `${commandSymbol}out` ||
       command === `${commandSymbol}outt` ||
