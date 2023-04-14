@@ -677,17 +677,16 @@ client.on("messageCreate", async (msg) => {
 
       randomizedArr = [
         peopleSymbol,
-        `**${team1.length + team2.length}**`,
+        `**${
+          captains.length + inDraft.length + team1.length + team2.length
+        }**\n`,
         "\n",
-        "\n",
-        "**Team 1**:",
-        `${team1.join("\n ")}`,
-        "\n",
-        "\n",
-        "**Team 2**:",
-        `${team2.join("\n ")}`,
-        "\n",
-        `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
+        `**Team 1**:\n`,
+        `${team1 ? team1.join("\n ") : null}`,
+        "\n\n",
+        `**Team 2**:\n`,
+        `${team2 ? team2.join("\n ") + "\n" : null}`,
+        `\n**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
       // if (captains.length === 0) {
       //   if (team1.length === 0 && team2.length === 0) {
@@ -1494,30 +1493,31 @@ client.on("messageCreate", async (msg) => {
       listArr = [
         `»»—— **New Draft** ——««\n\n`,
         peopleSymbol,
-        `**${captains.length + inDraft.length + team1.length + team2.length}**`,
+        `**${
+          captains.length + inDraft.length + team1.length + team2.length
+        }**\n`,
         "\n",
-        `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-        "\n",
-        "\n",
-        "**Team 1**:",
-        "\n",
-        "\n",
-        "**Team 2**:",
-        team2.join("\n"),
+        `**Team 1**: ${captains[0] ? " :crown:" : null}\n`,
+        `${captains[0] ? captains[0] + "\n" : null}`,
+        `${team1 ? team1.join("\n ") : null}`,
+        "\n\n",
+        `**Team 2**: ${captains[1] ? " :crown:" : null}\n`,
+        `${captains[1] ? captains[1] + "\n" : null}`,
+        `${team2 ? team2.join("\n ") + "\n" : null}`,
+        `\n**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
       randomizedArr = [
         peopleSymbol,
-        `**${team1.length + team2.length}**`,
+        `**${
+          captains.length + inDraft.length + team1.length + team2.length
+        }**\n`,
         "\n",
-        `\n **Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
-        "\n",
-        "\n",
-        "**Team 1**:",
-        "\n",
-        "\n",
-        "**Team 2**:",
-        ,
-        team2.join("\n"),
+        `**Team 1**:\n`,
+        `${team1 ? team1.join("\n ") : null}`,
+        "\n\n",
+        `**Team 2**:\n`,
+        `${team2 ? team2.join("\n ") + "\n" : null}`,
+        `\n**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
 
       removeOldMsg(msg, listArr.join(" "));
