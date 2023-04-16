@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const AllServersSchema = new mongoose.Schema({
   guildId: { type: String, require: true, unique: true },
-  guildName: { type: String, require: true, unique: true },
-  guildOwnerId: { type: String, require: true, unique: true },
-  guildMemberCount: { type: String, require: true, unique: true },
+  guildName: { type: String, require: true },
+  guildOwnerId: { type: String, require: true },
+  guildMemberCount: { type: String },
   guildEmojis: { type: Object },
   guildPrefix: { type: String },
   guildJoinedDate: { type: String },

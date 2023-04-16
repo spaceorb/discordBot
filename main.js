@@ -1937,9 +1937,7 @@ client.on("messageCreate", async (msg) => {
                 8 &&
               !alerted8People
             ) {
-              msg.channel.send(
-                `There's atleast **8** players ready for a draft now.`
-              );
+              msg.channel.send(`Players set for draft.`);
               // alerted8People = true;
             }
           } else if (
@@ -3019,7 +3017,7 @@ client.on("messageCreate", async (msg) => {
             });
           }
         }
-
+        updateLeaderboard();
         setTimeout(() => {
           updateLeaderboard();
 

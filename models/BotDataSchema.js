@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const BotDataSchema = new mongoose.Schema({
   guildId: { type: String, required: true, unique: true },
-  channelId: { type: String, require: true, unique: true },
+  channelId: { type: String, require: true },
   gameScoreChannel: { type: String, require: true, unique: true },
   leaderboardChannel: { type: String, require: true, unique: true },
   seasonWinnersChannel: { type: String, require: true, unique: true },
@@ -112,5 +112,6 @@ const BotDataSchema = new mongoose.Schema({
 });
 
 const botData = mongoose.model("bot data", BotDataSchema);
+botData.createIndexes({ guildId: 1 });
 
 module.exports = botData;
