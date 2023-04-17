@@ -664,6 +664,25 @@ client.on("messageCreate", async (msg) => {
         }
       });
     }
+    function updateTime() {
+      let playerTimed = false;
+      let yourping = msg.createdTimestamp;
+      let d = new Date(yourping);
+
+      for (let i = 0; i < playerAndTime.length; i++) {
+        if (playerAndTime[i].name == `<@${msg.author.id}>`) {
+          playerTimed = true;
+        }
+      }
+      if (!playerTimed) {
+        playerAndTime.push({
+          name: `<@${msg.author.id}>`,
+          time: [d.getHours(), d.getMinutes()],
+          enteredBy: "self",
+          remainingTime: [],
+        });
+      }
+    }
     function updatePlayerCount() {
       checkCaptains();
       listArr = [
@@ -1596,6 +1615,23 @@ client.on("messageCreate", async (msg) => {
               randomizedCount = 0;
             } else if (captains.length < 2) {
               if (!startedPicks) {
+                let playerTimed = false;
+                let yourping = msg.createdTimestamp;
+                let d = new Date(yourping);
+
+                for (let i = 0; i < playerAndTime.length; i++) {
+                  if (playerAndTime[i].name == `<@${msg.author.id}>`) {
+                    playerTimed = true;
+                  }
+                }
+                if (!playerTimed) {
+                  playerAndTime.push({
+                    name: `<@${msg.author.id}>`,
+                    time: [d.getHours(), d.getMinutes()],
+                    enteredBy: "self",
+                    remainingTime: [],
+                  });
+                }
                 captains.push(checkListForMedals(`<@${msg.author.id}>`));
                 checkCaptains();
                 updatePlayerCount();
