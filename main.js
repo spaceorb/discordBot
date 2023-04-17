@@ -1507,6 +1507,23 @@ client.on("messageCreate", async (msg) => {
             ) {
               if (!startedPicks) {
                 captains.push(checkListForMedals(`<@${msg.author.id}>`));
+                let playerTimed = false;
+                let yourping = msg.createdTimestamp;
+                let d = new Date(yourping);
+
+                for (let i = 0; i < playerAndTime.length; i++) {
+                  if (playerAndTime[i].name == `<@${msg.author.id}>`) {
+                    playerTimed = true;
+                  }
+                }
+                if (!playerTimed) {
+                  playerAndTime.push({
+                    name: `<@${msg.author.id}>`,
+                    time: [d.getHours(), d.getMinutes()],
+                    enteredBy: "self",
+                    remainingTime: [],
+                  });
+                }
                 checkCaptains();
                 updatePlayerCount();
                 removeOldMsg(msg, listArr.join(" "));
