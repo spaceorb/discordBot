@@ -1073,7 +1073,7 @@ client.on("messageCreate", async (msg) => {
         );
       }
 
-      inDraft = nextList.map(name => checkListForMedals(name));
+      inDraft = nextList.map((name) => checkListForMedals(name));
 
       nextListCopy = nextList;
       nextPingedPlayersCopy = nextPingedPlayers;
@@ -1207,7 +1207,7 @@ client.on("messageCreate", async (msg) => {
 
               alerted8People = true;
             }
-            updateTime()
+            updateTime();
 
             // if (randomizedAlready === 1) {
             //   updatePlayerCount();
@@ -1313,7 +1313,23 @@ client.on("messageCreate", async (msg) => {
           console.log("pingedplayer id: " + nextPingedPlayers);
 
           nextList.push(`<@${msg.author.id}>`);
-          updateTime();
+          let playerTimed = false;
+          let yourping = msg.createdTimestamp;
+          let d = new Date(yourping);
+
+          for (let i = 0; i < nextPlayerAndTime.length; i++) {
+            if (nextPlayerAndTime[i].name == `<@${msg.author.id}>`) {
+              playerTimed = true;
+            }
+          }
+          if (!playerTimed) {
+            nextPlayerAndTime.push({
+              name: `<@${msg.author.id}>`,
+              time: [d.getHours(), d.getMinutes()],
+              enteredBy: "self",
+              remainingTime: [],
+            });
+          }
 
           msg.channel.send(
             `**${`<@${msg.author.id}>`}** has been added to the next draft list.`
@@ -1447,7 +1463,7 @@ client.on("messageCreate", async (msg) => {
             } else {
               captains.push(checkListForMedals(`<@${msg.author.id}>`));
             }
-            updateTime()
+            updateTime();
             checkIfPlayerBanned(msg);
             checkCaptains();
             updatePlayerCount();
