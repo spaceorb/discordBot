@@ -1073,7 +1073,7 @@ client.on("messageCreate", async (msg) => {
         );
       }
 
-      inDraft = [...nextList];
+      inDraft = nextList.map(name => checkListForMedals(name));
 
       nextListCopy = nextList;
       nextPingedPlayersCopy = nextPingedPlayers;
@@ -1207,23 +1207,7 @@ client.on("messageCreate", async (msg) => {
 
               alerted8People = true;
             }
-            let playerTimed = false;
-            let yourping = msg.createdTimestamp;
-            let d = new Date(yourping);
-
-            for (let i = 0; i < playerAndTime.length; i++) {
-              if (playerAndTime[i].name == `<@${msg.author.id}>`) {
-                playerTimed = true;
-              }
-            }
-            if (!playerTimed) {
-              playerAndTime.push({
-                name: `<@${msg.author.id}>`,
-                time: [d.getHours(), d.getMinutes()],
-                enteredBy: "self",
-                remainingTime: [],
-              });
-            }
+            updateTime()
 
             // if (randomizedAlready === 1) {
             //   updatePlayerCount();
@@ -1329,23 +1313,7 @@ client.on("messageCreate", async (msg) => {
           console.log("pingedplayer id: " + nextPingedPlayers);
 
           nextList.push(`<@${msg.author.id}>`);
-          let playerTimed = false;
-          let yourping = msg.createdTimestamp;
-          let d = new Date(yourping);
-
-          for (let i = 0; i < nextPlayerAndTime.length; i++) {
-            if (nextPlayerAndTime[i].name == `<@${msg.author.id}>`) {
-              playerTimed = true;
-            }
-          }
-          if (!playerTimed) {
-            nextPlayerAndTime.push({
-              name: `<@${msg.author.id}>`,
-              time: [d.getHours(), d.getMinutes()],
-              enteredBy: "self",
-              remainingTime: [],
-            });
-          }
+          updateTime();
 
           msg.channel.send(
             `**${`<@${msg.author.id}>`}** has been added to the next draft list.`
@@ -1479,23 +1447,7 @@ client.on("messageCreate", async (msg) => {
             } else {
               captains.push(checkListForMedals(`<@${msg.author.id}>`));
             }
-            let playerTimed = false;
-            let yourping = msg.createdTimestamp;
-            let d = new Date(yourping);
-
-            for (let i = 0; i < playerAndTime.length; i++) {
-              if (playerAndTime[i].name == `<@${msg.author.id}>`) {
-                playerTimed = true;
-              }
-            }
-            if (!playerTimed) {
-              playerAndTime.push({
-                name: `<@${msg.author.id}>`,
-                time: [d.getHours(), d.getMinutes()],
-                enteredBy: "self",
-                remainingTime: [],
-              });
-            }
+            updateTime()
             checkIfPlayerBanned(msg);
             checkCaptains();
             updatePlayerCount();
@@ -1526,23 +1478,7 @@ client.on("messageCreate", async (msg) => {
             ) {
               if (!startedPicks) {
                 captains.push(checkListForMedals(`<@${msg.author.id}>`));
-                let playerTimed = false;
-                let yourping = msg.createdTimestamp;
-                let d = new Date(yourping);
-
-                for (let i = 0; i < playerAndTime.length; i++) {
-                  if (playerAndTime[i].name == `<@${msg.author.id}>`) {
-                    playerTimed = true;
-                  }
-                }
-                if (!playerTimed) {
-                  playerAndTime.push({
-                    name: `<@${msg.author.id}>`,
-                    time: [d.getHours(), d.getMinutes()],
-                    enteredBy: "self",
-                    remainingTime: [],
-                  });
-                }
+                updateTime();
                 checkCaptains();
                 updatePlayerCount();
                 removeOldMsg(msg, listArr.join(" "));
@@ -1615,23 +1551,7 @@ client.on("messageCreate", async (msg) => {
               randomizedCount = 0;
             } else if (captains.length < 2) {
               if (!startedPicks) {
-                let playerTimed = false;
-                let yourping = msg.createdTimestamp;
-                let d = new Date(yourping);
-
-                for (let i = 0; i < playerAndTime.length; i++) {
-                  if (playerAndTime[i].name == `<@${msg.author.id}>`) {
-                    playerTimed = true;
-                  }
-                }
-                if (!playerTimed) {
-                  playerAndTime.push({
-                    name: `<@${msg.author.id}>`,
-                    time: [d.getHours(), d.getMinutes()],
-                    enteredBy: "self",
-                    remainingTime: [],
-                  });
-                }
+                updateTime();
                 captains.push(checkListForMedals(`<@${msg.author.id}>`));
                 checkCaptains();
                 updatePlayerCount();
