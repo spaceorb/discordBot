@@ -1266,7 +1266,6 @@ client.on("messageCreate", async (msg) => {
 
           alerted8People = true;
         }
-        // checkIfPlayerBanned(msg);
 
         updatePlayerCount();
         let timeStamp = msg.createdTimestamp;
@@ -1464,7 +1463,6 @@ client.on("messageCreate", async (msg) => {
               captains.push(checkListForMedals(`<@${msg.author.id}>`));
             }
             updateTime();
-            checkIfPlayerBanned(msg);
             checkCaptains();
             updatePlayerCount();
             removeOldMsg(msg, listArr.join(" "));
@@ -1542,7 +1540,6 @@ client.on("messageCreate", async (msg) => {
               } else {
                 captains.push(checkListForMedals(`<@${msg.author.id}>`));
               }
-              // checkIfPlayerBanned(msg);
               let playerTimed = false;
               let yourping = msg.createdTimestamp;
               let d = new Date(yourping);
