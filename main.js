@@ -1180,13 +1180,11 @@ client.on("messageCreate", async (msg) => {
               !alerted8People
             ) {
               msg.channel.send(
-                `${inDraft.map(
-                  (x) => x[1]
-                )} There's at least **8** players ready for a draft now.\n${
-                  inDraft.join(" - ") +
-                  captains.join(" - ") +
-                  team1.join(" - ") +
-                  team2.join(" - ")
+                `There's at least **8** players ready for a draft now.\n${
+                  inDraft.map((x) => x.split(" ")[1]).join(" ★ ") +
+                  captains.map((x) => x.split(" ")[1]).join(" ★ ") +
+                  team1.map((x) => x.split(" ")[1]).join(" ★ ") +
+                  team2.map((x) => x.split(" ")[1]).join(" ★ ")
                 }`
               );
 
@@ -1246,13 +1244,11 @@ client.on("messageCreate", async (msg) => {
           !alerted8People
         ) {
           msg.channel.send(
-            `${inDraft.map(
-              (x) => x[1]
-            )} There's at least **8** players ready for a draft now.\n${
-              inDraft.join(" - ") +
-              captains.join(" - ") +
-              team1.join(" - ") +
-              team2.join(" - ")
+            `There's at least **8** players ready for a draft now.\n${
+              inDraft.map((x) => x.split(" ")[1]).join(" ★ ") +
+              captains.map((x) => x.split(" ")[1]).join(" ★ ") +
+              team1.map((x) => x.split(" ")[1]).join(" ★ ") +
+              team2.map((x) => x.split(" ")[1]).join(" ★ ")
             }`
           );
 
@@ -1504,13 +1500,11 @@ client.on("messageCreate", async (msg) => {
             !alerted8People
           ) {
             msg.channel.send(
-              `${inDraft.map(
-                (x) => x[1]
-              )} There's at least **8** players ready for a draft now.\n${
-                inDraft.join(" - ") +
-                captains.join(" - ") +
-                team1.join(" - ") +
-                team2.join(" - ")
+              `There's at least **8** players ready for a draft now.\n${
+                inDraft.map((x) => x.split(" ")[1]).join(" ★ ") +
+                captains.map((x) => x.split(" ")[1]).join(" ★ ") +
+                team1.map((x) => x.split(" ")[1]).join(" ★ ") +
+                team2.map((x) => x.split(" ")[1]).join(" ★ ")
               }`
             );
             msg.channel.send(listArr.join(" "));
