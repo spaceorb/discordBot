@@ -480,11 +480,11 @@ client.on("messageCreate", async (msg) => {
                 align: "center",
                 anchor: "center",
                 backgroundColor: "rgba(61, 229, 246, 0.65)",
-                borderColor: "rgba(220, 20, 60, 1)",
+                borderColor: "rgba(100, 130, 208, 1)",
                 borderRadius: 0,
                 borderWidth: 1.5,
                 padding: 3,
-                color: "rgba(220, 20, 60, 0.81)",
+                color: "rgba(100, 130, 208, 1)",
                 font: {
                   family: "sans-serif",
                   size: 14,
@@ -522,7 +522,7 @@ client.on("messageCreate", async (msg) => {
                   )}.png`;
 
                   let chartEmbed = new Discord.MessageEmbed()
-                    .setColor("#3de5f6")
+                    .setColor("#6482d0")
                     .setAuthor(`${discordName}`, member.displayAvatarURL())
                     .setDescription(
                       `${rfTrophy} **Rank:** **#${i + 1} of ${
