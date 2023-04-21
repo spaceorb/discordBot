@@ -1181,10 +1181,10 @@ client.on("messageCreate", async (msg) => {
             ) {
               msg.channel.send(
                 `There's at least **8** players ready for a draft now.\n${
-                  inDraft.map((players) => players[1]).join(" - ") +
-                  captains.map((players) => players[1]).join(" - ") +
-                  team1.map((players) => players[1]).join(" - ") +
-                  team2.map((players) => players[1]).join(" - ")
+                  inDraft.join(" - ") +
+                  captains.join(" - ") +
+                  team1.join(" - ") +
+                  team2.join(" - ")
                 }`
               );
 
@@ -1245,10 +1245,10 @@ client.on("messageCreate", async (msg) => {
         ) {
           msg.channel.send(
             `There's at least **8** players ready for a draft now.\n${
-              inDraft.map((players) => players[1]).join(" - ") +
-              captains.map((players) => players[1]).join(" - ") +
-              team1.map((players) => players[1]).join(" - ") +
-              team2.map((players) => players[1]).join(" - ")
+              inDraft.join(" - ") +
+              captains.join(" - ") +
+              team1.join(" - ") +
+              team2.join(" - ")
             }`
           );
 
@@ -1501,10 +1501,10 @@ client.on("messageCreate", async (msg) => {
           ) {
             msg.channel.send(
               `There's at least **8** players ready for a draft now.\n${
-                inDraft.map((players) => players[1]).join(" - ") +
-              captains.map((players) => players[1]).join(" - ") +
-              team1.map((players) => players[1]).join(" - ") +
-              team2.map((players) => players[1]).join(" - ")
+                inDraft.join(" - ") +
+                captains.join(" - ") +
+                team1.join(" - ") +
+                team2.join(" - ")
               }`
             );
             msg.channel.send(listArr.join(" "));
