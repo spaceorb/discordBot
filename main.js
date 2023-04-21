@@ -435,7 +435,7 @@ client.on("messageCreate", async (msg) => {
                     lineHeight: 1.2,
                     fontColor: "#666666",
                     fontFamily: "sans-serif",
-                    fontSize: 11,
+                    fontSize: 12,
                     fontStyle: "normal",
                     padding: 4,
                   },
