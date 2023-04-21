@@ -485,7 +485,7 @@ client.on("messageCreate", async (msg) => {
                 borderRadius: 0,
                 borderWidth: 1.5,
                 padding: 3,
-                color: "rgba(208, 56, 45, 1)",
+                color: "rgba(50, 50, 50, 1)",
                 font: {
                   family: "sans-serif",
                   size: 10,
