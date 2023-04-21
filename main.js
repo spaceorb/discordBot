@@ -1180,7 +1180,9 @@ client.on("messageCreate", async (msg) => {
               !alerted8People
             ) {
               msg.channel.send(
-                `There's at least **8** players ready for a draft now.\n${
+                `${inDraft.map(
+                  (x) => x[1]
+                )} There's at least **8** players ready for a draft now.\n${
                   inDraft.join(" - ") +
                   captains.join(" - ") +
                   team1.join(" - ") +
@@ -1244,7 +1246,9 @@ client.on("messageCreate", async (msg) => {
           !alerted8People
         ) {
           msg.channel.send(
-            `There's at least **8** players ready for a draft now.\n${
+            `${inDraft.map(
+              (x) => x[1]
+            )} There's at least **8** players ready for a draft now.\n${
               inDraft.join(" - ") +
               captains.join(" - ") +
               team1.join(" - ") +
@@ -1500,7 +1504,9 @@ client.on("messageCreate", async (msg) => {
             !alerted8People
           ) {
             msg.channel.send(
-              `There's at least **8** players ready for a draft now.\n${
+              `${inDraft.map(
+                (x) => x[1]
+              )} There's at least **8** players ready for a draft now.\n${
                 inDraft.join(" - ") +
                 captains.join(" - ") +
                 team1.join(" - ") +
