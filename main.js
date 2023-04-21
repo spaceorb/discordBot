@@ -338,8 +338,8 @@ client.on("messageCreate", async (msg) => {
                 barPercentage: 0.9,
                 categoryPercentage: 0.8,
                 type: "line",
-                borderColor: "rgba(100, 130, 208, 0.5)",
-                backgroundColor: "rgba(100, 130, 208, 0.5)",
+                borderColor: "rgba(208, 56, 45, 1)", // Changed the borderColor to the desired rgba color
+                backgroundColor: "rgba(100, 130, 208, 0.2)", // Reduced the alpha value for transparency
                 borderWidth: 2,
                 hidden: false,
                 yAxisID: "Y1",
@@ -400,7 +400,7 @@ client.on("messageCreate", async (msg) => {
                     drawTicks: true,
                     tickMarkLength: 10,
                     zeroLineWidth: 1,
-                    zeroLineColor: "rgba(0, 0, 0, 0.25)",
+                    zeroLineColor: "rgba(208, 56, 45, 1)",
                     zeroLineBorderDash: [0, 0],
                   },
                   angleLines: {
