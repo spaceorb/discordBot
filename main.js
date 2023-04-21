@@ -485,10 +485,10 @@ client.on("messageCreate", async (msg) => {
                 borderRadius: 0,
                 borderWidth: 1.5,
                 padding: 3,
-                color: "rgba(208, 56, 45, 1)",
+                color: "rgba(255, 255, 255, 1)",
                 font: {
                   family: "sans-serif",
-                  size: 14,
+                  size: 12,
                   style: "bold",
                 },
               },
