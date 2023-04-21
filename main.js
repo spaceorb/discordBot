@@ -480,7 +480,7 @@ client.on("messageCreate", async (msg) => {
                 align: "center",
                 anchor: "center",
                 backgroundColor: "rgba(61, 229, 246, 0.65)",
-                borderColor: "rgba(220, 20, 60, 0.81)",
+                borderColor: "rgba(220, 20, 60, 1)",
                 borderRadius: 0,
                 borderWidth: 1.5,
                 padding: 3,
