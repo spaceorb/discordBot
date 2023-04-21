@@ -303,15 +303,7 @@ client.on("messageCreate", async (msg) => {
       for (let i = 0; i < newList.length; i++) {
         newList[i].userId === name ? (indexOfPlayer = i) : null;
       }
-      // console.log("indexOfPlayer", indexOfPlayer);
 
-      // console.log("current Player", currentPlayer);
-
-      // if (
-      //   !captains.includes(name) &&
-      //   !team1.includes(name) &&
-      //   !team2.includes(name)
-      // ) {
       return `${
         indexOfPlayer === undefined
           ? bronze
@@ -961,14 +953,6 @@ client.on("messageCreate", async (msg) => {
       }
     }
 
-    console.log("inDraft", inDraft);
-    console.log("inDraft", captains);
-
-    // if (
-    //   !banList.includes(`<@${msg.author.id}>`) ||
-    //   msg.member.roles.cache.some((role) => role.name === "Scorer")
-    // ) {
-    // Drafting Logic
     await PlayerModel.find().then(async (allUsers) => {
       if (allUsers.length > 0) {
         allServerUsers = allUsers.filter((player) => {
@@ -983,18 +967,12 @@ client.on("messageCreate", async (msg) => {
         (server) => server.guildId === msg.guild.id
       );
     });
-    // console.log("allServerUsers!", allServerUsers);
-
-    // console.log("currentServer!", currentServer);
 
     if (currentServer !== undefined) {
       leaderboardChannel = currentServer[0].guildRankChannel;
       seasonWinnersChannel = currentServer[0].guildWinnersChannel;
       gameScoreChannel = currentServer[0].guildDraftResultChannel;
     }
-    // console.log("leaderboardChannel!", leaderboardChannel);
-
-    // console.log("gameScoreChannel!", gameScoreChannel);
 
     msg.content = msg.content.toLowerCase();
     let contents = msg.content.split(" ");
@@ -1202,7 +1180,12 @@ client.on("messageCreate", async (msg) => {
               !alerted8People
             ) {
               msg.channel.send(
-                `There's atleast **8** players ready for a draft now.`
+                `There's at least **8** players ready for a draft now.\n${
+                  inDraft.map((players) => players[1]).join(" - ") +
+                  captains.map((players) => players[1]).join(" - ") +
+                  team1.map((players) => players[1]).join(" - ") +
+                  team2.map((players) => players[1]).join(" - ")
+                }`
               );
 
               alerted8People = true;
@@ -1261,7 +1244,12 @@ client.on("messageCreate", async (msg) => {
           !alerted8People
         ) {
           msg.channel.send(
-            `There's atleast **8** players ready for a draft now.`
+            `There's at least **8** players ready for a draft now.\n${
+              inDraft.map((players) => players[1]).join(" - ") +
+              captains.map((players) => players[1]).join(" - ") +
+              team1.map((players) => players[1]).join(" - ") +
+              team2.map((players) => players[1]).join(" - ")
+            }`
           );
 
           alerted8People = true;
@@ -1512,7 +1500,12 @@ client.on("messageCreate", async (msg) => {
             !alerted8People
           ) {
             msg.channel.send(
-              `There's atleast **8** players ready for a draft now.`
+              `There's at least **8** players ready for a draft now.\n${
+                inDraft.map((players) => players[1]).join(" - ") +
+              captains.map((players) => players[1]).join(" - ") +
+              team1.map((players) => players[1]).join(" - ") +
+              team2.map((players) => players[1]).join(" - ")
+              }`
             );
             msg.channel.send(listArr.join(" "));
             // alerted8People = true;
@@ -2301,7 +2294,7 @@ client.on("messageCreate", async (msg) => {
 **${commandSymbol}captain**: Grants you a captain role.
 **${commandSymbol}uncaptain**: Removes your captain role.
 **${commandSymbol}pick**: Only for Captains, pick one or more players from draft.
-**${commandSymbol}swap**: Swap any 2 players in the draft, besides teammates.
+**${commandSymbol}swap**: Swap any 2 players in the draft.
 **${commandSymbol}list**: Reveals the current draft.
 **${commandSymbol}redraft/${commandSymbol}resetteam(s)**: Reset teams, and puts everyone back into draft list.
 **${commandSymbol}reset**: Start a whole new draft.
