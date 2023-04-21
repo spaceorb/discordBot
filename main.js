@@ -339,7 +339,8 @@ client.on("messageCreate", async (msg) => {
                 categoryPercentage: 0.8,
                 type: "line",
                 borderColor: "rgba(208, 56, 45, 1)", // Changed the borderColor to the desired rgba color
-                backgroundColor: "rgba(100, 130, 208, 0.2)", // Reduced the alpha value for transparency
+
+                backgroundColor: "rgba(100, 130, 208, 0.5)",
                 borderWidth: 2,
                 hidden: false,
                 yAxisID: "Y1",
@@ -479,7 +480,7 @@ client.on("messageCreate", async (msg) => {
                 display: true,
                 align: "center",
                 anchor: "center",
-                backgroundColor: "#6482d0",
+                backgroundColor: "rgba(100, 130, 208, 0.5)",
                 borderColor: "rgba(208, 56, 45, 1)",
                 borderRadius: 0,
                 borderWidth: 1.5,
