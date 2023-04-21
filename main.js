@@ -483,7 +483,7 @@ client.on("messageCreate", async (msg) => {
                 backgroundColor: "rgba(100, 130, 208, 0.7)",
                 borderColor: "rgba(208, 56, 45, 1)",
                 borderRadius: 0,
-                borderWidth: 1.5,
+                borderWidth: 0,
                 padding: 3,
                 color: "rgba(275, 275, 275, 1)",
                 font: {
