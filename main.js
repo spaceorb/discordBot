@@ -2861,12 +2861,21 @@ client.on("messageCreate", async (msg) => {
             } ${finalList[i].value}`
           );
         } else {
-          sortedList.push(
-            `\u200B${toNAryNumber(i + 1)}. ${turnMmrToTitle2(
-              i,
-              finalList.length
-            )} ${finalList[i].userId} ${finalList[i].value}`
-          );
+          if (i + 1 < 10) {
+            sortedList.push(
+              `\u2009${toNAryNumber(i + 1)}. ${turnMmrToTitle2(
+                i,
+                finalList.length
+              )} ${finalList[i].userId} ${finalList[i].value}`
+            );
+          } else {
+            sortedList.push(
+              `${toNAryNumber(i + 1)}. ${turnMmrToTitle2(
+                i,
+                finalList.length
+              )} ${finalList[i].userId} ${finalList[i].value}`
+            );
+          }
         }
       }
       let hasPlayers;
