@@ -2874,7 +2874,6 @@ client.on("messageCreate", async (msg) => {
         let chunkSize = 15; // Adjust this value based on the desired size of each chunk
         let sortedChunks = chunkArray(sortedList, chunkSize);
 
-        let embeds = [];
         let embed = new Discord.MessageEmbed()
           .setColor("#0099ff")
           .setTitle("**:crown: Leaderboard :crown:**")
@@ -2889,35 +2888,26 @@ client.on("messageCreate", async (msg) => {
                 })`;
           let chunkContent = chunk.join("\n");
 
-          if (chunkContent.length <= 1024) {
-            embed.addField(chunkTitle, chunkContent, true);
-          } else {
-            let subChunks = chunkArray(chunk, Math.ceil(chunk.length / 2));
-            subChunks.forEach((subChunk, subIndex) => {
-              let subChunkContent = subChunk.join("\n");
-              let subChunkTitle = `${chunkTitle} (Part ${subIndex + 1})`;
-              embed.addField(subChunkTitle, subChunkContent, true);
-            });
+          // For first 4 chunks, add fields to the same embed in a 2x2 layout
+          if (index < 4) {
+            embed.addField(chunkTitle, chunkContent, index % 2 === 0);
           }
-
-          if ((index + 1) % 2 === 0 && index !== 0) {
-            embeds.push(embed);
-            embed = new Discord.MessageEmbed()
+          // For the remaining chunks, create new embeds
+          else {
+            let newEmbed = new Discord.MessageEmbed()
               .setColor("#0099ff")
-              .setURL("https://discord.js.org");
+              .setURL("https://discord.js.org")
+              .addField(chunkTitle, chunkContent, true);
+
+            sendEmbed(newEmbed);
           }
         });
 
         if (sortedList.length === 0) {
           embed.setDescription("No scores have been added yet.");
-          sendEmbed(embed);
-        } else {
-          if (embed.fields.length > 0) {
-            embeds.push(embed);
-          }
-          embeds.forEach(sendEmbed);
         }
 
+        sendEmbed(embed);
         checkIfPlayerPlayed = true;
       } else if (sortedList.length > 0) {
         // let list1 = sortedList.slice(0, sortedList.length / 2);
