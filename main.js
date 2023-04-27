@@ -2813,19 +2813,20 @@ client.on("messageCreate", async (msg) => {
       for (let i = 0; i < finalList.length; i++) {
         if (i === 0) {
           sortedList.push(
-            `\u200B:first_place: ${turnMmrToTitle2(i, finalList.length)} ${
-              finalList[i].userId
-            } ${finalList[i].value}\n`
+            `${":first_place:".padStart(1, " ")} ${turnMmrToTitle2(
+              i,
+              finalList.length
+            )} ${finalList[i].userId} ${finalList[i].value}\n`
           );
         } else if (i === 1) {
           sortedList.push(
-            `\u200B:second_place: ${turnMmrToTitle2(i, finalList.length)} ${
+            `:second_place: ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}\n`
           );
         } else if (i === 2) {
           sortedList.push(
-            `\u200B:third_place: ${turnMmrToTitle2(i, finalList.length)} ${
+            `:third_place: ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}\n`
           );
@@ -2834,20 +2835,21 @@ client.on("messageCreate", async (msg) => {
         } else if ((i + 1) % 10 == 0 && finalList.length > 20) {
           if (i + 1 < 10) {
             sortedList.push(
-              `\u200B ${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
-                finalList[i].userId
-              } ${finalList[i].value}\n `
+              `${String(i + 1).padStart(1, " ")} ${turnMmrToTitle2(
+                i,
+                finalList.length
+              )} ${finalList[i].userId} ${finalList[i].value}\n `
             );
           } else {
             sortedList.push(
-              `\u200B${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
+              `${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
                 finalList[i].userId
               } ${finalList[i].value}\n`
             );
           }
         } else {
           sortedList.push(
-            `\u200B${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
+            `${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}`
           );
@@ -2857,73 +2859,26 @@ client.on("messageCreate", async (msg) => {
       finalList.length > 0 ? (hasPlayers = true) : (hasPlayers = false);
 
       if (sortedList.length > 40) {
-        function chunkArray(arr, chunkSize) {
-          let result = [];
-          for (let i = 0; i < arr.length; i += chunkSize) {
-            result.push(arr.slice(i, i + chunkSize));
-          }
-          return result;
-        }
+        let list1 = sortedList.slice(0, sortedList.length / 2);
+        let list2 = sortedList.slice(sortedList.length / 2, sortedList.length);
 
-        let chunkSize = 15;
-        let sortedChunks = chunkArray(sortedList, chunkSize);
-
-        let embed = new Discord.MessageEmbed()
+        let embed1 = new Discord.MessageEmbed()
           .setColor("#0099ff")
-          .setTitle("**:crown: Leaderboard :crown:**")
-          .setURL("https://discord.js.org");
+          .setTitle("**:crown: Leaderboard :crown:\n**")
+          .setURL("https://discord.js.org")
+          .setDescription(
+            hasPlayers ? list1.join(`\n `) : "No scores have been added yet."
+          );
 
-        sortedChunks.forEach((chunk, index) => {
-          let chunkTitle =
-            index === 0
-              ? "Top Players"
-              : index === 1
-              ? "\u200B"
-              : `More Players (${index * chunkSize + 1}-${
-                  (index + 1) * chunkSize
-                })`;
-          let chunkContent = chunk.join("\n");
+        let embed2 = new Discord.MessageEmbed()
+          .setColor("#0099ff")
+          .setDescription(
+            hasPlayers ? list2.join(`\n`) : "No scores have been added yet."
+          );
+        msg.channel.send({ embeds: [embed1] });
+        msg.channel.send({ embeds: [embed2] });
 
-          if (chunkContent.length > 1024) {
-            let subChunks = chunkArray(chunk, Math.ceil(chunk.length / 2));
-            subChunks.forEach((subChunk, subIndex) => {
-              let subChunkContent = subChunk.join("\n");
-              let subChunkTitle = `${chunkTitle} (Part ${subIndex + 1})`;
-
-              if (index < 4) {
-                embed.addField(
-                  subChunkTitle,
-                  subChunkContent,
-                  subIndex % 2 === 0
-                );
-              } else {
-                let newEmbed = new Discord.MessageEmbed()
-                  .setColor("#0099ff")
-                  .setURL("https://discord.js.org")
-                  .addField(subChunkTitle, subChunkContent, true);
-
-                msg.channel.send({ embeds: [newEmbed] });
-              }
-            });
-          } else {
-            if (index < 4) {
-              embed.addField(chunkTitle, chunkContent, index % 2 === 0);
-            } else {
-              let newEmbed = new Discord.MessageEmbed()
-                .setColor("#0099ff")
-                .setURL("https://discord.js.org")
-                .addField(chunkTitle, chunkContent, true);
-
-              msg.channel.send({ embeds: [newEmbed] });
-            }
-          }
-        });
-
-        if (sortedList.length === 0) {
-          embed.setDescription("No scores have been added yet.");
-        }
-
-        msg.channel.send({ embeds: [embed] });
+        checkIfPlayerPlayed = true;
       } else if (sortedList.length > 0) {
         // let list1 = sortedList.slice(0, sortedList.length / 2);
         // let list2 = sortedList.slice(
