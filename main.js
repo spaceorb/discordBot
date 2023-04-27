@@ -2839,14 +2839,17 @@ client.on("messageCreate", async (msg) => {
           sortedList.push(
             `${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
-            } ${finalList[i].value}\n`
+            } ${finalList[i].value}`
           );
-        } else if (
-          String(i + 1).slice(-1) == 7 ||
-          String(i + 1).slice(-1) == 9
-        ) {
+        } else if (String(i + 1).slice(-1) == 7) {
           console.log("C");
 
+          sortedList.push(
+            `\u200A\u200A${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
+              finalList[i].userId
+            } ${finalList[i].value}`
+          );
+        } else if (String(i + 1).slice(-1) == 9) {
           sortedList.push(
             `\u200A${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
