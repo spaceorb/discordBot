@@ -2842,8 +2842,12 @@ client.on("messageCreate", async (msg) => {
             } ${finalList[i].value}\n`
           );
         } else if (
-          String(i + 1).slice(-1)[0] === 7 ||
-          String(i + 1).slice(-1)[0] === 9
+          String(i + 1)
+            .split("")
+            .slice(-1)[0] === 7 ||
+          String(i + 1)
+            .split("")
+            .slice(-1)[0] === 9
         ) {
           console.log("C");
 
