@@ -2865,6 +2865,12 @@ client.on("messageCreate", async (msg) => {
           return result;
         }
 
+        function sendEmbed(embed) {
+          if (embed.fields.length > 0) {
+            msg.channel.send({ embeds: [embed] });
+          }
+        }
+
         let chunkSize = 15; // Adjust this value based on the desired size of each chunk
         let sortedChunks = chunkArray(sortedList, chunkSize);
 
@@ -2882,9 +2888,18 @@ client.on("messageCreate", async (msg) => {
                   (index + 1) * chunkSize
                 })`;
           let chunkContent = chunk.join("\n");
-          embed.addField(chunkTitle, chunkContent, true);
 
-          // After adding two fields (chunks) to the current embed, create a new embed and push the current embed to the embeds array
+          if (chunkContent.length <= 1024) {
+            embed.addField(chunkTitle, chunkContent, true);
+          } else {
+            let subChunks = chunkArray(chunk, Math.ceil(chunk.length / 2));
+            subChunks.forEach((subChunk, subIndex) => {
+              let subChunkContent = subChunk.join("\n");
+              let subChunkTitle = `${chunkTitle} (Part ${subIndex + 1})`;
+              embed.addField(subChunkTitle, subChunkContent, true);
+            });
+          }
+
           if ((index + 1) % 2 === 0 && index !== 0) {
             embeds.push(embed);
             embed = new Discord.MessageEmbed()
@@ -2895,24 +2910,13 @@ client.on("messageCreate", async (msg) => {
 
         if (sortedList.length === 0) {
           embed.setDescription("No scores have been added yet.");
-          embeds.push(embed);
-        } else if (embed.fields.length > 0) {
-          embeds.push(embed);
-        }
-
-        embeds.forEach((embed) => {
-          if (embed.fields.length > 0) {
-            msg.channel.send({ embeds: [embed] });
-          }
-        });
-
-        if (sortedList.length === 0) {
-          embed.setDescription("No scores have been added yet.");
+          sendEmbed(embed);
         } else {
-          embeds.push(embed);
+          if (embed.fields.length > 0) {
+            embeds.push(embed);
+          }
+          embeds.forEach(sendEmbed);
         }
-
-        embeds.forEach((embed) => msg.channel.send({ embeds: [embed] }));
 
         checkIfPlayerPlayed = true;
       } else if (sortedList.length > 0) {
