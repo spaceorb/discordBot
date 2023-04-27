@@ -2877,6 +2877,8 @@ client.on("messageCreate", async (msg) => {
           let chunkTitle =
             index === 0
               ? "Top Players"
+              : index === 1
+              ? "\u200B"
               : `More Players (${index * chunkSize + 1}-${
                   (index + 1) * chunkSize
                 })`;
@@ -2922,7 +2924,6 @@ client.on("messageCreate", async (msg) => {
         }
 
         msg.channel.send({ embeds: [embed] });
-        checkIfPlayerPlayed = true;
       } else if (sortedList.length > 0) {
         // let list1 = sortedList.slice(0, sortedList.length / 2);
         // let list2 = sortedList.slice(
