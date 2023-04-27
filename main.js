@@ -2836,19 +2836,19 @@ client.on("messageCreate", async (msg) => {
           sortedList.push(
             `:first_place: ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
-            } ${finalList[i].value}\n`
+            } ${finalList[i].value}`
           );
         } else if (i === 1) {
           sortedList.push(
             `:second_place: ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
-            } ${finalList[i].value}\n`
+            } ${finalList[i].value}`
           );
         } else if (i === 2) {
           sortedList.push(
             `:third_place: ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
-            } ${finalList[i].value}`
+            } ${finalList[i].value}\n`
           );
 
           // if (i === 2) sortedList.push('\n');
