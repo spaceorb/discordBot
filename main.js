@@ -2832,22 +2832,22 @@ client.on("messageCreate", async (msg) => {
 
           // if (i === 2) sortedList.push('\n');
         } else if ((i + 1) % 10 == 0 && finalList.length > 20) {
-          if (i + 1 > 9) {
+          if (i + 1 < 10) {
             sortedList.push(
-              `${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
+              ` ${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
                 finalList[i].userId
               } ${finalList[i].value}\n`
             );
           } else {
             sortedList.push(
-              ` ${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
+              `${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
                 finalList[i].userId
               } ${finalList[i].value}\n`
             );
           }
         } else {
           sortedList.push(
-            ` ${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
+            `${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}`
           );
