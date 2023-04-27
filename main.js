@@ -2857,21 +2857,38 @@ client.on("messageCreate", async (msg) => {
       finalList.length > 0 ? (hasPlayers = true) : (hasPlayers = false);
 
       if (sortedList.length > 40) {
-        let list1 = sortedList.slice(0, sortedList.length / 5);
-        let list2 = sortedList.slice(sortedList.length / 2, sortedList.length);
+        function chunkArray(arr, chunkSize) {
+          let result = [];
+          for (let i = 0; i < arr.length; i += chunkSize) {
+            result.push(arr.slice(i, i + chunkSize));
+          }
+          return result;
+        }
 
-        let embed1 = new Discord.MessageEmbed()
+        let chunkSize = 10; // Adjust this value based on the desired size of each chunk
+        let sortedChunks = chunkArray(sortedList, chunkSize);
+
+        let embed = new Discord.MessageEmbed()
           .setColor("#0099ff")
-          .setTitle("**:crown: Leaderboard :crown:\n**")
-          .setURL("https://discord.js.org")
-          .addField("\u200B", "```" + list1.join("\n") + "```");
-        let embed2 = new Discord.MessageEmbed()
-          .setColor("#0099ff")
-          .setDescription(
-            hasPlayers ? list2.join(`\n`) : "No scores have been added yet."
-          );
-        msg.channel.send({ embeds: [embed1] });
-        msg.channel.send({ embeds: [embed2] });
+          .setTitle("**:crown: Leaderboard :crown:**")
+          .setURL("https://discord.js.org");
+
+        sortedChunks.forEach((chunk, index) => {
+          let chunkTitle =
+            index === 0
+              ? "Top Players"
+              : `More Players (${index * chunkSize + 1}-${
+                  (index + 1) * chunkSize
+                })`;
+          let chunkContent = chunk.join("\n");
+          embed.addField(chunkTitle, "```" + chunkContent + "```", true);
+        });
+
+        if (sortedList.length === 0) {
+          embed.setDescription("No scores have been added yet.");
+        }
+
+        msg.channel.send({ embeds: [embed] });
 
         checkIfPlayerPlayed = true;
       } else if (sortedList.length > 0) {
