@@ -2895,6 +2895,19 @@ client.on("messageCreate", async (msg) => {
 
         if (sortedList.length === 0) {
           embed.setDescription("No scores have been added yet.");
+          embeds.push(embed);
+        } else if (embed.fields.length > 0) {
+          embeds.push(embed);
+        }
+
+        embeds.forEach((embed) => {
+          if (embed.fields.length > 0) {
+            msg.channel.send({ embeds: [embed] });
+          }
+        });
+
+        if (sortedList.length === 0) {
+          embed.setDescription("No scores have been added yet.");
         } else {
           embeds.push(embed);
         }
