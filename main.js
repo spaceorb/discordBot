@@ -2834,13 +2834,13 @@ client.on("messageCreate", async (msg) => {
         } else if ((i + 1) % 10 == 0 && finalList.length > 20) {
           if (i + 1 < 10) {
             sortedList.push(
-              `${i + 1}.\u20E3\uFE0E ${turnMmrToTitle2(i, finalList.length)} ${
+              `${i + 1}\u20E3\uFE0E. ${turnMmrToTitle2(i, finalList.length)} ${
                 finalList[i].userId
-              } ${finalList[i].value}\n `
+              } ${finalList[i].value}\n`
             );
           } else {
             sortedList.push(
-              `${i + 1}.\u20E3\uFE0E ${turnMmrToTitle2(i, finalList.length)} ${
+              `${i + 1}\u20E3\uFE0E. ${turnMmrToTitle2(i, finalList.length)} ${
                 finalList[i].userId
               } ${finalList[i].value}\n`
             );
