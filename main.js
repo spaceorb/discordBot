@@ -2809,11 +2809,23 @@ client.on("messageCreate", async (msg) => {
       newList.map((a) => (a.playedSeason ? finalList.push(a) : null));
 
       let sortedList = [];
-      function toKeycapNumber(number) {
+      const nAryDigits = {
+        0: "𝟘",
+        1: "𝟙",
+        2: "𝟚",
+        3: "𝟛",
+        4: "𝟜",
+        5: "𝟝",
+        6: "𝟞",
+        7: "𝟟",
+        8: "𝟠",
+        9: "𝟡",
+      };
+      function toNAryNumber(number) {
         return number
           .toString()
           .split("")
-          .map((digit) => digit + "\u20E3")
+          .map((digit) => nAryDigits[digit])
           .join("");
       }
       // const nbsp = "\u00A0".repeat(3);
@@ -2844,35 +2856,31 @@ client.on("messageCreate", async (msg) => {
           console.log("B", String(i + 1).slice(-1));
 
           sortedList.push(
-            `${toKeycapNumber(i + 1)}. ${turnMmrToTitle2(
-              i,
-              finalList.length
-            )} ${finalList[i].userId} ${finalList[i].value}`
+            `${toNAryNumber(i + 1)}. ${turnMmrToTitle2(i, finalList.length)} ${
+              finalList[i].userId
+            } ${finalList[i].value}`
           );
         } else if (String(i + 1).slice(-1) == 7) {
           console.log("C");
 
           sortedList.push(
-            `${toKeycapNumber(i + 1)}. ${turnMmrToTitle2(
-              i,
-              finalList.length
-            )} ${finalList[i].userId} ${finalList[i].value}`
+            `${toNAryNumber(i + 1)}. ${turnMmrToTitle2(i, finalList.length)} ${
+              finalList[i].userId
+            } ${finalList[i].value}`
           );
         } else if (String(i + 1).slice(-1) == 9) {
           sortedList.push(
-            `${toKeycapNumber(i + 1)}. ${turnMmrToTitle2(
-              i,
-              finalList.length
-            )} ${finalList[i].userId} ${finalList[i].value}`
+            `${toNAryNumber(i + 1)}. ${turnMmrToTitle2(i, finalList.length)} ${
+              finalList[i].userId
+            } ${finalList[i].value}`
           );
         } else {
           console.log("D");
 
           sortedList.push(
-            `${toKeycapNumber(i + 1)}. ${turnMmrToTitle2(
-              i,
-              finalList.length
-            )} ${finalList[i].userId} ${finalList[i].value}`
+            `${toNAryNumber(i + 1)}. ${turnMmrToTitle2(i, finalList.length)} ${
+              finalList[i].userId
+            } ${finalList[i].value}`
           );
         }
       }
