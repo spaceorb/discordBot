@@ -2809,23 +2809,23 @@ client.on("messageCreate", async (msg) => {
       newList.map((a) => (a.playedSeason ? finalList.push(a) : null));
 
       let sortedList = [];
-      const nAryDigits = {
-        0: "𝟘",
-        1: "𝟙",
-        2: "𝟚",
-        3: "𝟛",
-        4: "𝟜",
-        5: "𝟝",
-        6: "𝟞",
-        7: "𝟟",
-        8: "𝟠",
-        9: "𝟡",
+      const fullWidthDigits = {
+        0: "０",
+        1: "１",
+        2: "２",
+        3: "３",
+        4: "４",
+        5: "５",
+        6: "６",
+        7: "７",
+        8: "８",
+        9: "９",
       };
       function toNAryNumber(number) {
         return number
           .toString()
           .split("")
-          .map((digit) => nAryDigits[digit])
+          .map((digit) => fullWidthDigits[digit])
           .join("");
       }
       // const nbsp = "\u00A0".repeat(3);
