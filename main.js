@@ -2863,10 +2863,11 @@ client.on("messageCreate", async (msg) => {
         } else {
           if (i + 1 < 10) {
             sortedList.push(
-              `\u2009\u2009\u2009${toNAryNumber(i + 1)}. ${turnMmrToTitle2(
-                i,
-                finalList.length
-              )} ${finalList[i].userId} ${finalList[i].value}`
+              `\u2009\u2009\u200A\u200A${toNAryNumber(
+                i + 1
+              )}. ${turnMmrToTitle2(i, finalList.length)} ${
+                finalList[i].userId
+              } ${finalList[i].value}`
             );
           } else {
             sortedList.push(
