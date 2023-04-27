@@ -2864,9 +2864,7 @@ client.on("messageCreate", async (msg) => {
           .setColor("#0099ff")
           .setTitle("**:crown: Leaderboard :crown:\n**")
           .setURL("https://discord.js.org")
-          .setDescription(
-            hasPlayers ? list1.join(`\n `) : "No scores have been added yet."
-          );
+          .addField("\u200B", "```" + list1.join("\n") + "```");
         let embed2 = new Discord.MessageEmbed()
           .setColor("#0099ff")
           .setDescription(
