@@ -2819,9 +2819,10 @@ client.on("messageCreate", async (msg) => {
           );
         } else if (i === 1) {
           sortedList.push(
-            `:second_place: ${turnMmrToTitle2(i, finalList.length)} ${
-              finalList[i].userId
-            } ${finalList[i].value}\n`
+            `5\u20E3\uFE0E:second_place: ${turnMmrToTitle2(
+              i,
+              finalList.length
+            )} ${finalList[i].userId} ${finalList[i].value}\n`
           );
         } else if (i === 2) {
           sortedList.push(
@@ -2840,7 +2841,7 @@ client.on("messageCreate", async (msg) => {
             );
           } else {
             sortedList.push(
-              `${i + 1}\u20E3\uFE0E. ${turnMmrToTitle2(i, finalList.length)} ${
+              `${i + 1}\u20E3\uFE0E . ${turnMmrToTitle2(i, finalList.length)} ${
                 finalList[i].userId
               } ${finalList[i].value}\n`
             );
