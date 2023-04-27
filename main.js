@@ -2813,9 +2813,9 @@ client.on("messageCreate", async (msg) => {
       for (let i = 0; i < finalList.length; i++) {
         if (i === 0) {
           sortedList.push(
-            `\ :first_place: ${turnMmrToTitle2(i, finalList.length)} ${
+            `\`\`\`fix\n:first_place: ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
-            } ${finalList[i].value}\n`
+            } ${finalList[i].value}\`\`\``
           );
         } else if (i === 1) {
           sortedList.push(
@@ -2862,7 +2862,7 @@ client.on("messageCreate", async (msg) => {
         let list2 = sortedList.slice(sortedList.length / 2, sortedList.length);
 
         let embed1 = new Discord.MessageEmbed()
-          .setColor("#0099ff")
+          .setColor("#6482d0")
           .setTitle("**:crown: Leaderboard :crown:\n**")
           .setURL("https://discord.js.org")
           .setDescription(
