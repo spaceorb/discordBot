@@ -2809,7 +2809,7 @@ client.on("messageCreate", async (msg) => {
       newList.map((a) => (a.playedSeason ? finalList.push(a) : null));
 
       let sortedList = [];
-
+      const nbsp = "\u00A0".repeat(3);
       for (let i = 0; i < finalList.length; i++) {
         if (i === 0) {
           sortedList.push(
@@ -2819,10 +2819,9 @@ client.on("messageCreate", async (msg) => {
           );
         } else if (i === 1) {
           sortedList.push(
-            `5\u20E3\uFE0E:second_place: ${turnMmrToTitle2(
-              i,
-              finalList.length
-            )} ${finalList[i].userId} ${finalList[i].value}\n`
+            `:second_place: ${turnMmrToTitle2(i, finalList.length)} ${
+              finalList[i].userId
+            } ${finalList[i].value}\n`
           );
         } else if (i === 2) {
           sortedList.push(
@@ -2835,13 +2834,13 @@ client.on("messageCreate", async (msg) => {
         } else if ((i + 1) % 10 == 0 && finalList.length > 20) {
           if (i + 1 < 10) {
             sortedList.push(
-              `${i + 1}\u20E3\uFE0E. ${turnMmrToTitle2(i, finalList.length)} ${
+              `${nbsp}${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
                 finalList[i].userId
               } ${finalList[i].value}\n`
             );
           } else {
             sortedList.push(
-              `${i + 1}\u20E3\uFE0E . ${turnMmrToTitle2(i, finalList.length)} ${
+              `${nbsp}${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
                 finalList[i].userId
               } ${finalList[i].value}\n`
             );
