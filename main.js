@@ -2865,13 +2865,7 @@ client.on("messageCreate", async (msg) => {
           return result;
         }
 
-        function sendEmbed(embed) {
-          if (embed.fields.length > 0) {
-            msg.channel.send({ embeds: [embed] });
-          }
-        }
-
-        let chunkSize = 15; // Adjust this value based on the desired size of each chunk
+        let chunkSize = 15;
         let sortedChunks = chunkArray(sortedList, chunkSize);
 
         let embed = new Discord.MessageEmbed()
@@ -2888,18 +2882,38 @@ client.on("messageCreate", async (msg) => {
                 })`;
           let chunkContent = chunk.join("\n");
 
-          // For first 4 chunks, add fields to the same embed in a 2x2 layout
-          if (index < 4) {
-            embed.addField(chunkTitle, chunkContent, index % 2 === 0);
-          }
-          // For the remaining chunks, create new embeds
-          else {
-            let newEmbed = new Discord.MessageEmbed()
-              .setColor("#0099ff")
-              .setURL("https://discord.js.org")
-              .addField(chunkTitle, chunkContent, true);
+          if (chunkContent.length > 1024) {
+            let subChunks = chunkArray(chunk, Math.ceil(chunk.length / 2));
+            subChunks.forEach((subChunk, subIndex) => {
+              let subChunkContent = subChunk.join("\n");
+              let subChunkTitle = `${chunkTitle} (Part ${subIndex + 1})`;
 
-            sendEmbed(newEmbed);
+              if (index < 4) {
+                embed.addField(
+                  subChunkTitle,
+                  subChunkContent,
+                  subIndex % 2 === 0
+                );
+              } else {
+                let newEmbed = new Discord.MessageEmbed()
+                  .setColor("#0099ff")
+                  .setURL("https://discord.js.org")
+                  .addField(subChunkTitle, subChunkContent, true);
+
+                msg.channel.send({ embeds: [newEmbed] });
+              }
+            });
+          } else {
+            if (index < 4) {
+              embed.addField(chunkTitle, chunkContent, index % 2 === 0);
+            } else {
+              let newEmbed = new Discord.MessageEmbed()
+                .setColor("#0099ff")
+                .setURL("https://discord.js.org")
+                .addField(chunkTitle, chunkContent, true);
+
+              msg.channel.send({ embeds: [newEmbed] });
+            }
           }
         });
 
@@ -2907,7 +2921,7 @@ client.on("messageCreate", async (msg) => {
           embed.setDescription("No scores have been added yet.");
         }
 
-        sendEmbed(embed);
+        msg.channel.send({ embeds: [embed] });
         checkIfPlayerPlayed = true;
       } else if (sortedList.length > 0) {
         // let list1 = sortedList.slice(0, sortedList.length / 2);
