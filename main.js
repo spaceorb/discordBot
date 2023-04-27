@@ -2810,6 +2810,7 @@ client.on("messageCreate", async (msg) => {
 
       let sortedList = [];
       const nbsp = "\u00A0".repeat(3);
+      let 
       for (let i = 0; i < finalList.length; i++) {
         if (i === 0) {
           sortedList.push(
@@ -2832,21 +2833,18 @@ client.on("messageCreate", async (msg) => {
 
           // if (i === 2) sortedList.push('\n');
         } else if ((i + 1) % 10 == 0 && finalList.length > 20) {
-          if (i + 1 < 10) {
-            sortedList.push(
-              `${nbsp}${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
-                finalList[i].userId
-              } ${finalList[i].value}\n`
-            );
-          } else {
-            sortedList.push(
-              `${nbsp}${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
-                finalList[i].userId
-              } ${finalList[i].value}\n`
-            );
-          }
-        } else {
           sortedList.push(
+            `${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
+              finalList[i].userId
+            } ${finalList[i].value}\n`
+          );
+        } else if (String(i + 1).slice(-1)[0] === 7 || String(i + 1).slice(-1)[0] === 9) {
+          sortedList.push(
+            `\u00A0${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
+              finalList[i].userId
+            } ${finalList[i].value}`
+          );
+          } else {  sortedList.push(
             `${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}`
