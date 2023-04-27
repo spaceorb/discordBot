@@ -2857,7 +2857,7 @@ client.on("messageCreate", async (msg) => {
       finalList.length > 0 ? (hasPlayers = true) : (hasPlayers = false);
 
       if (sortedList.length > 40) {
-        let list1 = sortedList.slice(0, sortedList.length / 2);
+        let list1 = sortedList.slice(0, sortedList.length / 5);
         let list2 = sortedList.slice(sortedList.length / 2, sortedList.length);
 
         let embed1 = new Discord.MessageEmbed()
