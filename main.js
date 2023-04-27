@@ -2860,27 +2860,12 @@ client.on("messageCreate", async (msg) => {
               finalList[i].userId
             } ${finalList[i].value}`
           );
-        } else if (String(i + 1).slice(-1) == 7) {
-          console.log("C");
-
-          sortedList.push(
-            `${toNAryNumber(i + 1)}. ${turnMmrToTitle2(i, finalList.length)} ${
-              finalList[i].userId
-            } ${finalList[i].value}`
-          );
-        } else if (String(i + 1).slice(-1) == 9) {
-          sortedList.push(
-            `${toNAryNumber(i + 1)}. ${turnMmrToTitle2(i, finalList.length)} ${
-              finalList[i].userId
-            } ${finalList[i].value}`
-          );
         } else {
-          console.log("D");
-
           sortedList.push(
-            `${toNAryNumber(i + 1)}. ${turnMmrToTitle2(i, finalList.length)} ${
-              finalList[i].userId
-            } ${finalList[i].value}`
+            `\u200B${toNAryNumber(i + 1)}. ${turnMmrToTitle2(
+              i,
+              finalList.length
+            )} ${finalList[i].userId} ${finalList[i].value}`
           );
         }
       }
