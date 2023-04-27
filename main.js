@@ -2848,7 +2848,7 @@ client.on("messageCreate", async (msg) => {
           console.log("C");
 
           sortedList.push(
-            `\u00A0${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
+            `\u2009${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}`
           );
