@@ -2911,7 +2911,7 @@ client.on("messageCreate", async (msg) => {
         // );
 
         let embed1 = new Discord.MessageEmbed()
-          .setColor("#0099ff")
+          .setColor("#6482d0")
           .setTitle("**:crown: Leaderboard :crown:\n**")
           .setURL("https://discord.js.org")
           .setDescription(
