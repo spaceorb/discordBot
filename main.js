@@ -2836,7 +2836,7 @@ client.on("messageCreate", async (msg) => {
             sortedList.push(
               ` ${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
                 finalList[i].userId
-              } ${finalList[i].value}\n`
+              } ${finalList[i].value}\n `
             );
           } else {
             sortedList.push(
