@@ -2851,7 +2851,7 @@ client.on("messageCreate", async (msg) => {
           );
         } else if (String(i + 1).slice(-1) == 9) {
           sortedList.push(
-            `\u200A${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
+            `⁹. ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}`
           );
