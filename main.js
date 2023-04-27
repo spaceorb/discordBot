@@ -2813,30 +2813,38 @@ client.on("messageCreate", async (msg) => {
       for (let i = 0; i < finalList.length; i++) {
         if (i === 0) {
           sortedList.push(
-            ` :first_place: ${turnMmrToTitle2(i, finalList.length)} ${
+            `:first_place: ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}\n`
           );
         } else if (i === 1) {
           sortedList.push(
-            ` :second_place: ${turnMmrToTitle2(i, finalList.length)} ${
+            `:second_place: ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}\n`
           );
         } else if (i === 2) {
           sortedList.push(
-            ` :third_place: ${turnMmrToTitle2(i, finalList.length)} ${
+            `:third_place: ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}\n`
           );
 
           // if (i === 2) sortedList.push('\n');
         } else if ((i + 1) % 10 == 0 && finalList.length > 20) {
-          sortedList.push(
-            ` ${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
-              finalList[i].userId
-            } ${finalList[i].value}\n`
-          );
+          if (i + 1 > 9) {
+            sortedList.push(
+              `${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
+                finalList[i].userId
+              } ${finalList[i].value}\n`
+            );
+          } else {
+            sortedList.push(
+              ` ${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
+                finalList[i].userId
+              } ${finalList[i].value}\n`
+            );
+          }
         } else {
           sortedList.push(
             ` ${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
