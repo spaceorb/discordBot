@@ -2881,7 +2881,7 @@ client.on("messageCreate", async (msg) => {
                   (index + 1) * chunkSize
                 })`;
           let chunkContent = chunk.join("\n");
-          embed.addField(chunkTitle, "```" + chunkContent + "```", true);
+          embed.addField(chunkTitle, chunkContent, true);
         });
 
         if (sortedList.length === 0) {
