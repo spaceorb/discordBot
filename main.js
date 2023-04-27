@@ -2813,6 +2813,7 @@ client.on("messageCreate", async (msg) => {
       // let
       for (let i = 0; i < finalList.length; i++) {
         if (i === 0) {
+          console.log("A");
           sortedList.push(
             `:first_place: ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
@@ -2833,6 +2834,8 @@ client.on("messageCreate", async (msg) => {
 
           // if (i === 2) sortedList.push('\n');
         } else if ((i + 1) % 10 == 0 && finalList.length > 20) {
+          console.log("B");
+
           sortedList.push(
             `${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
@@ -2842,12 +2845,16 @@ client.on("messageCreate", async (msg) => {
           String(i + 1).slice(-1)[0] === 7 ||
           String(i + 1).slice(-1)[0] === 9
         ) {
+          console.log("C");
+
           sortedList.push(
             `\u00A0${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}`
           );
         } else {
+          console.log("D");
+
           sortedList.push(
             `${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
