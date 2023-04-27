@@ -2809,8 +2809,8 @@ client.on("messageCreate", async (msg) => {
       newList.map((a) => (a.playedSeason ? finalList.push(a) : null));
 
       let sortedList = [];
-      const nbsp = "\u00A0".repeat(3);
-      let 
+      // const nbsp = "\u00A0".repeat(3);
+      // let
       for (let i = 0; i < finalList.length; i++) {
         if (i === 0) {
           sortedList.push(
@@ -2838,13 +2838,17 @@ client.on("messageCreate", async (msg) => {
               finalList[i].userId
             } ${finalList[i].value}\n`
           );
-        } else if (String(i + 1).slice(-1)[0] === 7 || String(i + 1).slice(-1)[0] === 9) {
+        } else if (
+          String(i + 1).slice(-1)[0] === 7 ||
+          String(i + 1).slice(-1)[0] === 9
+        ) {
           sortedList.push(
             `\u00A0${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}`
           );
-          } else {  sortedList.push(
+        } else {
+          sortedList.push(
             `${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}`
