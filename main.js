@@ -2865,9 +2865,10 @@ client.on("messageCreate", async (msg) => {
           return result;
         }
 
-        let chunkSize = 10; // Adjust this value based on the desired size of each chunk
+        let chunkSize = 15; // Adjust this value based on the desired size of each chunk
         let sortedChunks = chunkArray(sortedList, chunkSize);
 
+        let embeds = [];
         let embed = new Discord.MessageEmbed()
           .setColor("#0099ff")
           .setTitle("**:crown: Leaderboard :crown:**")
@@ -2882,13 +2883,23 @@ client.on("messageCreate", async (msg) => {
                 })`;
           let chunkContent = chunk.join("\n");
           embed.addField(chunkTitle, chunkContent, true);
+
+          // After adding two fields (chunks) to the current embed, create a new embed and push the current embed to the embeds array
+          if ((index + 1) % 2 === 0 && index !== 0) {
+            embeds.push(embed);
+            embed = new Discord.MessageEmbed()
+              .setColor("#0099ff")
+              .setURL("https://discord.js.org");
+          }
         });
 
         if (sortedList.length === 0) {
           embed.setDescription("No scores have been added yet.");
+        } else {
+          embeds.push(embed);
         }
 
-        msg.channel.send({ embeds: [embed] });
+        embeds.forEach((embed) => msg.channel.send({ embeds: [embed] }));
 
         checkIfPlayerPlayed = true;
       } else if (sortedList.length > 0) {
