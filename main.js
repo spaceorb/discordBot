@@ -2813,16 +2813,15 @@ client.on("messageCreate", async (msg) => {
       for (let i = 0; i < finalList.length; i++) {
         if (i === 0) {
           sortedList.push(
-            `${U + 3000}:first_place: ${turnMmrToTitle2(i, finalList.length)} ${
+            `U+3000:first_place: ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}\n`
           );
         } else if (i === 1) {
           sortedList.push(
-            `:second_place: ${U + 3000} ${turnMmrToTitle2(
-              i,
-              finalList.length
-            )} ${finalList[i].userId} ${finalList[i].value}\n`
+            `:second_place: U+3000 ${turnMmrToTitle2(i, finalList.length)} ${
+              finalList[i].userId
+            } ${finalList[i].value}\n`
           );
         } else if (i === 2) {
           sortedList.push(
