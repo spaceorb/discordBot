@@ -2814,7 +2814,6 @@ client.on("messageCreate", async (msg) => {
       for (let i = 0; i < finalList.length; i++) {
         if (i === 0) {
           console.log("A", String(i + 1).slice(-1));
-          npm;
           sortedList.push(
             `:first_place: ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
