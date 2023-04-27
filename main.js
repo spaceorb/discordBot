@@ -2845,13 +2845,13 @@ client.on("messageCreate", async (msg) => {
           console.log("C");
 
           sortedList.push(
-            `７. ${turnMmrToTitle2(i, finalList.length)} ${
+            `𝟟. ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}`
           );
         } else if (String(i + 1).slice(-1) == 9) {
           sortedList.push(
-            `９. ${turnMmrToTitle2(i, finalList.length)} ${
+            `𝟡. ${turnMmrToTitle2(i, finalList.length)} ${
               finalList[i].userId
             } ${finalList[i].value}`
           );
