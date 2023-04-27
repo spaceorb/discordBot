@@ -2809,6 +2809,13 @@ client.on("messageCreate", async (msg) => {
       newList.map((a) => (a.playedSeason ? finalList.push(a) : null));
 
       let sortedList = [];
+      function toKeycapNumber(number) {
+        return number
+          .toString()
+          .split("")
+          .map((digit) => digit + "\u20E3")
+          .join("");
+      }
       // const nbsp = "\u00A0".repeat(3);
       // let
       for (let i = 0; i < finalList.length; i++) {
@@ -2837,31 +2844,35 @@ client.on("messageCreate", async (msg) => {
           console.log("B", String(i + 1).slice(-1));
 
           sortedList.push(
-            `${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
-              finalList[i].userId
-            } ${finalList[i].value}`
+            `${toKeycapNumber(i + 1)}. ${turnMmrToTitle2(
+              i,
+              finalList.length
+            )} ${finalList[i].userId} ${finalList[i].value}`
           );
         } else if (String(i + 1).slice(-1) == 7) {
           console.log("C");
 
           sortedList.push(
-            `𝟟. ${turnMmrToTitle2(i, finalList.length)} ${
-              finalList[i].userId
-            } ${finalList[i].value}`
+            `${toKeycapNumber(i + 1)}. ${turnMmrToTitle2(
+              i,
+              finalList.length
+            )} ${finalList[i].userId} ${finalList[i].value}`
           );
         } else if (String(i + 1).slice(-1) == 9) {
           sortedList.push(
-            `𝟡. ${turnMmrToTitle2(i, finalList.length)} ${
-              finalList[i].userId
-            } ${finalList[i].value}`
+            `${toKeycapNumber(i + 1)}. ${turnMmrToTitle2(
+              i,
+              finalList.length
+            )} ${finalList[i].userId} ${finalList[i].value}`
           );
         } else {
           console.log("D");
 
           sortedList.push(
-            `${i + 1}. ${turnMmrToTitle2(i, finalList.length)} ${
-              finalList[i].userId
-            } ${finalList[i].value}`
+            `${toKeycapNumber(i + 1)}. ${turnMmrToTitle2(
+              i,
+              finalList.length
+            )} ${finalList[i].userId} ${finalList[i].value}`
           );
         }
       }
