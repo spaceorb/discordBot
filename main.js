@@ -923,7 +923,11 @@ client.on("messageCreate", async (msg) => {
           {
             name: `Team 2: ${captainB && "👑"}`,
             value: `${captainB && captainB + "\n"}${team2.join("\n")}${
-              !captainA && team2.length == 0 && "`    Empty    `"
+              !captainB && team2.length == 0
+                ? "`    Empty    `"
+                : captainB && team2.length >= 0
+                ? ""
+                : ""
             }`,
             inline: true,
           },
