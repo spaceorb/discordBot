@@ -913,21 +913,21 @@ client.on("messageCreate", async (msg) => {
           {
             name: `Team 1: ${captainA && "👑"}`,
             value: `${captainA && captainA + "\n"}${team1.join("\n")}${
-              !captainA && team1.length == 0 && "`  Empty  `"
+              !captainA && team1.length == 0 && "`   Empty   `"
             }`,
             inline: true,
           },
           {
             name: `Team 2: ${captainB && "👑"}`,
             value: `${captainB && captainB + "\n"}${team2.join("\n")}${
-              !captainA && team2.length == 0 && "` Empty `"
+              !captainA && team2.length == 0 && "`   Empty   `"
             }`,
             inline: true,
           },
           {
             name: "Draft List:",
             value: `${inDraft.join("\n")}${
-              inDraft.length == 0 && "`  Empty  `"
+              inDraft.length == 0 && "`   Empty   `"
             }`,
           },
         ]);
@@ -3332,14 +3332,6 @@ client.on("messageCreate", async (msg) => {
     //   currentWin = 0;
     // }
 
-    if (msg.author.id === discordBotId && msg.content.includes(peopleSymbol)) {
-      if (lastMsg !== msg.id) {
-        lastMsg = msg.id;
-      } else {
-        lastMsgCopy = msg.id;
-      }
-    }
-
     if (command === `${commandSymbol}vote`) {
       if (
         !voted.some((ele) => ele.includes(msg.author.id)) &&
@@ -3429,6 +3421,14 @@ client.on("messageCreate", async (msg) => {
     } else if (command === `${commandSymbol}unban`) {
       msg.channel.send(`Only scorekeeper's may unban someone.`);
     }
+
+    // if (msg.author.id === discordBotId && msg.content.includes(peopleSymbol)) {
+    //   if (lastMsg !== msg.id) {
+    //     lastMsg = msg.id;
+    //   } else {
+    //     lastMsgCopy = msg.id;
+    //   }
+    // }
 
     if (msg.author.id == discordBotId && msg.embeds.length > 0) {
       const embed = msg.embeds[0];
