@@ -2659,7 +2659,9 @@ client.on("messageCreate", async (msg) => {
         setTimeout(() => {
           let updatedScoresEmbed = new Discord.MessageEmbed()
             .setColor("#6482d0")
-            .setTitle(`Score: ${win}-${loss} (${win > loss ? "WIN" : "LOSE"})`)
+            .setTitle(
+              `Score: \`${win}-${loss}\` \`${win > loss ? "WIN" : "LOSE"}\``
+            )
             .setDescription(`${temp.join("\n")}`)
             .setTimestamp();
 
