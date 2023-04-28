@@ -908,7 +908,7 @@ client.on("messageCreate", async (msg) => {
     function updatedList() {
       let updatedListEmbed = new Discord.MessageEmbed()
         .setColor("#6482d0")
-        .setTitle(
+        .setAuthor(
           `\`${
             [...inDraft, ...captains, ...team1, ...team2].length
           } players in queue.\``
