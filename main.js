@@ -910,8 +910,8 @@ client.on("messageCreate", async (msg) => {
         .setColor("#6482d0")
         .setFields([
           {
-            name: `Team 1: ${captainA && "👑"} . `,
-            value: `${captainA && captainA + "\n"}${team1.join("\n")}${
+            name: `Team 1: ${captainA && "👑"}`,
+            value: `${captainA && captainA + "     \n"}${team1.join("\n")}${
               !captainA && team1.length == 0
                 ? "`    Empty    `"
                 : captainA && team1.length >= 0
@@ -922,7 +922,7 @@ client.on("messageCreate", async (msg) => {
           },
           {
             name: `Team 2: ${captainB && "👑"}  `,
-            value: `${captainB && captainB + "\n"}${team2.join("\n")}${
+            value: `${captainB && captainB + "     \n"}${team2.join("\n")}${
               !captainB && team2.length == 0
                 ? "`    Empty    `"
                 : captainB && team2.length >= 0
