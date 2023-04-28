@@ -2543,21 +2543,21 @@ client.on("messageCreate", async (msg) => {
               }
             });
 
-            const temp = [];
+            let temp = [];
 
             for (let i = 0; i < allServerUsers.length; i++) {
               if (allServerUsers[i].userId == regularScore[j]) {
                 temp.push(
-                  `${prevID.join("")} **has been scored**.\n Old MMR: **${
+                  `${prevID.join("")} \`\`\`has been scored.\n Old MMR: ${
                     allServerUsers[i].lp
-                  }** (${(win - loss) * 15 > 0 ? "+" : ""}${
+                  } (${(win - loss) * 15 > 0 ? "+" : ""}${
                     (win - loss) * 15
-                  }) New MMR: **${allServerUsers[i].lp + (win - loss) * 15}**`
+                  }) New MMR: ${allServerUsers[i].lp + (win - loss) * 15}`
                 );
               }
             }
 
-            msg.channel.send(`\`\`\`${temp.join("\n")}\`\`\``);
+            msg.channel.send(`${temp.join("\n")}`);
           } else {
             msg.guild.members.fetch(newID).then((member) => {
               let discordName;
