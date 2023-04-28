@@ -2548,11 +2548,11 @@ client.on("messageCreate", async (msg) => {
             for (let i = 0; i < allServerUsers.length; i++) {
               if (allServerUsers[i].userId == regularScore[j]) {
                 temp.push(
-                  `${prevID.join("")} \`\`\`has been scored.\n Old MMR: ${
-                    allServerUsers[i].lp
-                  } (${(win - loss) * 15 > 0 ? "+" : ""}${
-                    (win - loss) * 15
-                  }) New MMR: ${allServerUsers[i].lp + (win - loss) * 15}\`\`\``
+                  `${prevID.join("")}\`\`\`Old MMR: ${allServerUsers[i].lp} (${
+                    (win - loss) * 15 > 0 ? "+" : ""
+                  }${(win - loss) * 15}) New MMR: ${
+                    allServerUsers[i].lp + (win - loss) * 15
+                  }\`\`\``
                 );
               }
             }
