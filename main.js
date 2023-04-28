@@ -942,6 +942,9 @@ client.on("messageCreate", async (msg) => {
       msg.channel.send({ embeds: [updatedListEmbed] });
     }
     function removeOldMsg(oldMsg, newMsg) {
+      console.log("newMsg", newMsg);
+      console.log("lastMsg", lastMsg);
+
       oldMsg.channel.messages
         .fetch(lastMsg[0])
         .then(async (message) => {
