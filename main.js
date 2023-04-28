@@ -2557,7 +2557,12 @@ client.on("messageCreate", async (msg) => {
               }
             }
 
-            msg.channel.send(`${temp.join("\n")}`);
+            let updatedScoresEmbed = new Discord.MessageEmbed()
+              .setColor("#6482d0")
+              .setTitle(`Updated Scores`)
+              .setDescription(`${temp.join("\n")}`);
+
+            msg.channel.send({ embeds: [updatedScoresEmbed] });
           } else {
             msg.guild.members.fetch(newID).then((member) => {
               let discordName;
