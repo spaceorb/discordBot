@@ -915,12 +915,16 @@ client.on("messageCreate", async (msg) => {
         .setColor("#6482d0")
         .setFields([
           {
-            name: `Team 1: ${captainA && "👑"}\u2003\u2003\u2003`,
+            name: `Team 1: ${
+              captainA && "👑"
+            }\u2003\u2003\u2003\u2003\u2003\u2003`,
             value: `${captainA && captainA + "\n"}${team1.join("\n")}`,
             inline: true,
           },
           {
-            name: `Team 2: ${captainB && "👑"}\u2003\u2003\u2003`,
+            name: `Team 2: ${
+              captainB && "👑"
+            }\u2003\u2003\u2003\u2003\u2003\u2003`,
             value: `${captainB && captainB + "\n"}${team2.join("\n")}`,
             inline: true,
           },
