@@ -303,11 +303,7 @@ client.on("messageCreate", async (msg) => {
         indexOfPlayer === undefined
           ? bronze
           : turnMmrToTitle2(indexOfPlayer, newList.length)
-      } ${name} ${
-        indexOfPlayer === undefined
-          ? " **1000**"
-          : " " + currentPlayer.value.split(" ")[1]
-      }`;
+      } ${name}`;
     };
     async function addDataToChart(msg, dataY, dataX, userId, clientA) {
       msg.guild.members.fetch(userId).then(async (member) => {
@@ -1204,11 +1200,11 @@ client.on("messageCreate", async (msg) => {
               msg.channel.send(
                 `\`There's at least 8 players ready for a draft now.\`\n${
                   inDraft.map((x) => x.split(" ")[1]).join(" ☆ ") +
-                  " ☆ " +
+                  `${inDraft.length > 0 && " ☆ "}` +
                   captains.map((x) => x.split(" ")[1]).join(" ☆ ") +
-                  " ☆ " +
+                  `${team1.length > 0 && " ☆ "}` +
                   team1.map((x) => x.split(" ")[1]).join(" ☆ ") +
-                  " ☆ " +
+                  `${team2.length > 0 && " ☆ "}` +
                   team2.map((x) => x.split(" ")[1]).join(" ☆ ")
                 }`
               );
