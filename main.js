@@ -113,7 +113,7 @@ client.on("guildCreate", async (guild) => {
 });
 
 let stone = "<:stick:1017804743290126376>";
-let iron = "<:stone:1017738942386278430>";
+let iron = "<:iron:1101593890441658379>";
 let bronze = "<:bronzeZ:1018085243720302653>";
 let silver = "<:silver:1018085299240316958>";
 let goldB = "<:goldB:1018085340927504454>";
@@ -245,10 +245,8 @@ client.on("messageCreate", async (msg) => {
         return silver;
       } else if ((rank / listLength) * 100 <= 70) {
         return bronze;
-      } else if ((rank / listLength) * 100 <= 85) {
+      } else {
         return iron;
-      } else if ((rank / listLength) * 100 <= 100) {
-        return stone;
       }
     }
     function turnMmrToTitle2(rank, listLength) {
@@ -262,10 +260,8 @@ client.on("messageCreate", async (msg) => {
         return silver;
       } else if ((rank / listLength) * 100 <= 70) {
         return bronze;
-      } else if ((rank / listLength) * 100 <= 85) {
+      } else {
         return iron;
-      } else if ((rank / listLength) * 100 <= 100) {
-        return stone;
       }
     }
     function getTimeAgo(time, now) {
@@ -915,16 +911,12 @@ client.on("messageCreate", async (msg) => {
         .setColor("#6482d0")
         .setFields([
           {
-            name: `Team 1: ${
-              captainA && "👑"
-            }\u2003\u2003\u2003\u2003\u2003\u2003`,
+            name: `Team 1: ${captainA && "👑"}`,
             value: `${captainA && captainA + "\n"}${team1.join("\n")}`,
             inline: true,
           },
           {
-            name: `Team 2: ${
-              captainB && "👑"
-            }\u2003\u2003\u2003\u2003\u2003\u2003`,
+            name: `Team 2: ${captainB && "👑"}`,
             value: `${captainB && captainB + "\n"}${team2.join("\n")}`,
             inline: true,
           },
