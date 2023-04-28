@@ -908,6 +908,7 @@ client.on("messageCreate", async (msg) => {
     function updatedList() {
       let updatedListEmbed = new Discord.MessageEmbed()
         .setColor("#6482d0")
+        .setTitle(`\`${[...inDraft, ...captains, ...team1, ...team2].length}\``)
         .setFields([
           {
             name: `Team 1: ${captainA && "👑"}`,
@@ -924,9 +925,7 @@ client.on("messageCreate", async (msg) => {
             inline: true,
           },
           {
-            name: `Draft List: \`${
-              [...inDraft, ...captains, ...team1, ...team2].length
-            }\``,
+            name: `Draft List:`,
             value: `${
               inDraft.length == 0 ? "`    Empty    `" : inDraft.join("\n")
             }`,
