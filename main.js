@@ -926,8 +926,8 @@ client.on("messageCreate", async (msg) => {
           },
           {
             name: "Draft List:",
-            value: `${inDraft.join("\n")}${
-              inDraft.length == 0 && "`    Empty    `"
+            value: `${
+              inDraft.length == 0 ? "`    Empty    `" : inDraft.join("\n")
             }`,
           },
         ]);
