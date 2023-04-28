@@ -941,27 +941,27 @@ client.on("messageCreate", async (msg) => {
 
       msg.channel.send({ embeds: [updatedListEmbed] });
     }
-    function removeOldMsg(oldMsg, newMsg) {
+    async function removeOldMsg(oldMsg, newMsg) {
       console.log("newMsg", newMsg);
       console.log("lastMsg", lastMsg);
 
-      oldMsg.channel.messages
-        .fetch(lastMsg[0])
-        .then(async (message) => {
-          await oldMsg.channel.send({ embeds: [newMsg] }).then((newMessage) => {
-            if (message) {
-              message.delete();
-            } else {
-              lastMsg = newMessage;
-            }
-          });
-          // if (message) {
-          //   message.delete();
-          // } else {
-          //   console.log("error");
-          // }
+      try {
+        const message = await oldMsg.channel.messages.fetch(lastMsg[0]);
+        if (message) {
+          await message.delete();
+        }
+      } catch (error) {
+        console.log("Error fetching or deleting the old message:", error);
+      }
+
+      oldMsg.channel
+        .send({ embeds: [newMsg] })
+        .then((newMessage) => {
+          lastMsg = newMessage;
         })
-        .catch((lastMsg = []));
+        .catch((error) => {
+          console.log("Error sending the new embed message:", error);
+        });
     }
     function removeSpaceChar(name) {
       return name.replace(/[^\w]/gi, "");
