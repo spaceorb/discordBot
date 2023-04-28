@@ -1774,7 +1774,7 @@ client.on("messageCreate", async (msg) => {
           for (let i = 1; i < contents.length; i++) {
             if (
               inDraft.some((element) => element.includes(contents[i])) &&
-              contents[i] !== " "
+              contents[i].length > 15
             ) {
               team1.push(checkListForMedals(contents[i]));
               inDraft.splice(
@@ -1820,7 +1820,7 @@ client.on("messageCreate", async (msg) => {
           for (let i = 1; i < contents.length; i++) {
             if (
               inDraft.some((element) => element.includes(contents[i])) &&
-              contents[i] !== " "
+              contents[i].length > 15
             ) {
               team2.push(checkListForMedals(contents[i]));
               inDraft.splice(
@@ -3420,12 +3420,6 @@ client.on("messageCreate", async (msg) => {
       }
     }
 
-    // for (let i = 0; i < msg.embeds.length; i++) {
-    //   if (msg.embeds[i].title.split(" ")[1] == "Leaderboard") {
-    //     msgIncludesCrown = true;
-    //   }
-    // }
-    // FIX RANK CH AUTO DELETE
     if (msg.author.id == discordBotId && !msg.content.includes(peopleSymbol)) {
       if (lastRankMsg !== msg.id) {
         lastRankMsg = msg.id;
@@ -3436,32 +3430,6 @@ client.on("messageCreate", async (msg) => {
       }
     }
 
-    // if (
-    //   msg.author.id === discordBotId &&
-    //   !msgIncludesCrown &&
-    //   !msg.content.includes(peopleSymbol)
-    // ) {
-    //   if (lastChMsg !== msg.id) {
-    //     lastChMsg.push(msg.id);
-    //     msg.channel.send(`${msg.id}`);
-    //   } else {
-    //     lastChMsgCopy = msg.id;
-    //     console.log(lastChMsgCopy);
-    //   }
-    // }
-
-    // if (
-    //   msg.author.id === discordBotId &&
-    //   msg.content.includes("**:crown: Leaderboard :crown:\n**")
-    // ) {
-    //   console.log("Test C");
-    //   if (lastRank2Msg !== msg.id) {
-    //     lastRank2Msg.push(msg.id);
-    //   } else {
-    //     lastRank2MsgCopy = msg.id;
-    //     console.log(lastRank2MsgCopy);
-    //   }
-    // }
     currentServerData.inDraft = inDraft;
     currentServerData.startedPicks = startedPicks;
     currentServerData.startedPicksCopy = startedPicksCopy;
