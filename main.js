@@ -925,7 +925,7 @@ client.on("messageCreate", async (msg) => {
             inline: true,
           },
           {
-            name: "",
+            name: "\u200B",
             value: `\u200B`,
           },
           {
