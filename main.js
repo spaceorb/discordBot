@@ -913,7 +913,7 @@ client.on("messageCreate", async (msg) => {
           {
             name: `Team 1: ${captainA && "👑"}`,
             value: `${captainA && captainA + "\n"}${team1.join("\n")}${
-              !captainA && team1.length == 0 && "`    Empty    `"
+              !captainA && team1.length == 0 ? "`    Empty    `" : null
             }`,
             inline: true,
           },
