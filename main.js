@@ -912,17 +912,21 @@ client.on("messageCreate", async (msg) => {
         .setFields([
           {
             name: `Team 1: ${captainA && "👑"}`,
-            value: `${captainA && captainA + "\n"}${team1.join("\n")}`,
+            value: `${captainA && captainA + "\n"}${team1.join("\n")}${
+              !captainA && !team1.length == 0 && "`Empty`"
+            }`,
             inline: true,
           },
           {
             name: `Team 2: ${captainB && "👑"}`,
-            value: `${captainB && captainB + "\n"}${team2.join("\n")}`,
+            value: `${captainB && captainB + "\n"}${team2.join("\n")}${
+              !captainA && !team1 == 0 && "`Empty`"
+            }`,
             inline: true,
           },
           {
             name: "Draft List:",
-            value: `${inDraft.join("\n")}`,
+            value: `${inDraft.join("\n")}${!inDraft.length == 0 && "`Empty`"}`,
           },
         ])
         .setTimestamp();
