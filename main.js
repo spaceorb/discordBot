@@ -1116,6 +1116,7 @@ client.on("messageCreate", async (msg) => {
         `**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
       checkCaptains();
+      msg.channel.send(`»»—— **New Draft** ——««\n\n`);
       removeOldMsg(msg, updatedList());
       resetPeople = [];
       randomizedCount = 0;
