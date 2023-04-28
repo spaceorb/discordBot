@@ -66,21 +66,22 @@ client.on("guildCreate", async (guild) => {
   // Create roles required on guild join
   await guild.roles.create({
     data: {
-      name: "Scorer",
-      color: "#DC143C",
+      name: "scorekeeper",
+      color: "#6482d0",
       permissions: "DEFAULT",
     },
   });
 
-  // Create required channels on guild join
+  const newCategory = await guild.channels.create("»»—— DraftBot ——««", {
+    type: "GUILD_CATEGORY",
+  });
   const draftResultChannel = await guild.channels.create("draft-result", {
     type: "GUILD_TEXT",
+    parent: newCategory,
   });
-  const leaderboardChannel = await guild.channels.create("leaderboard", {
+  const seasonWinnersChannel = await guild.channels.create("season-leaders", {
     type: "GUILD_TEXT",
-  });
-  const seasonWinnersChannel = await guild.channels.create("season-winners", {
-    type: "GUILD_TEXT",
+    parent: newCategory,
   });
 
   const dateString = new Date(Date.now()).toLocaleString();
@@ -95,7 +96,6 @@ client.on("guildCreate", async (guild) => {
     guildPrefix: "$",
     guildJoinedDate: String(dateString),
     guildMainChannel: targetChannel.id,
-    guildRankChannel: leaderboardChannel.id,
     guildWinnersChannel: seasonWinnersChannel.id,
     guildDraftResultChannel: draftResultChannel.id,
   };
@@ -106,7 +106,6 @@ client.on("guildCreate", async (guild) => {
     guildId: guild.id,
     channelId: targetChannel.id,
     gameScoreChannel: draftResultChannel.id,
-    leaderboardChannel: leaderboardChannel.id,
     seasonWinnersChannel: seasonWinnersChannel.id,
   };
 
@@ -970,7 +969,6 @@ client.on("messageCreate", async (msg) => {
     });
 
     if (currentServer !== undefined) {
-      leaderboardChannel = currentServer[0].guildRankChannel;
       seasonWinnersChannel = currentServer[0].guildWinnersChannel;
       gameScoreChannel = currentServer[0].guildDraftResultChannel;
     }
@@ -1183,8 +1181,11 @@ client.on("messageCreate", async (msg) => {
               msg.channel.send(
                 `There's at least **8** players ready for a draft now.\n${
                   inDraft.map((x) => x.split(" ")[1]).join(" ☆ ") +
+                  " ☆ " +
                   captains.map((x) => x.split(" ")[1]).join(" ☆ ") +
+                  " ☆ " +
                   team1.map((x) => x.split(" ")[1]).join(" ☆ ") +
+                  " ☆ " +
                   team2.map((x) => x.split(" ")[1]).join(" ☆ ")
                 }`
               );
@@ -1247,8 +1248,11 @@ client.on("messageCreate", async (msg) => {
           msg.channel.send(
             `There's at least **8** players ready for a draft now.\n${
               inDraft.map((x) => x.split(" ")[1]).join(" ☆ ") +
+              " ☆ " +
               captains.map((x) => x.split(" ")[1]).join(" ☆ ") +
+              " ☆ " +
               team1.map((x) => x.split(" ")[1]).join(" ☆ ") +
+              " ☆ " +
               team2.map((x) => x.split(" ")[1]).join(" ☆ ")
             }`
           );
@@ -1503,13 +1507,16 @@ client.on("messageCreate", async (msg) => {
             msg.channel.send(
               `There's at least **8** players ready for a draft now.\n${
                 inDraft.map((x) => x.split(" ")[1]).join(" ☆ ") +
+                " ☆ " +
                 captains.map((x) => x.split(" ")[1]).join(" ☆ ") +
+                " ☆ " +
                 team1.map((x) => x.split(" ")[1]).join(" ☆ ") +
+                " ☆ " +
                 team2.map((x) => x.split(" ")[1]).join(" ☆ ")
               }`
             );
             msg.channel.send(listArr.join(" "));
-            // alerted8People = true;
+            alerted8People = true;
           }
         }
         if (contents.length === 2) {
@@ -1738,11 +1745,7 @@ client.on("messageCreate", async (msg) => {
         stop = 1;
       }
 
-      if (
-        captains[0].includes(`<@${msg.author.id}>`) &&
-        contents.length <= 4 &&
-        stop === 0
-      ) {
+      if (captains[0].includes(`<@${msg.author.id}>`) && stop === 0) {
         if (
           contents.length === 2 &&
           !inDraft.some((element) => element.includes(contents[1]))
@@ -1769,7 +1772,10 @@ client.on("messageCreate", async (msg) => {
           }
         } else {
           for (let i = 1; i < contents.length; i++) {
-            if (inDraft.some((element) => element.includes(contents[i]))) {
+            if (
+              inDraft.some((element) => element.includes(contents[i])) &&
+              contents[i] !== " "
+            ) {
               team1.push(checkListForMedals(contents[i]));
               inDraft.splice(
                 inDraft.findIndex((element) => element.includes(contents[i])),
@@ -1812,7 +1818,10 @@ client.on("messageCreate", async (msg) => {
           }
         } else {
           for (let i = 1; i < contents.length; i++) {
-            if (inDraft.some((element) => element.includes(contents[i]))) {
+            if (
+              inDraft.some((element) => element.includes(contents[i])) &&
+              contents[i] !== " "
+            ) {
               team2.push(checkListForMedals(contents[i]));
               inDraft.splice(
                 inDraft.findIndex((element) => element.includes(contents[i])),
@@ -1830,20 +1839,20 @@ client.on("messageCreate", async (msg) => {
     if (
       command === `${commandSymbol}lock` &&
       (captains.includes(`<@${msg.author.id}>`) ||
-        msg.member.roles.cache.some((role) => role.name === "Scorer"))
+        msg.member.roles.cache.some((role) => role.name === "scorekeeper"))
     ) {
       startedPicks = true;
       peopleSymbol = ":lock:";
       msg.channel.send(
-        `**Draft is now locked** :lock: by, <@${msg.author.id}>\n**Please wait until a Scorer is ready to $redraft for other players.\nYou may type $next to auto join the next draft list.**\n`
+        `**Draft is now locked** :lock: by, <@${msg.author.id}>\n**Please wait until a scorekeeper is ready to $redraft for other players.\nYou may type $next to auto join the next draft list.**\n`
       );
     } else if (command === `${commandSymbol}lock`) {
-      msg.reply("Only captains or Scorers may $lock a draft.");
+      msg.reply("Only captains or scorekeeper's may $lock a draft.");
     }
     if (
       command === `${commandSymbol}unlock` &&
       (captains.includes(`<@${msg.author.id}>`) ||
-        msg.member.roles.cache.some((role) => role.name === "Scorer"))
+        msg.member.roles.cache.some((role) => role.name === "scorekeeper"))
     ) {
       startedPicks = false;
       peopleSymbol = ":unlock:";
@@ -1851,7 +1860,7 @@ client.on("messageCreate", async (msg) => {
         `**Draft has been unlocked** :unlock: by, <@${msg.author.id}>`
       );
     } else if (command === `${commandSymbol}unlock`) {
-      msg.reply("Only captains or Scorers may $unlock a draft.");
+      msg.reply("Only captains or scorekeeper's may $unlock a draft.");
     }
     if (
       msg.content === `${commandSymbol}redraft` ||
@@ -1860,7 +1869,7 @@ client.on("messageCreate", async (msg) => {
     ) {
       if (
         !startedPicks ||
-        msg.member.roles.cache.some((role) => role.name === "Scorer")
+        msg.member.roles.cache.some((role) => role.name === "scorekeeper")
       ) {
         if (captains.length > 0 && !inDraft.includes(captains[0])) {
           inDraft.push(captains[0]);
@@ -2082,203 +2091,203 @@ client.on("messageCreate", async (msg) => {
       removeOldMsg(msg, listArr.join(" "));
     }
 
-    if (
-      command === `${commandSymbol}dq` &&
-      contents[2][0] == "<" &&
-      msg.member.roles.cache.some((role) => role.name === "Scorer")
-    ) {
-      // msg.client.channels.cache.get(inServerDatabase).send(`${msg.content}`);
-      contents.map((dq) => (!dqScore.includes(dq) ? dqScore.push(dq) : null));
+    // if (
+    //   command === `${commandSymbol}dq` &&
+    //   contents[2][0] == "<" &&
+    //   msg.member.roles.cache.some((role) => role.name === "scorekeeper")
+    // ) {
+    //   // msg.client.channels.cache.get(inServerDatabase).send(`${msg.content}`);
+    //   contents.map((dq) => (!dqScore.includes(dq) ? dqScore.push(dq) : null));
 
-      // for (let i = 0; i < allServerUsers.length; i++) {
-      //   if (dqScore.includes(allServerUsers[0].userId)) {
+    //   // for (let i = 0; i < allServerUsers.length; i++) {
+    //   //   if (dqScore.includes(allServerUsers[0].userId)) {
 
-      //   }
-      // }
-      let splitScore = contents[1].split("-");
+    //   //   }
+    //   // }
+    //   let splitScore = contents[1].split("-");
 
-      win = parseInt(splitScore[0]);
-      loss = parseInt(splitScore[1]);
-      dqWin = win;
-      dqLoss = loss;
-      for (let j = 0; j < dqScore.length; j++) {
-        let prevID = dqScore[j].split("");
-        let newID = [];
+    //   win = parseInt(splitScore[0]);
+    //   loss = parseInt(splitScore[1]);
+    //   dqWin = win;
+    //   dqLoss = loss;
+    //   for (let j = 0; j < dqScore.length; j++) {
+    //     let prevID = dqScore[j].split("");
+    //     let newID = [];
 
-        for (let k = 0; k < prevID.length; k++) {
-          if (Number(prevID[k]) + 1) {
-            newID.push(prevID[k]);
-          }
-        }
+    //     for (let k = 0; k < prevID.length; k++) {
+    //       if (Number(prevID[k]) + 1) {
+    //         newID.push(prevID[k]);
+    //       }
+    //     }
 
-        newID = newID.join("");
-        msg.guild.members.fetch(newID).then(async (member) => {
-          let discordName;
+    //     newID = newID.join("");
+    //     msg.guild.members.fetch(newID).then(async (member) => {
+    //       let discordName;
 
-          if (member.nickname !== null) {
-            discordName = member.nickname;
-          } else if (member.nickname === null) {
-            discordName = member.user.username;
-          }
+    //       if (member.nickname !== null) {
+    //         discordName = member.nickname;
+    //       } else if (member.nickname === null) {
+    //         discordName = member.user.username;
+    //       }
 
-          discordName = discordName.toUpperCase();
-          discordName = removeSpaceChar(discordName);
+    //       discordName = discordName.toUpperCase();
+    //       discordName = removeSpaceChar(discordName);
 
-          leaverNames.push(discordName);
+    //       leaverNames.push(discordName);
 
-          const updatePerson = await PlayerModel.findOne({
-            userId: dqScore[j],
-            guildId: msg.guild.id,
-          });
-          if (!updatePerson) {
-            for (let i = 0; i < allServerUsers.length; i++) {}
-            PlayerModel.create({
-              guildId: msg.guild.id,
-              userId: dqScore[j],
-              name: discordName,
-              totalWin: 0,
-              totalLoss: 1,
-              win: win,
-              loss: loss,
-              lp: 1000 + (win - loss) * 15,
-              value: `**${1000 + (win - loss) * 15}** (0-1)`,
-              draftPlayed: [0, 1],
-              lpChange: [1000, 1000 + (win - loss) * 15],
-              bestSeason: "**None**",
-              previousSeason: "**None**",
-              bestRank: "0",
-              newPlayer: true,
-              playedSeason: true,
-              medals: [],
-              recentGames: [
-                [
-                  "**LOSS**",
-                  `${(win - loss) * 15}`,
-                  "MMR,",
-                  new Date().getTime(),
-                ],
-              ],
-            }).then(async (newPlayer) => {
-              // Wait for data to be added to the database before sending message
-              await new Promise((resolve) => setTimeout(resolve, 1000));
-              setTimeout(() => {
-                msg.channel.send(
-                  `${prevID.join("")} **has been DQ'd**.\n Old MMR: **1000** (${
-                    (win - loss) * 15 > 0 ? "+" : ""
-                  }${(win - loss) * 15}) New MMR: **${
-                    1000 + (win - loss) * 15
-                  }**`
-                );
-              }, 1000);
-            });
+    //       const updatePerson = await PlayerModel.findOne({
+    //         userId: dqScore[j],
+    //         guildId: msg.guild.id,
+    //       });
+    //       if (!updatePerson) {
+    //         for (let i = 0; i < allServerUsers.length; i++) {}
+    //         PlayerModel.create({
+    //           guildId: msg.guild.id,
+    //           userId: dqScore[j],
+    //           name: discordName
+    //           totalWin: 0,
+    //           totalLoss: 1,
+    //           win: win,
+    //           loss: loss,
+    //           lp: 1000 + (win - loss) * 15,
+    //           value: `**${1000 + (win - loss) * 15}** (0-1)`,
+    //           draftPlayed: [0, 1],
+    //           lpChange: [1000, 1000 + (win - loss) * 15],
+    //           bestSeason: "**None**",
+    //           previousSeason: "**None**",
+    //           bestRank: "0",
+    //           newPlayer: true,
+    //           playedSeason: true,
+    //           medals: [],
+    //           recentGames: [
+    //             [
+    //               "**LOSS**",
+    //               `${(win - loss) * 15}`,
+    //               "MMR,",
+    //               new Date().getTime(),
+    //             ],
+    //           ],
+    //         }).then(async (newPlayer) => {
+    //           // Wait for data to be added to the database before sending message
+    //           await new Promise((resolve) => setTimeout(resolve, 1000));
+    //           setTimeout(() => {
+    //             msg.channel.send(
+    //               `${prevID.join("")} **has been DQ'd**.\n Old MMR: **1000** (${
+    //                 (win - loss) * 15 > 0 ? "+" : ""
+    //               }${(win - loss) * 15}) New MMR: **${
+    //                 1000 + (win - loss) * 15
+    //               }**`
+    //             );
+    //           }, 1000);
+    //         });
 
-            msg.channel.send(
-              `${prevID.join("")} **has been DQ'd**.\n Old MMR: **${
-                allServerUsers[i].lp
-              }** (${(win - loss) * 15 > 0 ? "+" : ""}${
-                (win - loss) * 15
-              }) New MMR: **${allServerUsers[i].lp + (win - loss) * 15}**`
-            );
-          }
+    //         msg.channel.send(
+    //           `${prevID.join("")} **has been DQ'd**.\n Old MMR: **${
+    //             allServerUsers[i].lp
+    //           }** (${(win - loss) * 15 > 0 ? "+" : ""}${
+    //             (win - loss) * 15
+    //           }) New MMR: **${allServerUsers[i].lp + (win - loss) * 15}**`
+    //         );
+    //       }
 
-          // for (let c = 0; c < allServerUsers.length; c++) {
-          //   if (allServerUsers[c].userId == dqScore[j]) {
-          //     PlayerModel.findOneAndUpdate(
-          //       { userId: dqScore[j] },
-          //       {
-          //         $push: {
-          //           draftPlayed: allServerUsers[c].draftPlayed.length,
-          //           lpChange: 1000 + (win - loss) * 15,
-          //         },
-          //       }
-          //     );
-          //   }
-          // }
-          if (ifPlayerExists) {
-            for (p = 0; p < allServerUsers.length; p++) {
-              if (allServerUsers[p].userId == dqScore[j]) {
-                PlayerModel.findOneAndUpdate(
-                  { userId: dqScore[j], guildId: msg.guild.id },
-                  {
-                    $push: {
-                      draftPlayed: allServerUsers[p].draftPlayed.length,
-                      lpChange:
-                        allServerUsers[p].lpChange[
-                          allServerUsers[p].lpChange.length - 1
-                        ] +
-                        (win - loss) * 15,
-                    },
-                  },
-                  { new: true }
-                ).exec((err, data) => {
-                  if (err) throw err;
-                  playerExist = true;
-                });
-              }
-            }
+    //       // for (let c = 0; c < allServerUsers.length; c++) {
+    //       //   if (allServerUsers[c].userId == dqScore[j]) {
+    //       //     PlayerModel.findOneAndUpdate(
+    //       //       { userId: dqScore[j] },
+    //       //       {
+    //       //         $push: {
+    //       //           draftPlayed: allServerUsers[c].draftPlayed.length,
+    //       //           lpChange: 1000 + (win - loss) * 15,
+    //       //         },
+    //       //       }
+    //       //     );
+    //       //   }
+    //       // }
+    //       if (ifPlayerExists) {
+    //         for (p = 0; p < allServerUsers.length; p++) {
+    //           if (allServerUsers[p].userId == dqScore[j]) {
+    //             PlayerModel.findOneAndUpdate(
+    //               { userId: dqScore[j], guildId: msg.guild.id },
+    //               {
+    //                 $push: {
+    //                   draftPlayed: allServerUsers[p].draftPlayed.length,
+    //                   lpChange:
+    //                     allServerUsers[p].lpChange[
+    //                       allServerUsers[p].lpChange.length - 1
+    //                     ] +
+    //                     (win - loss) * 15,
+    //                 },
+    //               },
+    //               { new: true }
+    //             ).exec((err, data) => {
+    //               if (err) throw err;
+    //               playerExist = true;
+    //             });
+    //           }
+    //         }
 
-            PlayerModel.findOneAndUpdate(
-              { userId: dqScore[j], guildId: msg.guild.id },
-              {
-                $inc: {
-                  totalLoss: 1,
-                  lp: (win - loss) * 15,
-                  win: win,
-                  loss: loss,
-                },
-              },
-              { new: true }
-            ).exec((err, data) => {
-              if (err) throw err;
-              playerExist = true;
-            });
-          }
+    //         PlayerModel.findOneAndUpdate(
+    //           { userId: dqScore[j], guildId: msg.guild.id },
+    //           {
+    //             $inc: {
+    //               totalLoss: 1,
+    //               lp: (win - loss) * 15,
+    //               win: win,
+    //               loss: loss,
+    //             },
+    //           },
+    //           { new: true }
+    //         ).exec((err, data) => {
+    //           if (err) throw err;
+    //           playerExist = true;
+    //         });
+    //       }
 
-          PlayerModel.findOneAndUpdate(
-            { userId: dqScore[j], guildId: msg.guild.id },
-            {
-              $set: {
-                name: discordName,
-                playedSeason: true,
-              },
-            },
-            { new: true }
-          ).exec((err, data) => {
-            if (err) throw err;
-            playerExist = true;
-          });
+    //       PlayerModel.findOneAndUpdate(
+    //         { userId: dqScore[j], guildId: msg.guild.id },
+    //         {
+    //           $set: {
+    //             name: discordName,
+    //             playedSeason: true,
+    //           },
+    //         },
+    //         { new: true }
+    //       ).exec((err, data) => {
+    //         if (err) throw err;
+    //         playerExist = true;
+    //       });
 
-          for (let i = 0; i < allServerUsers.length; i++) {
-            PlayerModel.findOneAndUpdate(
-              { userId: allServerUsers[i].userId, guildId: msg.guild.id },
-              {
-                $set: {
-                  value: `**${allServerUsers[i].lp}** (${allServerUsers[i].totalWin}-${allServerUsers[i].totalLoss})`,
-                },
-              },
-              { new: true }
-            ).exec((err, data) => {
-              if (err) throw err;
-              playerExist = true;
-            });
-          }
-        });
+    //       for (let i = 0; i < allServerUsers.length; i++) {
+    //         PlayerModel.findOneAndUpdate(
+    //           { userId: allServerUsers[i].userId, guildId: msg.guild.id },
+    //           {
+    //             $set: {
+    //               value: `**${allServerUsers[i].lp}** (${allServerUsers[i].totalWin}-${allServerUsers[i].totalLoss})`,
+    //             },
+    //           },
+    //           { new: true }
+    //         ).exec((err, data) => {
+    //           if (err) throw err;
+    //           playerExist = true;
+    //         });
+    //       }
+    //     });
 
-        for (let i = 0; i < allServerUsers.length; i++) {
-          if (allServerUsers[i].userId == dqScore[j]) {
-            msg.channel.send(
-              `${prevID.join("")} **has been DQ'd**.\n Old MMR: **${
-                allServerUsers[i].lp
-              }** (${(win - loss) * 15 > 0 ? "+" : ""}${
-                (win - loss) * 15
-              }) New MMR: **${allServerUsers[i].lp + (win - loss) * 15}**`
-            );
-          }
-        }
-      }
-    } else if (command === `${commandSymbol}dq`) {
-      msg.reply(`Only someone with a "Scorer" role may dq someone.`);
-    }
+    //     for (let i = 0; i < allServerUsers.length; i++) {
+    //       if (allServerUsers[i].userId == dqScore[j]) {
+    //         msg.channel.send(
+    //           `${prevID.join("")} **has been DQ'd**.\n Old MMR: **${
+    //             allServerUsers[i].lp
+    //           }** (${(win - loss) * 15 > 0 ? "+" : ""}${
+    //             (win - loss) * 15
+    //           }) New MMR: **${allServerUsers[i].lp + (win - loss) * 15}**`
+    //         );
+    //       }
+    //     }
+    //   }
+    // } else if (command === `${commandSymbol}dq`) {
+    //   msg.reply(`Only someone with a "scorekeeper" role may dq someone.`);
+    // }
 
     if (
       command === `${commandSymbol}commands` ||
@@ -2315,21 +2324,19 @@ client.on("messageCreate", async (msg) => {
 **»» MMR Commands ««**
 **${commandSymbol}ranks**: Shows leaderboard.
 **${commandSymbol}stats**: Shows players stats.
-**${commandSymbol}sm**: Short for "Score Match". Scorers may score players using format below.
+**${commandSymbol}sm**: Short for "Score Match". scorekeeper's may score players using format below.
 **Score Match Format**: Example: $sm 9-0 @winnernames and $sm 0-9 @losernames.
-**${commandSymbol}dq**: Short for "Disqualify". Scorers may disqualify players using format below.
-**Disqualify Format**: Example: $dq 0-9 @losernames.\n
 `);
       msg.channel.send(" ");
 
       msg.channel.send(`
 **»» Special Commands ««**
-**${commandSymbol}lock**: Captains or Scorers may lock a draft when captains begin to pick players.
-**${commandSymbol}unlock**: Captains or Scorers may unlock a draft incase of an emergency.
-**${commandSymbol}ban/unban**: Scorers may ban or unban a member from interacting with the bot.
+**${commandSymbol}lock**: Captains or scorekeeper's may lock a draft when captains begin to pick players.
+**${commandSymbol}unlock**: Captains or scorekeeper's may unlock a draft incase of an emergency.
+**${commandSymbol}ban/unban**: scorekeeper's may ban or unban a member from interacting with the bot.
 **${commandSymbol}resetseason**: Server owner, you may end the season and reset leaderboard and scores.
-**${commandSymbol}sync**: Scorers, if any of the 3 required channels are deleted, recreate them and type $sync to reconnect those channels.
-**Required Channels for $sync**: "season-winners", "leaderboard", and "draft-result".
+**${commandSymbol}sync**: scorekeeper's, if any of the 3 required channels are deleted, recreate them and type $sync to reconnect those channels.
+**Required Channels for $sync**: "season-leaders" and "draft-result".
 \n**Please note I will only work in the main channel and the 3 required channels to avoid clutter.**
 **${commandSymbol}help**: Reveals bot commands.
 `);
@@ -2346,7 +2353,7 @@ client.on("messageCreate", async (msg) => {
     if (
       command === `${commandSymbol}sm` &&
       contents.length > 1 &&
-      msg.member.roles.cache.some((role) => role.name === "Scorer")
+      msg.member.roles.cache.some((role) => role.name === "scorekeeper")
     ) {
       contents.forEach((playerDiscordId) =>
         !regularScore.includes(playerDiscordId) && playerDiscordId.length > 18
@@ -2668,31 +2675,21 @@ client.on("messageCreate", async (msg) => {
             .setTimestamp();
 
           msg.channel.send({ embeds: [updatedScoresEmbed] });
+
+          msg.client.channels.cache
+            .get(gameScoreChannel)
+            .send({ embeds: [updatedScoresEmbed] });
         }, 1000);
 
         updateLeaderboard();
-        setTimeout(() => {
-          updateLeaderboard();
-
-          msg.client.channels.cache
-            .get(leaderboardChannel)
-            .send("$ranks")
-            .then((msg) => msg.delete());
-
-          msg.client.channels.cache
-            .get(leaderboardChannel)
-            .send(
-              "**Leaderboard updates here automatically after players are scored.**"
-            );
-        }, 2000);
       }
     } else if (command === `${commandSymbol}sm`) {
-      msg.reply(`Only someone with a "Scorer" role may score matches.`);
+      msg.reply(`Only someone with a "scorekeeper" role may score matches.`);
     }
 
     if (
       command === `${commandSymbol}sd` &&
-      msg.member.roles.cache.some((role) => role.name === "Scorer")
+      msg.member.roles.cache.some((role) => role.name === "scorekeeper")
     ) {
       console.log("team1ScoreCopy" + team1ScoreCopy);
       console.log("team2ScoreCopy" + team2ScoreCopy);
@@ -2943,7 +2940,7 @@ client.on("messageCreate", async (msg) => {
     if (
       command === `${commandSymbol}sync` &&
       (msg.author.id == currentServer[0].guildOwnerId ||
-        msg.member.roles.cache.some((role) => role.name === "Scorer"))
+        msg.member.roles.cache.some((role) => role.name === "scorekeeper"))
     ) {
       const checkOrCreateChannel = async (channelName) => {
         const channel = msg.guild.channels.cache.find(
@@ -2960,18 +2957,7 @@ client.on("messageCreate", async (msg) => {
               },
             }
           );
-        } else if (channelName === "leaderboard") {
-          console.log("why no update");
-          leaderboardChannel = channel.id;
-          await AllServers.findOneAndUpdate(
-            { guildId: msg.guild.id },
-            {
-              $set: {
-                guildRankChannel: channel.id,
-              },
-            }
-          );
-        } else if (channelName === "season-winners") {
+        } else if (channelName === "season-leaders") {
           seasonWinnersChannel = channel.id;
           await AllServers.findOneAndUpdate(
             { guildId: msg.guild.id },
@@ -2987,13 +2973,12 @@ client.on("messageCreate", async (msg) => {
         return channel;
       };
       checkOrCreateChannel("draft-result");
-      checkOrCreateChannel("leaderboard");
-      checkOrCreateChannel("season-winners");
+      checkOrCreateChannel("season-leaders");
 
       msg.channel.send("Channels have been synced!");
     } else if (command === `${commandSymbol}sync`) {
       msg.reply(
-        `Only Server Owner or Scorers may $sync the missing channels. Type $help for assistance.`
+        `Only Server Owner or scorekeeper's may $sync the missing channels. Type $help for assistance.`
       );
     }
 
@@ -3323,52 +3308,6 @@ client.on("messageCreate", async (msg) => {
     //   currentWin = 0;
     // }
 
-    if (msg.author.id === discordBotId && dqScore.length > 0) {
-      const dqEmbed = new Discord.MessageEmbed()
-        .setColor("#0099ff")
-        .setTitle(`DQ'd  ·  ${dqWin}-${dqLoss}`)
-        .setDescription(`Losers: **${leaverNames.join(" · ")}**`)
-        .setTimestamp();
-
-      AllServers.find().then((allServers) => {
-        currentServer = allServers.filter(
-          (server) => server.guildId === allServerUsers[0].guildId
-        );
-      });
-
-      msg.client.channels.cache
-        .get(gameScoreChannel)
-        .send({ embeds: [dqEmbed] });
-
-      leaverNames = [];
-      dqScore = [];
-    }
-    if (msg.author.id === discordBotId && regularScore.length > 0) {
-      if (regularWin > regularLoss) {
-        const scoreWinEmbed = new Discord.MessageEmbed()
-          .setColor("#0099ff")
-          .setTitle(`Scored  ·\n  ${regularWin}-${regularLoss}`)
-          .setDescription(`Winners: **${winnerNames.join(" · ")}**`)
-          .setTimestamp();
-
-        msg.client.channels.cache
-          .get(gameScoreChannel)
-          .send({ embeds: [scoreWinEmbed] });
-      } else if (regularWin < regularLoss) {
-        const scoreLossEmbed = new Discord.MessageEmbed()
-          .setColor("#0099ff")
-          .setTitle(`Scored  ·\n  ${regularWin}-${regularLoss}`)
-          .setDescription(`Losers: **${loserNames.join(" · ")}**`)
-          .setTimestamp();
-
-        msg.client.channels.cache
-          .get(gameScoreChannel)
-          .send({ embeds: [scoreLossEmbed] });
-      }
-      winnerNames = [];
-      loserNames = [];
-      regularScore = [];
-    }
     if (msg.author.id === discordBotId && msg.content.includes(peopleSymbol)) {
       if (lastMsg !== msg.id) {
         lastMsg = msg.id;
@@ -3422,7 +3361,7 @@ client.on("messageCreate", async (msg) => {
 
     if (
       command === `${commandSymbol}ban` &&
-      msg.member.roles.cache.some((role) => role.name === "Scorer")
+      msg.member.roles.cache.some((role) => role.name === "scorekeeper")
     ) {
       if (contents.length == 1) {
         msg.reply("Who shall I ban from drafts?");
@@ -3438,9 +3377,9 @@ client.on("messageCreate", async (msg) => {
         } else if (
           msg.guild.members.cache
             .get(userId)
-            .roles.cache.some((role) => role.name === "Scorer")
+            .roles.cache.some((role) => role.name === "scorekeeper")
         ) {
-          msg.reply("You can't ban Scorers.");
+          msg.reply("You can't ban scorekeeper's.");
         } else if (contents[1] == `<@${discordBotId}>`) {
           msg.reply("You can't ban me.");
         } else {
@@ -3453,18 +3392,18 @@ client.on("messageCreate", async (msg) => {
         msg.channel.send("Please @ the person whom you wish to ban.");
       }
     } else if (command === `${commandSymbol}ban`) {
-      msg.channel.send(`Only Scorers may ban someone.`);
+      msg.channel.send(`Only scorekeeper's may ban someone.`);
     }
 
     if (
       command == `${commandSymbol}unban` &&
-      msg.member.roles.cache.some((role) => role.name === "Scorer")
+      msg.member.roles.cache.some((role) => role.name === "scorekeeper")
     ) {
       banList = banList.filter((member) => member !== contents[1]);
 
       msg.channel.send(`${contents[1]} has been unbanned from drafts.`);
     } else if (command === `${commandSymbol}unban`) {
-      msg.channel.send(`Only Scorers may unban someone.`);
+      msg.channel.send(`Only scorekeeper's may unban someone.`);
     }
 
     if (
