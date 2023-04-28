@@ -2950,7 +2950,7 @@ client.on("messageCreate", async (msg) => {
               ? sortedList.join(`\n`)
               : "No scores have been added yet."
           );
-
+        console.log("LIST Z LENGTH", sortedList.length);
         msg.channel.send({ embeds: [embed1] });
 
         checkIfPlayerPlayed = true;
