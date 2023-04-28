@@ -916,17 +916,17 @@ client.on("messageCreate", async (msg) => {
         .setFields([
           {
             name: "Team 1:",
-            value: `${captainA && captainA + "👑"}${team1}`,
+            value: `${captainA && captainA + " 👑"}${team1.join("\n")}`,
             inline: true,
           },
           {
             name: "Team 2: ",
-            value: `${captainB && captainB + "👑"}${team2}`,
+            value: `${captainB && captainB + " 👑"}${team2.join("\n")}`,
             inline: true,
           },
           {
             name: "Draft List:",
-            value: `${inDraft}`,
+            value: `${inDraft.join("\n")}`,
           },
         ])
         .setTimestamp();
