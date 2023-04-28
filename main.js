@@ -1179,7 +1179,7 @@ client.on("messageCreate", async (msg) => {
               !alerted8People
             ) {
               msg.channel.send(
-                `There's at least **8** players ready for a draft now.\n${
+                `\`There's at least **8** players ready for a draft now.\`\n${
                   inDraft.map((x) => x.split(" ")[1]).join(" ☆ ") +
                   " ☆ " +
                   captains.map((x) => x.split(" ")[1]).join(" ☆ ") +
@@ -1246,7 +1246,7 @@ client.on("messageCreate", async (msg) => {
           !alerted8People
         ) {
           msg.channel.send(
-            `There's at least **8** players ready for a draft now.\n${
+            `\`There's at least **8** players ready for a draft now.\`\n${
               inDraft.map((x) => x.split(" ")[1]).join(" ☆ ") +
               " ☆ " +
               captains.map((x) => x.split(" ")[1]).join(" ☆ ") +
@@ -1505,7 +1505,8 @@ client.on("messageCreate", async (msg) => {
             !alerted8People
           ) {
             msg.channel.send(
-              `There's at least **8** players ready for a draft now.\n${
+              `\`There's at least **8** players ready for a draft now.\`\n${
+                " ☆ " +
                 inDraft.map((x) => x.split(" ")[1]).join(" ☆ ") +
                 " ☆ " +
                 captains.map((x) => x.split(" ")[1]).join(" ☆ ") +
