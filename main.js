@@ -908,11 +908,6 @@ client.on("messageCreate", async (msg) => {
     function updatedList() {
       let updatedListEmbed = new Discord.MessageEmbed()
         .setColor("#6482d0")
-        .setAuthor(
-          `${
-            [...inDraft, ...captains, ...team1, ...team2].length
-          } players in queue`
-        )
         .setFields([
           {
             name: `Team 1: ${captainA && "👑"}`,
@@ -929,7 +924,7 @@ client.on("messageCreate", async (msg) => {
             inline: true,
           },
           {
-            name: `Draft List:`,
+            name: `Draft List:\`${inDraft.length}\``,
             value: `${
               inDraft.length == 0 ? "`    Empty    `" : inDraft.join("\n")
             }`,
