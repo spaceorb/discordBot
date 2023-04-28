@@ -911,7 +911,7 @@ client.on("messageCreate", async (msg) => {
         .setAuthor(
           `\`${
             [...inDraft, ...captains, ...team1, ...team2].length
-          } players in queue.\``
+          } players in queue\``
         )
         .setFields([
           {
