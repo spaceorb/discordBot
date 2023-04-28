@@ -915,7 +915,7 @@ client.on("messageCreate", async (msg) => {
               !captainA && team1.length == 0
                 ? "`    Empty    `"
                 : captainA && team1.length >= 0
-                ? ""
+                ? "\n"
                 : ""
             }`,
             inline: true,
@@ -926,7 +926,7 @@ client.on("messageCreate", async (msg) => {
               !captainB && team2.length == 0
                 ? "`    Empty    `"
                 : captainB && team2.length >= 0
-                ? ""
+                ? "\n"
                 : ""
             }`,
             inline: true,
