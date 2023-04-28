@@ -910,7 +910,43 @@ client.on("messageCreate", async (msg) => {
 
       randomizedDraftList;
     }
+    function updatedList() {
+      let updatedListEmbed = new Discord.MessageEmbed()
+        .setColor("#6482d0")
+        .setFields([
+          {
+            name: "Captain 1:",
+            value: `${captainA}`,
+            inline: true,
+          },
+          {
+            name: "Captain 2:",
+            value: `${captainB}`,
+            inline: true,
+          },
+          {
+            name: "",
+            value: `\u200B`,
+          },
+          {
+            name: "Team 1:",
+            value: `${team1}`,
+            inline: true,
+          },
+          {
+            name: "Team 2: ",
+            value: `${team2}`,
+            inline: true,
+          },
+          {
+            name: "Draft List:",
+            value: `${inDraft}`,
+          },
+        ])
+        .setTimestamp();
 
+      msg.channel.send({ embeds: [updatedListEmbed] });
+    }
     function removeOldMsg(oldMsg, newMsg) {
       oldMsg.channel.messages
         .fetch(lastMsg[0])
@@ -1179,7 +1215,7 @@ client.on("messageCreate", async (msg) => {
               !alerted8People
             ) {
               msg.channel.send(
-                `\`There's at least **8** players ready for a draft now.\`\n${
+                `\`There's at least 8 players ready for a draft now.\`\n${
                   inDraft.map((x) => x.split(" ")[1]).join(" ☆ ") +
                   " ☆ " +
                   captains.map((x) => x.split(" ")[1]).join(" ☆ ") +
@@ -1246,7 +1282,7 @@ client.on("messageCreate", async (msg) => {
           !alerted8People
         ) {
           msg.channel.send(
-            `\`There's at least **8** players ready for a draft now.\`\n${
+            `\`There's at least 8 players ready for a draft now.\`\n${
               inDraft.map((x) => x.split(" ")[1]).join(" ☆ ") +
               " ☆ " +
               captains.map((x) => x.split(" ")[1]).join(" ☆ ") +
@@ -1505,7 +1541,7 @@ client.on("messageCreate", async (msg) => {
             !alerted8People
           ) {
             msg.channel.send(
-              `\`There's at least **8** players ready for a draft now.\`\n${
+              `\`There's at least 8 players ready for a draft now.\`\n${
                 " ☆ " +
                 inDraft.map((x) => x.split(" ")[1]).join(" ☆ ") +
                 " ☆ " +
