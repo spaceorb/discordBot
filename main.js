@@ -916,12 +916,12 @@ client.on("messageCreate", async (msg) => {
         .setFields([
           {
             name: "Team 1:",
-            value: `${captainA && captainA + " 👑\n"}${team1.join("\n")}`,
+            value: `${captainA && "👑 " + captainA + "\n"}${team1.join("\n")}`,
             inline: true,
           },
           {
             name: "Team 2: ",
-            value: `${captainB && captainB + " 👑\n"}${team2.join("\n")}`,
+            value: `${captainB && "👑 " + captainB + "\n"}${team2.join("\n")}`,
             inline: true,
           },
           {
