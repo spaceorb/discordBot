@@ -301,6 +301,9 @@ client.on("messageCreate", async (msg) => {
           : null;
       }
 
+      console.log("INDEX OF PLAYER", indexOfPlayer);
+      console.log("NEW LIST LENGTH", newList.length);
+
       return `${
         indexOfPlayer === undefined
           ? bronze
@@ -1200,15 +1203,14 @@ client.on("messageCreate", async (msg) => {
               !alerted8People
             ) {
               msg.channel.send(
-                `\`There's at least 8 players ready for a draft now.\`\n${
-                  inDraft.map((x) => x.split(" ")[1]).join(" ☆ ") +
-                  `${inDraft.length > 0 && " ☆ "}` +
-                  captains.map((x) => x.split(" ")[1]).join(" ☆ ") +
-                  `${team1.length > 0 && " ☆ "}` +
-                  team1.map((x) => x.split(" ")[1]).join(" ☆ ") +
-                  `${team2.length > 0 && " ☆ "}` +
-                  team2.map((x) => x.split(" ")[1]).join(" ☆ ")
-                }`
+                `\`There's at least 8 players ready for a draft now.\`\n${[
+                  ...inDraft,
+                  ...captains,
+                  ...team1,
+                  ...team2,
+                ]
+                  .map((x) => x.split(" ")[1])
+                  .join(" ☆ ")}`
               );
 
               alerted8People = true;
@@ -1267,15 +1269,14 @@ client.on("messageCreate", async (msg) => {
           !alerted8People
         ) {
           msg.channel.send(
-            `\`There's at least 8 players ready for a draft now.\`\n${
-              inDraft.map((x) => x.split(" ")[1]).join(" ☆ ") +
-              " ☆ " +
-              captains.map((x) => x.split(" ")[1]).join(" ☆ ") +
-              " ☆ " +
-              team1.map((x) => x.split(" ")[1]).join(" ☆ ") +
-              " ☆ " +
-              team2.map((x) => x.split(" ")[1]).join(" ☆ ")
-            }`
+            `\`There's at least 8 players ready for a draft now.\`\n${[
+              ...inDraft,
+              ...captains,
+              ...team1,
+              ...team2,
+            ]
+              .map((x) => x.split(" ")[1])
+              .join(" ☆ ")}`
           );
 
           alerted8People = true;
@@ -1526,16 +1527,14 @@ client.on("messageCreate", async (msg) => {
             !alerted8People
           ) {
             msg.channel.send(
-              `\`There's at least 8 players ready for a draft now.\`\n${
-                " ☆ " +
-                inDraft.map((x) => x.split(" ")[1]).join(" ☆ ") +
-                " ☆ " +
-                captains.map((x) => x.split(" ")[1]).join(" ☆ ") +
-                " ☆ " +
-                team1.map((x) => x.split(" ")[1]).join(" ☆ ") +
-                " ☆ " +
-                team2.map((x) => x.split(" ")[1]).join(" ☆ ")
-              }`
+              `\`There's at least 8 players ready for a draft now.\`\n${[
+                ...inDraft,
+                ...captains,
+                ...team1,
+                ...team2,
+              ]
+                .map((x) => x.split(" ")[1])
+                .join(" ☆ ")}`
             );
             msg.channel.send(listArr.join(" "));
             alerted8People = true;
