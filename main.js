@@ -913,23 +913,24 @@ client.on("messageCreate", async (msg) => {
           {
             name: `Team 1: ${captainA && "👑"}`,
             value: `${captainA && captainA + "\n"}${team1.join("\n")}${
-              !captainA && team1.length == 0 && "`Empty`"
+              !captainA && team1.length == 0 && "`  Empty  `"
             }`,
             inline: true,
           },
           {
             name: `Team 2: ${captainB && "👑"}`,
             value: `${captainB && captainB + "\n"}${team2.join("\n")}${
-              !captainA && team2.length == 0 && "`Empty`"
+              !captainA && team2.length == 0 && "` Empty `"
             }`,
             inline: true,
           },
           {
             name: "Draft List:",
-            value: `${inDraft.join("\n")}${inDraft.length == 0 && "`Empty`"}`,
+            value: `${inDraft.join("\n")}${
+              inDraft.length == 0 && "`  Empty  `"
+            }`,
           },
-        ])
-        .setTimestamp();
+        ]);
 
       msg.channel.send({ embeds: [updatedListEmbed] });
     }
