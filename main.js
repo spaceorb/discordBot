@@ -113,7 +113,7 @@ client.on("guildCreate", async (guild) => {
 });
 
 let stone = "<:stick:1017804743290126376>";
-let iron = "<:iron:1101593890441658379>";
+let iron = "<:ironZ:1101593630625509487>";
 let bronze = "<:bronzeZ:1018085243720302653>";
 let silver = "<:silver:1018085299240316958>";
 let goldB = "<:goldB:1018085340927504454>";
@@ -913,21 +913,21 @@ client.on("messageCreate", async (msg) => {
           {
             name: `Team 1: ${captainA && "👑"}`,
             value: `${captainA && captainA + "\n"}${team1.join("\n")}${
-              !captainA && team1.length == 0 && "`   Empty   `"
+              !captainA && team1.length == 0 && "`    Empty    `"
             }`,
             inline: true,
           },
           {
             name: `Team 2: ${captainB && "👑"}`,
             value: `${captainB && captainB + "\n"}${team2.join("\n")}${
-              !captainA && team2.length == 0 && "`   Empty   `"
+              !captainA && team2.length == 0 && "`    Empty    `"
             }`,
             inline: true,
           },
           {
             name: "Draft List:",
             value: `${inDraft.join("\n")}${
-              inDraft.length == 0 && "`   Empty   `"
+              inDraft.length == 0 && "`    Empty    `"
             }`,
           },
         ]);
