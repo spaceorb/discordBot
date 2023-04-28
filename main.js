@@ -2552,7 +2552,7 @@ client.on("messageCreate", async (msg) => {
                     allServerUsers[i].lp
                   } (${(win - loss) * 15 > 0 ? "+" : ""}${
                     (win - loss) * 15
-                  }) New MMR: ${allServerUsers[i].lp + (win - loss) * 15}`
+                  }) New MMR: ${allServerUsers[i].lp + (win - loss) * 15}\`\`\``
                 );
               }
             }
