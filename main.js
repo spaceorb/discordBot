@@ -939,7 +939,7 @@ client.on("messageCreate", async (msg) => {
       oldMsg.channel.messages
         .fetch(lastMsg[0])
         .then(async (message) => {
-          await oldMsg.channel.send(newMsg).then((newMessage) => {
+          await oldMsg.channel.send({ embeds: [newMsg] }).then((newMessage) => {
             if (message) {
               message.delete();
             } else {
@@ -1210,7 +1210,7 @@ client.on("messageCreate", async (msg) => {
                   ...team2,
                 ]
                   .map((x) => x.split(" ")[1])
-                  .join(" ☆ ")}`
+                  .join(" ▪ ")}`
               );
 
               alerted8People = true;
@@ -1276,7 +1276,7 @@ client.on("messageCreate", async (msg) => {
               ...team2,
             ]
               .map((x) => x.split(" ")[1])
-              .join(" ☆ ")}`
+              .join(" ▪ ")}`
           );
 
           alerted8People = true;
@@ -1534,7 +1534,7 @@ client.on("messageCreate", async (msg) => {
                 ...team2,
               ]
                 .map((x) => x.split(" ")[1])
-                .join(" ☆ ")}`
+                .join(" ▪ ")}`
             );
             msg.channel.send(listArr.join(" "));
             alerted8People = true;
