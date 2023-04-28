@@ -1051,7 +1051,7 @@ client.on("messageCreate", async (msg) => {
       if (randomizedAlready === 1) {
         removeOldMsg(msg, randomizedArr.join(" "));
       } else {
-        removeOldMsg(msg, listArr.join(" "));
+        removeOldMsg(msg, updatedList());
       }
     }
 
@@ -1130,7 +1130,7 @@ client.on("messageCreate", async (msg) => {
         `**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
 
-      removeOldMsg(msg, listArr.join(" "));
+      removeOldMsg(msg, updatedList());
       resetPeople = [];
       randomizedCount = 0;
       namesWithSpaces = [];
@@ -1169,7 +1169,7 @@ client.on("messageCreate", async (msg) => {
         console.log("B. team1: " + team1 + "team2: " + team2);
 
         updatePlayerCount();
-        removeOldMsg(msg, listArr.join(" "));
+        removeOldMsg(msg, updatedList());
 
         startedPicksCopy = false;
         playerAndTimeCopy = [];
@@ -1234,7 +1234,7 @@ client.on("messageCreate", async (msg) => {
             //   updatePlayerCount();
             //   removeOldMsg(msg, randomizedArr.join(" "));
             // } else {
-            removeOldMsg(msg, listArr.join(" "));
+            removeOldMsg(msg, updatedList());
           } else {
             msg.reply("**Draft is locked** :lock:");
           }
@@ -1327,7 +1327,7 @@ client.on("messageCreate", async (msg) => {
             }
           }
         }
-        removeOldMsg(msg, listArr.join(" "));
+        removeOldMsg(msg, updatedList());
       }
     }
 
@@ -1450,7 +1450,7 @@ client.on("messageCreate", async (msg) => {
                 inDraft.splice(0, 1);
               }
               updatePlayerCount();
-              removeOldMsg(msg, listArr.join(" "));
+              removeOldMsg(msg, updatedList());
               randomizedCopy = listArr.join(" ");
               randomizedAlready = 1;
             }
@@ -1494,7 +1494,7 @@ client.on("messageCreate", async (msg) => {
             updateTime();
             checkCaptains();
             updatePlayerCount();
-            removeOldMsg(msg, listArr.join(" "));
+            removeOldMsg(msg, updatedList());
             randomizedAlready = 0;
             randomizedCount = 0;
           } else if (captains.length < 2) {
@@ -1524,7 +1524,7 @@ client.on("messageCreate", async (msg) => {
                 updateTime();
                 checkCaptains();
                 updatePlayerCount();
-                removeOldMsg(msg, listArr.join(" "));
+                removeOldMsg(msg, updatedList());
                 randomizedAlready = 0;
                 randomizedCount = 0;
               } else {
@@ -1597,7 +1597,7 @@ client.on("messageCreate", async (msg) => {
               }
               checkCaptains();
               updatePlayerCount();
-              removeOldMsg(msg, listArr.join(" "));
+              removeOldMsg(msg, updatedList());
               randomizedAlready = 0;
               randomizedCount = 0;
             } else if (captains.length < 2) {
@@ -1606,7 +1606,7 @@ client.on("messageCreate", async (msg) => {
                 captains.push(checkListForMedals(`<@${msg.author.id}>`));
                 checkCaptains();
                 updatePlayerCount();
-                removeOldMsg(msg, listArr.join(" "));
+                removeOldMsg(msg, updatedList());
                 randomizedAlready = 0;
                 randomizedCount = 0;
               } else {
@@ -1654,7 +1654,7 @@ client.on("messageCreate", async (msg) => {
           checkCaptains();
 
           updatePlayerCount();
-          removeOldMsg(msg, listArr.join(" "));
+          removeOldMsg(msg, updatedList());
         } else {
           msg.reply("You were never captain.");
         }
@@ -1695,7 +1695,7 @@ client.on("messageCreate", async (msg) => {
                 1
               );
             } else {
-              removeOldMsg(msg, listArr.join(" "));
+              removeOldMsg(msg, updatedList());
             }
             if (
               inDraft.length + captains.length + team1.length + team2.length <
@@ -1738,7 +1738,7 @@ client.on("messageCreate", async (msg) => {
           if (randomizedAlready === 1) {
             removeOldMsg(msg, randomizedArr.join(" "));
           } else {
-            removeOldMsg(msg, listArr.join(" "));
+            removeOldMsg(msg, updatedList());
           }
 
           if (
@@ -1822,7 +1822,7 @@ client.on("messageCreate", async (msg) => {
           }
 
           updatePlayerCount();
-          removeOldMsg(msg, listArr.join(" "));
+          removeOldMsg(msg, updatedList());
         }
       } else if (
         captains[1].includes(`<@${msg.author.id}>`) &&
@@ -1868,7 +1868,7 @@ client.on("messageCreate", async (msg) => {
           }
 
           updatePlayerCount();
-          removeOldMsg(msg, listArr.join(" "));
+          removeOldMsg(msg, updatedList());
         }
       }
     }
@@ -1945,7 +1945,7 @@ client.on("messageCreate", async (msg) => {
         team2re = [];
         randomizedCount = 0;
         updatePlayerCount();
-        removeOldMsg(msg, listArr.join(" "));
+        removeOldMsg(msg, updatedList());
         randomizedDraftList = [];
         randomizedAlready = 0;
       } else if (startedPicks) {
@@ -1968,7 +1968,7 @@ client.on("messageCreate", async (msg) => {
           swapNames(contents[1], contents[2]);
           updatePlayerCount();
 
-          removeOldMsg(msg, listArr.join(" "));
+          removeOldMsg(msg, updatedList());
         } else {
           msg.channel.send("Both players must be in the draft.");
         }
@@ -2027,7 +2027,7 @@ client.on("messageCreate", async (msg) => {
               draftPool.splice(draftPool.indexOf(captain1), 1);
               draftPool.splice(draftPool.indexOf(captain2), 1);
               updatePlayerCount();
-              removeOldMsg(msg, listArr.join(" "));
+              removeOldMsg(msg, updatedList());
             } else {
               if (captains.length === 2) {
                 let captain1 = captains[0];
@@ -2059,7 +2059,7 @@ client.on("messageCreate", async (msg) => {
               inDraft.splice(inDraft.indexOf(captain1), 1);
               inDraft.splice(inDraft.indexOf(captain2), 1);
               updatePlayerCount();
-              removeOldMsg(msg, listArr.join(" "));
+              removeOldMsg(msg, updatedList());
             }
           } else {
             msg.channel.send("Teams are already being chosen by captains.");
@@ -2101,7 +2101,7 @@ client.on("messageCreate", async (msg) => {
         }
       }
       updatePlayerCount();
-      removeOldMsg(msg, listArr.join(" "));
+      removeOldMsg(msg, updatedList());
     }
 
     if (command === `${commandSymbol}team2` && contents.length > 1) {
@@ -2125,7 +2125,7 @@ client.on("messageCreate", async (msg) => {
         }
       }
       updatePlayerCount();
-      removeOldMsg(msg, listArr.join(" "));
+      removeOldMsg(msg, updatedList());
     }
 
     // if (
@@ -3443,17 +3443,20 @@ client.on("messageCreate", async (msg) => {
       msg.channel.send(`Only scorekeeper's may unban someone.`);
     }
 
-    if (
-      msg.author.id == discordBotId &&
-      msg.content.includes(peopleSymbol) &&
-      msg.content.includes("**team2:**")
-    ) {
-      if (!lastMsg.includes(msg.id)) {
-        lastMsg.push(msg.id);
-        msg.channel.send(`${msg.id}`);
-      } else {
-        lastMsgCopy = msg.id;
-        console.log(lastMsgCopy);
+    if (msg.author.id == discordBotId && msg.embeds.length > 0) {
+      const embed = msg.embeds[0];
+      const team2Field = embed.fields.find((field) =>
+        field.name.includes("Team 2")
+      ); // Find the field with "Team 2"
+
+      if (team2Field) {
+        if (!lastMsg.includes(msg.id)) {
+          lastMsg.push(msg.id);
+          msg.channel.send(`${msg.id}`);
+        } else {
+          lastMsgCopy = msg.id;
+          console.log(lastMsgCopy);
+        }
       }
     }
 
