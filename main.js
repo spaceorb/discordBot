@@ -291,7 +291,7 @@ client.on("messageCreate", async (msg) => {
         (user) => user.userId === name && user.guildId === msg.guild.id
       );
       let newList = allServerUsers.sort((a, b) => b.lp - a.lp);
-      newList.filter((a) => a.playedSeason);
+      newList = newList.filter((a) => a.playedSeason);
       let indexOfPlayer;
       console.log("newList", newList);
 
