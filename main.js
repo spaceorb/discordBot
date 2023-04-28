@@ -1116,7 +1116,7 @@ client.on("messageCreate", async (msg) => {
         }`,
         `**Draft List**:\n ${inDraft.join(`${"\n"} ${dashSymbol}`)}`,
       ];
-
+      checkCaptains();
       removeOldMsg(msg, updatedList());
       resetPeople = [];
       randomizedCount = 0;
@@ -3437,6 +3437,7 @@ client.on("messageCreate", async (msg) => {
       ); // Find the field with "Team 2"
 
       if (team2Field) {
+        msg.channel.send("Hello team 2 field found");
         if (!lastMsg.includes(msg.id)) {
           lastMsg.push(msg.id);
           msg.channel.send(`${msg.id}`);
