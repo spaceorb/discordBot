@@ -13,8 +13,6 @@ const chart = new QuickChart();
 const guildData = {};
 const botData = {};
 const discordBotId = "881341335355920415";
-const locked = ":lock:";
-const unlocked = ":unlock:";
 
 client.on("ready", async () => {
   await mongoose
@@ -910,6 +908,11 @@ client.on("messageCreate", async (msg) => {
     function updatedList() {
       let updatedListEmbed = new Discord.MessageEmbed()
         .setColor("#6482d0")
+        .setTitle(
+          `${peopleSymbol}${
+            [...inDraft, ...captains, ...team1, ...team2].length
+          }`
+        )
         .setFields([
           {
             name: `Team 1: ${captainA && "👑"}`,
