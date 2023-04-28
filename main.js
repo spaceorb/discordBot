@@ -2362,6 +2362,8 @@ client.on("messageCreate", async (msg) => {
       regularLoss = loss;
 
       if (regularScore.length > 0 && win < 1000 && loss < 1000) {
+        let temp = [];
+
         for (let j = 0; j < regularScore.length; j++) {
           let prevID = regularScore[j].split("");
           let newID = [];
@@ -2543,12 +2545,10 @@ client.on("messageCreate", async (msg) => {
               }
             });
 
-            let temp = [];
-
             for (let i = 0; i < allServerUsers.length; i++) {
               if (allServerUsers[i].userId == regularScore[j]) {
                 temp.push(
-                  `${prevID.join("")}\`Old MMR: ${allServerUsers[i].lp} (${
+                  `${prevID.join("")} \`Old MMR: ${allServerUsers[i].lp} (${
                     (win - loss) * 15 > 0 ? "+" : ""
                   }${(win - loss) * 15}) New MMR: ${
                     allServerUsers[i].lp + (win - loss) * 15
@@ -2608,16 +2608,14 @@ client.on("messageCreate", async (msg) => {
                   // Wait for data to be added to the database before sending message
                   await new Promise((resolve) => setTimeout(resolve, 1000));
                   setTimeout(() => {
-                    msg.channel.send(
-                      `${prevID.join(
-                        ""
-                      )} **has been scored**.\n Old MMR: **1000** (${
+                    temp.push(
+                      `${prevID.join("")} \`Old MMR: 1000 (${
                         (win - loss) * 15 > 0 ? "+" : ""
-                      }${(win - loss) * 15}) New MMR: **${
+                      }${(win - loss) * 15}) New MMR: ${
                         1000 + (win - loss) * 15
-                      }**`
+                      }\``
                     );
-                  }, 1000);
+                  }, 500);
                 });
               } else if (regularWin < regularLoss) {
                 loserNames.push(discordName);
@@ -2651,21 +2649,26 @@ client.on("messageCreate", async (msg) => {
                   // Wait for data to be added to the database before sending message
                   await new Promise((resolve) => setTimeout(resolve, 1000));
                   setTimeout(() => {
-                    msg.channel.send(
-                      `${prevID.join(
-                        ""
-                      )} **has been scored**.\n Old MMR: **1000** (${
+                    temp.push(
+                      `${prevID.join("")} \`Old MMR: 1000 (${
                         (win - loss) * 15 > 0 ? "+" : ""
-                      }${(win - loss) * 15}) New MMR: **${
+                      }${(win - loss) * 15}) New MMR: ${
                         1000 + (win - loss) * 15
-                      }**`
+                      }\``
                     );
-                  }, 1000);
+                  }, 500);
                 });
               }
             });
           }
         }
+
+        let updatedScoresEmbed = new Discord.MessageEmbed()
+          .setColor("#6482d0")
+          .setTitle(`Updated Scores`)
+          .setDescription(`${temp.join("\n")}`);
+
+        msg.channel.send({ embeds: [updatedScoresEmbed] });
         updateLeaderboard();
         setTimeout(() => {
           updateLeaderboard();
