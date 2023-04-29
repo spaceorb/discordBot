@@ -578,6 +578,7 @@ client.on("messageCreate", async (msg) => {
                                 game[game.length - 1],
                                 new Date().getTime()
                               ) +
+                              "`" +
                               "\n"
                           )
                           .reverse()
@@ -638,7 +639,7 @@ client.on("messageCreate", async (msg) => {
                   },
                   {
                     name: "Recent Games:",
-                    value: "None",
+                    value: "`None`",
                     inline: true,
                   }
                 )
@@ -2445,7 +2446,7 @@ client.on("messageCreate", async (msg) => {
                             (regularWin - regularLoss) * 15,
                           recentGames: [
                             "**WIN**",
-                            `+${(regularWin - regularLoss) * 15}`,
+                            `\`+${(regularWin - regularLoss) * 15}`,
                             "MMR,",
                             new Date().getTime(),
                           ],
@@ -2497,7 +2498,7 @@ client.on("messageCreate", async (msg) => {
                             (regularWin - regularLoss) * 15,
                           recentGames: [
                             "**LOSS**",
-                            `${(regularWin - regularLoss) * 15}`,
+                            `\`${(regularWin - regularLoss) * 15}`,
                             "MMR,",
                             new Date().getTime(),
                           ],
@@ -2630,7 +2631,7 @@ client.on("messageCreate", async (msg) => {
                   recentGames: [
                     [
                       "**WIN**",
-                      `+${(regularWin - regularLoss) * 15}`,
+                      `\`+${(regularWin - regularLoss) * 15}`,
                       "MMR,",
                       new Date().getTime(),
                     ],
@@ -2671,7 +2672,7 @@ client.on("messageCreate", async (msg) => {
                   recentGames: [
                     [
                       "**LOSS**",
-                      `${(regularWin - regularLoss) * 15}`,
+                      `\`${(regularWin - regularLoss) * 15}`,
                       "MMR,",
                       new Date().getTime(),
                     ],
