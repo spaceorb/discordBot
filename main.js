@@ -2850,23 +2850,24 @@ client.on("messageCreate", async (msg) => {
       newList.map((a) => (a.playedSeason ? finalList.push(a) : null));
 
       let sortedList = [];
-      const fullWidthDigits = [
-        "０",
-        "１",
-        "２",
-        "３",
-        "４",
-        "５",
-        "６",
-        "７",
-        "８",
-        "９",
+      const monospaceDigits = [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
       ];
+
       function toNAryNumber(number) {
         return number
           .toString()
           .split("")
-          .map((digit) => fullWidthDigits[digit])
+          .map((digit) => monospaceDigits[digit])
           .join("");
       }
       // const nbsp = "\u00A0".repeat(3);
