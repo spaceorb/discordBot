@@ -945,23 +945,23 @@ client.on("messageCreate", async (msg) => {
       console.log("newMsg", newMsg);
       console.log("lastMsg", lastMsg);
 
-      try {
-        const message = await oldMsg.channel.messages.fetch(lastMsg[0]);
-        if (message) {
-          await message.delete();
-        }
-      } catch (error) {
-        console.log("Error fetching or deleting the old message:", error);
-      }
-
-      oldMsg.channel
-        .send({ embeds: [newMsg] })
-        .then((newMessage) => {
-          lastMsg = newMessage;
+      oldMsg.channel.messages
+        .fetch(lastMsg[0])
+        .then(async (message) => {
+          await oldMsg.channel.send({ embeds: [newMsg] }).then((newMessage) => {
+            if (message) {
+              message.delete();
+            } else {
+              lastMsg = newMessage;
+            }
+          });
+          // if (message) {
+          //   message.delete();
+          // } else {
+          //   console.log("error");
+          // }
         })
-        .catch((error) => {
-          console.log("Error sending the new embed message:", error);
-        });
+        .catch((lastMsg = []));
     }
     function removeSpaceChar(name) {
       return name.replace(/[^\w]/gi, "");
@@ -3442,16 +3442,12 @@ client.on("messageCreate", async (msg) => {
       const team2Field = embed.fields.find((field) =>
         field.name.includes("Team 2")
       ); // Find the field with "Team 2"
-
-      if (team2Field) {
-        msg.channel.send("Hello team 2 field found");
-        if (!lastMsg.includes(msg.id)) {
-          lastMsg.push(msg.id);
-          msg.channel.send(`${msg.id}`);
-        } else {
-          lastMsgCopy = msg.id;
-          console.log(lastMsgCopy);
-        }
+      if (!lastMsg.includes(msg.id)) {
+        lastMsg.push(msg.id);
+        // msg.channel.send(`${msg.id}`);
+      } else {
+        lastMsgCopy = msg.id;
+        console.log(lastMsgCopy);
       }
     }
 
