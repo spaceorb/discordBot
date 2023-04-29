@@ -572,7 +572,8 @@ client.on("messageCreate", async (msg) => {
                         value: `${allServerUsers[p].recentGames
                           .map(
                             (game) =>
-                              game.slice(0, game.length - 1).join(" ") +
+                              game.slice(0, 1) +
+                              game.slice(1, game.length - 1).join(" ") +
                               " " +
                               getTimeAgo(
                                 game[game.length - 1],
