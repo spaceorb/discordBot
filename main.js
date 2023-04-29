@@ -2866,7 +2866,7 @@ client.on("messageCreate", async (msg) => {
         return number
           .toString()
           .split("")
-          .map((digit) => monospaceDigits[digit])
+          .map((digit) => fullWidthDigits[digit])
           .join("");
       }
       // const nbsp = "\u00A0".repeat(3);
