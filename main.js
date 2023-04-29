@@ -578,7 +578,7 @@ client.on("messageCreate", async (msg) => {
                                 game[game.length - 1],
                                 new Date().getTime()
                               ) +
-                              "`" +
+                              `\`` +
                               "\n"
                           )
                           .reverse()
