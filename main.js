@@ -2851,26 +2851,12 @@ client.on("messageCreate", async (msg) => {
 
       let sortedList = [];
       function toMonospaceDigits(number) {
-        const monospaceDigits = [
-          "0",
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "6",
-          "7",
-          "8",
-          "9",
-        ];
-        const offset = "\u2007".repeat(2); // This is the 'figure space' Unicode character, used for padding
+        const offset = "\u2007"; // This is the 'figure space' Unicode character, used for padding
 
         return number
           .toString()
           .split("")
-          .map((digit) =>
-            monospaceDigits.includes(digit) ? offset + digit + offset : digit
-          )
+          .map((digit) => offset + digit + offset)
           .join("");
       }
 
@@ -2878,7 +2864,7 @@ client.on("messageCreate", async (msg) => {
         return number
           .toString()
           .split("")
-          .map((digit) => toMonospaceDigits[digit])
+          .map((digit) => toMonospaceDigits(digit))
           .join("");
       }
       // const nbsp = "\u00A0".repeat(3);
