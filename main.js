@@ -2850,21 +2850,23 @@ client.on("messageCreate", async (msg) => {
       newList.map((a) => (a.playedSeason ? finalList.push(a) : null));
 
       let sortedList = [];
-      function toMonospaceDigits(number) {
-        const offset = "\u2007"; // This is the 'figure space' Unicode character, used for padding
-
-        return number
-          .toString()
-          .split("")
-          .map((digit) => offset + digit + offset)
-          .join("");
-      }
-
+      const monospaceDigits = {
+        0: "𝟶",
+        1: "𝟷",
+        2: "𝟸",
+        3: "𝟹",
+        4: "𝟺",
+        5: "𝟻",
+        6: "𝟼",
+        7: "𝟽",
+        8: "𝟾",
+        9: "𝟿",
+      };
       function toNAryNumber(number) {
         return number
           .toString()
           .split("")
-          .map((digit) => toMonospaceDigits(digit))
+          .map((digit) => monospaceDigits[digit])
           .join("");
       }
       // const nbsp = "\u00A0".repeat(3);
