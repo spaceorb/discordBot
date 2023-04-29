@@ -3444,6 +3444,7 @@ client.on("messageCreate", async (msg) => {
       ); // Find the field with "Team 2"
       if (!lastMsg.includes(msg.id)) {
         lastMsg.push(msg.id);
+        console.log("lastMsg b", msg.id);
         // msg.channel.send(`${msg.id}`);
       } else {
         lastMsgCopy = msg.id;
