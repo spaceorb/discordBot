@@ -948,7 +948,7 @@ client.on("messageCreate", async (msg) => {
       oldMsg.channel.messages
         .fetch(lastMsg[0])
         .then(async (message) => {
-          await oldMsg.channel.send({ embeds: [newMsg] }).then((newMessage) => {
+          await oldMsg.channel.edit({ embeds: [newMsg] }).then((newMessage) => {
             if (message) {
               message.delete();
             } else {
