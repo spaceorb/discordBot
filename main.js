@@ -3445,6 +3445,8 @@ client.on("messageCreate", async (msg) => {
       if (!lastMsg.includes(msg.id)) {
         lastMsg.push(msg.id);
         console.log("lastMsg b", msg.id);
+        console.log("lastMsgs", lastMsg);
+
         // msg.channel.send(`${msg.id}`);
       } else {
         lastMsgCopy = msg.id;
