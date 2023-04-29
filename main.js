@@ -573,6 +573,7 @@ client.on("messageCreate", async (msg) => {
                           .map(
                             (game) =>
                               game.slice(0, 1) +
+                              " " +
                               game.slice(1, game.length - 1).join(" ") +
                               " " +
                               getTimeAgo(
