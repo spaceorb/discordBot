@@ -73,7 +73,7 @@ client.on("guildCreate", async (guild) => {
   const newCategory = await guild.channels.create("»»—— DraftBot ——««", {
     type: "GUILD_CATEGORY",
   });
-  const draftResultChannel = await guild.channels.create("draft-result", {
+  const draftResultChannel = await guild.channels.create("draft-results", {
     type: "GUILD_TEXT",
     parent: newCategory,
   });
@@ -2386,7 +2386,7 @@ client.on("messageCreate", async (msg) => {
 **${commandSymbol}unlock**: Captains or scorekeeper's may unlock a draft incase of an emergency.
 **${commandSymbol}ban/unban**: scorekeeper's may ban or unban a member from interacting with the bot.
 **${commandSymbol}newseason**: Server owner, you may end the season and reset leaderboard and scores.
-**${commandSymbol}sync**: scorekeeper's, if the channels, "draft-result" or "season-leaders" are deleted, recreate them and type $sync to reconnect them.\n
+**${commandSymbol}sync**: scorekeeper's, if the channels, "draft-results" or "season-leaders" are deleted, recreate them and type $sync to reconnect them.\n
 **${commandSymbol}help**: Reveals bot commands.
 `);
     }
@@ -2757,7 +2757,7 @@ client.on("messageCreate", async (msg) => {
                     .send({ embeds: [updatedScoresEmbed] });
                 } else {
                   msg.channel.send(
-                    `Scores are updated. But, "Draft-Result" channel not found. Please recreate and type $sync to reconnect to keep track of draft records. `
+                    `Scores are updated. But, "draft-results" channel not found. Please recreate and type $sync to reconnect to keep track of draft records. `
                   );
                 }
               } catch (err) {
@@ -2772,7 +2772,7 @@ client.on("messageCreate", async (msg) => {
             .setColor("#0099ff")
             .setTitle(`Warning ⚠️`)
             .setDescription(
-              "Unable to find the 'draft-result' channel. Please create a channel named 'draft-result' and then type $sync to establish a connection for tracking each drafts. After syncing, the $sm command will become functional."
+              "Unable to find the 'draft-results' channel. Please create a channel named 'draft-results' and then type $sync to establish a connection for tracking each drafts. After syncing, the $sm command will become functional."
             );
           msg.channel.send({ embeds: [warningEmbed] });
         }
@@ -3043,7 +3043,7 @@ client.on("messageCreate", async (msg) => {
           (channel) => channel.name === channelName
         );
         console.log("CHANNEL FOUND ID", channel.id);
-        if (channelName === "draft-result") {
+        if (channelName === "draft-results") {
           gameScoreChannel = channel.id;
           await AllServers.findOneAndUpdate(
             { guildId: msg.guild.id },
@@ -3068,7 +3068,7 @@ client.on("messageCreate", async (msg) => {
         console.log(`Using existing ${channelName} channel`);
         return channel;
       };
-      checkOrCreateChannel("draft-result");
+      checkOrCreateChannel("draft-results");
       checkOrCreateChannel("season-leaders");
 
       msg.channel.send("Channels have been synced!");
