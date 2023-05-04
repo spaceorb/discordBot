@@ -224,6 +224,22 @@ client.on("messageCreate", async (msg) => {
         });
       }
     };
+    const clearScores = () => {
+      winnerNames = [];
+      loserNames = [];
+      leaverNames = [];
+      team1Score = [];
+      team2Score = [];
+      team1ScoreCopy = [];
+      team2ScoreCopy = [];
+      dqScore = [];
+      team1Win = 0;
+      team1Loss = 0;
+      team2Win = 0;
+      team2Loss = 0;
+      dqWin = 0;
+      dqLoss = 0;
+    };
     function turnEmojiToId(emoji) {
       let result = [];
       emoji = emoji.split("");
@@ -2709,8 +2725,8 @@ client.on("messageCreate", async (msg) => {
             .setTimestamp();
 
           msg.channel.send({ embeds: [updatedScoresEmbed] });
-          msg.channel.send("$sd");
-
+          // msg.channel.send("$sd");
+          clearScores();
           msg.client.channels.cache
             .get(gameScoreChannel)
             .send({ embeds: [updatedScoresEmbed] });
