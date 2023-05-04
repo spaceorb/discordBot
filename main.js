@@ -3019,7 +3019,7 @@ client.on("messageCreate", async (msg) => {
         console.log(`channel ${channel}`);
         if (channel.length > 1) {
           msg.channel.send(
-            `There are ${channe.length} channels with the name "${channelName}". Please delete the extra channels as only one will be updated.`
+            `There are ${channel.length} channels with the name "${channelName}". Please delete the extra channels as only one will be updated.`
           );
         }
         console.log("CHANNEL FOUND ID", channel.id);
