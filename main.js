@@ -3221,9 +3221,13 @@ client.on("messageCreate", async (msg) => {
             .send({ embeds: [seasonEndEmbed] });
           msg.channel.send("**Season has been reset!**");
         } else {
-          msg.channel.send(
-            `"season-leaders" channel not found. Please create a "season-leaders" channel and type $sync to reconnect it to keep track of season leaders.\nOnce synced $newseason command will work. `
-          );
+          const warningEmbed = new Discord.MessageEmbed()
+            .setColor("#0099ff")
+            .setTitle(`Warning ⚠️`)
+            .setDescription(
+              "Unable to find the 'season-leaders' channel. Please create a channel named 'season-leaders' and then type $sync to establish a connection for tracking season leaders. After syncing, the $newseason command will become functional."
+            );
+          msg.channel.send({ embeds: [warningEmbed] });
         }
       } catch (err) {
         console.log(err);
