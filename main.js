@@ -2709,6 +2709,7 @@ client.on("messageCreate", async (msg) => {
             .setTimestamp();
 
           msg.channel.send({ embeds: [updatedScoresEmbed] });
+          msg.channel.send("$sd");
 
           msg.client.channels.cache
             .get(gameScoreChannel)
