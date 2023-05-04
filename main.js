@@ -3219,6 +3219,7 @@ client.on("messageCreate", async (msg) => {
           msg.client.channels.cache
             .get(seasonWinnersChannel)
             .send({ embeds: [seasonEndEmbed] });
+          msg.channel.send("**Season has been reset!**");
         } else {
           msg.channel.send(
             `"season-leaders" channel not found. Please create a "season-leaders" channel and type $sync to reconnect it to keep track of season leaders.\nOnce synced $newseason command will work. `
@@ -3230,7 +3231,6 @@ client.on("messageCreate", async (msg) => {
       // msg.client.channels.cache
       //   .get(seasonWinnersChannel)
       //   .send({ embeds: [seasonEndEmbed] });
-      msg.channel.send("**Season has been reset!**");
     } else if (command === `${commandSymbol}newseason`) {
       msg.channel.send(
         `Only <@${currentServer[0].guildOwnerId}> (Server Owner) can reset season.`
