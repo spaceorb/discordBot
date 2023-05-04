@@ -2386,9 +2386,7 @@ client.on("messageCreate", async (msg) => {
 **${commandSymbol}unlock**: Captains or scorekeeper's may unlock a draft incase of an emergency.
 **${commandSymbol}ban/unban**: scorekeeper's may ban or unban a member from interacting with the bot.
 **${commandSymbol}newseason**: Server owner, you may end the season and reset leaderboard and scores.
-**${commandSymbol}sync**: scorekeeper's, if any of the 3 required channels are deleted, recreate them and type $sync to reconnect those channels.
-**Required Channels for $sync**: "season-leaders" and "draft-result".
-\n**Please note I will only work in the main channel and the 3 required channels to avoid clutter.**
+**${commandSymbol}sync**: scorekeeper's, if the channels, "draft-result" or "season-leaders" are deleted, recreate them and type $sync to reconnect them.\n
 **${commandSymbol}help**: Reveals bot commands.
 `);
     }
