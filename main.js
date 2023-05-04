@@ -2727,10 +2727,10 @@ client.on("messageCreate", async (msg) => {
 
           msg.channel.send({ embeds: [updatedScoresEmbed] });
           // msg.channel.send("$sd");
-          clearScores();
+
           try {
             const gameChannel = msg.guild.channels.cache.get(gameScoreChannel);
-
+            clearScores();
             if (gameChannel) {
               msg.client.channels.cache
                 .get(gameScoreChannel)
@@ -2743,6 +2743,11 @@ client.on("messageCreate", async (msg) => {
           } catch (err) {
             console.log(err);
           }
+          regularScore = [];
+          winnerNames = [];
+          loserNames = [];
+          regularWin = 0;
+          regularLoss = 0;
         }, 1000);
 
         updateLeaderboard();
