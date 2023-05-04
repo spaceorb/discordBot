@@ -2716,6 +2716,11 @@ client.on("messageCreate", async (msg) => {
         }
 
         setTimeout(async () => {
+          regularScore = [];
+          winnerNames = [];
+          loserNames = [];
+          regularWin = 0;
+          regularLoss = 0;
           let updatedScoresEmbed = new Discord.MessageEmbed()
             .setColor("#6482d0")
             .setTitle(
@@ -2744,11 +2749,6 @@ client.on("messageCreate", async (msg) => {
           } catch (err) {
             console.log(err);
           }
-          regularScore = [];
-          winnerNames = [];
-          loserNames = [];
-          regularWin = 0;
-          regularLoss = 0;
         }, 1000);
 
         updateLeaderboard();
