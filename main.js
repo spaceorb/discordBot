@@ -2366,8 +2366,8 @@ client.on("messageCreate", async (msg) => {
 **${commandSymbol}time**: Shows when every player in draft list joined the draft, and by who.
 **${commandSymbol}next**: Puts you next in line for the next draft.
 **${commandSymbol}nextlist**: Shows next draft list.
-**${commandSymbol}banlist**: Check which players are banned from using the bot.
 **${commandSymbol}vote**: Vote for a captain from the draft list. When ready $rc to find new captains.
+**${commandSymbol}banlist**: Check which players are banned from using the bot.
 **${commandSymbol}flip**: Flips heads or tails.\n
 `);
       msg.channel.send(" ");
@@ -2737,7 +2737,6 @@ client.on("messageCreate", async (msg) => {
 
           try {
             const gameChannel = msg.guild.channels.cache.get(gameScoreChannel);
-            clearScores();
             if (gameChannel) {
               msg.client.channels.cache
                 .get(gameScoreChannel)
@@ -3014,9 +3013,14 @@ client.on("messageCreate", async (msg) => {
         msg.member.roles.cache.some((role) => role.name === "scorekeeper"))
     ) {
       const checkOrCreateChannel = async (channelName) => {
-        const channel = msg.guild.channels.cache.find(
+        const channel = msg.guild.channels.cache.filter(
           (channel) => channel.name === channelName
         );
+        if (channel.length > 1) {
+          msg.channel.send(
+            `There are ${channe.length} channels with the name "${channelName}". Please delete the extra channels as only one will be updated.`
+          );
+        }
         console.log("CHANNEL FOUND ID", channel.id);
         if (channelName === "draft-result") {
           gameScoreChannel = channel.id;
