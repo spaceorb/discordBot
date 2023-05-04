@@ -2404,354 +2404,380 @@ client.on("messageCreate", async (msg) => {
       contents.length > 1 &&
       msg.member.roles.cache.some((role) => role.name === "scorekeeper")
     ) {
-      console.log("CONTEENTS", contents);
-      console.log("regular Score before", regularScore);
-      regularScore = [];
-      contents.forEach((playerDiscordId) =>
-        !regularScore.includes(playerDiscordId) && playerDiscordId.length > 18
-          ? regularScore.push(playerDiscordId)
-          : null
-      );
-      console.log("regular Score after", regularScore);
-
-      let splitScore = contents[1].split("-");
-
-      win = parseInt(splitScore[0]);
-      loss = parseInt(splitScore[1]);
-      regularWin = win;
-      regularLoss = loss;
-
-      if (regularScore.length > 0 && win < 1000 && loss < 1000) {
-        let temp = [];
-
-        for (let j = 0; j < regularScore.length; j++) {
-          let prevID = regularScore[j].split("");
-          let newID = [];
-          prevID.map((a) => (parseInt(a) + 1 ? newID.push(a) : null));
-
-          newID = newID.join("");
-          const updatePerson = await PlayerModel.findOne({
-            userId: regularScore[j],
-            guildId: msg.guild.id,
-          });
-          if (updatePerson) {
-            msg.guild.members.fetch(newID).then((member) => {
-              let discordName;
-
-              if (member.nickname !== null) {
-                discordName = member.nickname;
-              } else if (member.nickname === null) {
-                discordName = member.user.username;
-              }
-
-              discordName = discordName.toUpperCase();
-              discordName = removeSpaceChar(discordName);
-
-              if (regularWin > regularLoss) {
-                winnerNames.push(discordName);
-
-                for (p = 0; p < allServerUsers.length; p++) {
-                  if (allServerUsers[p].userId == regularScore[j]) {
-                    PlayerModel.findOneAndUpdate(
-                      {
-                        userId: regularScore[j],
-                        guildId: msg.guild.id,
-                      },
-                      {
-                        $push: {
-                          draftPlayed: allServerUsers[p].draftPlayed.length,
-                          lpChange:
-                            allServerUsers[p].lpChange[
-                              allServerUsers[p].lpChange.length - 1
-                            ] +
-                            (regularWin - regularLoss) * 15,
-                          recentGames: [
-                            "**WIN**",
-                            `+${(regularWin - regularLoss) * 15}`,
-
-                            new Date().getTime(),
-                          ],
-                        },
-                      },
-                      { new: true }
-                    ).exec((err, data) => {
-                      if (err) throw err;
-                      playerExist = true;
-                    });
-                  }
-                }
-
-                PlayerModel.findOneAndUpdate(
-                  {
-                    userId: regularScore[j],
-                    guildId: msg.guild.id,
-                  },
-                  {
-                    $inc: {
-                      totalWin: 1,
-                      lp: (regularWin - regularLoss) * 15,
-                      win: regularWin,
-                      loss: regularLoss,
-                    },
-                  },
-                  { new: true }
-                ).exec((err, data) => {
-                  if (err) throw err;
-                  playerExist = true;
-                });
-              } else if (regularWin < regularLoss) {
-                loserNames.push(discordName);
-
-                for (p = 0; p < allServerUsers.length; p++) {
-                  if (allServerUsers[p].userId == regularScore[j]) {
-                    PlayerModel.findOneAndUpdate(
-                      {
-                        userId: regularScore[j],
-                        guildId: msg.guild.id,
-                      },
-                      {
-                        $push: {
-                          draftPlayed: allServerUsers[p].draftPlayed.length,
-                          lpChange:
-                            allServerUsers[p].lpChange[
-                              allServerUsers[p].lpChange.length - 1
-                            ] +
-                            (regularWin - regularLoss) * 15,
-                          recentGames: [
-                            "**LOSS**",
-                            `${(regularWin - regularLoss) * 15}`,
-
-                            new Date().getTime(),
-                          ],
-                        },
-                      },
-                      { new: true }
-                    ).exec((err, data) => {
-                      if (err) throw err;
-                      playerExist = true;
-                    });
-                  }
-                }
-
-                PlayerModel.findOneAndUpdate(
-                  {
-                    userId: regularScore[j],
-                    guildId: msg.guild.id,
-                  },
-                  {
-                    $inc: {
-                      totalLoss: 1,
-                      lp: (regularWin - regularLoss) * 15,
-                      win: regularWin,
-                      loss: regularLoss,
-                    },
-                  },
-                  { new: true }
-                ).exec((err, data) => {
-                  if (err) throw err;
-                  playerExist = true;
-                });
-              }
-
-              let newList = allServerUsers.sort((a, b) => b.lp - a.lp);
-              let finalList = [];
-              newList.map((a) => (a.playedSeason ? finalList.push(a) : null));
-
-              for (let i = 0; i < allServerUsers.length; i++) {
-                let rankZ = 0;
-                for (let j = 0; j < finalList.length; j++) {
-                  if (finalList[j].userId == allServerUsers[i].userId) {
-                    rankZ = j + 1;
-                  }
-                }
-                if (rankZ > 0) {
-                  playersToEditRoles.push({
-                    id: newID,
-                    role: turnMmrToTitle2(rankZ, finalList.length),
-                  });
-                }
-              }
-
-              PlayerModel.findOneAndUpdate(
-                {
-                  userId: regularScore[j],
-                  guildId: msg.guild.id,
-                },
-                {
-                  $set: {
-                    name: discordName,
-                    playedSeason: true,
-                  },
-                },
-                { new: true }
-              ).exec((err, data) => {
-                if (err) throw err;
-                playerExist = true;
-              });
-
-              for (let i = 0; i < allServerUsers.length; i++) {
-                PlayerModel.findOneAndUpdate(
-                  { userId: allServerUsers[i].userId, guildId: msg.guild.id },
-                  {
-                    $set: {
-                      value: `**${allServerUsers[i].lp}** (${allServerUsers[i].totalWin}-${allServerUsers[i].totalLoss})`,
-                    },
-                  },
-                  { new: true }
-                ).exec((err, data) => {
-                  if (err) throw err;
-                  playerExist = true;
-                });
-              }
-            });
-
-            for (let i = 0; i < allServerUsers.length; i++) {
-              if (allServerUsers[i].userId == regularScore[j]) {
-                temp.push(
-                  `${prevID.join("")} \`Old MMR: ${allServerUsers[i].lp} (${
-                    (win - loss) * 15 > 0 ? "+" : ""
-                  }${(win - loss) * 15}) New MMR: ${
-                    allServerUsers[i].lp + (win - loss) * 15
-                  }\``
-                );
-              }
-            }
-          } else {
-            msg.guild.members.fetch(newID).then((member) => {
-              let discordName;
-
-              if (member.nickname !== null) {
-                discordName = member.nickname;
-              } else if (member.nickname === null) {
-                discordName = member.user.username;
-              }
-
-              discordName = discordName.toUpperCase();
-              discordName = removeSpaceChar(discordName);
-
-              if (regularWin > regularLoss) {
-                winnerNames.push(discordName);
-
-                PlayerModel.create({
-                  guildId: msg.guild.id,
-                  userId: regularScore[j],
-                  name: discordName,
-                  totalWin: 1,
-                  totalLoss: 0,
-                  win: regularWin,
-                  loss: regularLoss,
-                  lp: 1000 + (regularWin - regularLoss) * 15,
-                  value: `**${1000 + (regularWin - regularLoss) * 15}** (1-0)`,
-                  draftPlayed: [0, 1],
-                  lpChange: [1000, 1000 + (regularWin - regularLoss) * 15],
-                  bestSeason: "**None**",
-                  previousSeason: "**None**",
-                  newPlayer: true,
-                  playedSeason: true,
-                  medals: [],
-                  recentGames: [
-                    [
-                      "**WIN**",
-                      `+${(regularWin - regularLoss) * 15}`,
-
-                      new Date().getTime(),
-                    ],
-                  ],
-                }).then(async (newPlayer) => {
-                  // Wait for data to be added to the database before sending message
-                  await new Promise((resolve) => setTimeout(resolve, 1000));
-                  setTimeout(() => {
-                    temp.push(
-                      `${prevID.join("")} \`Old MMR: 1000 (${
-                        (win - loss) * 15 > 0 ? "+" : ""
-                      }${(win - loss) * 15}) New MMR: ${
-                        1000 + (win - loss) * 15
-                      }\``
-                    );
-                  }, 500);
-                });
-              } else if (regularWin < regularLoss) {
-                loserNames.push(discordName);
-
-                PlayerModel.create({
-                  guildId: msg.guild.id,
-                  userId: regularScore[j],
-                  name: discordName,
-                  totalWin: 0,
-                  totalLoss: 1,
-                  win: regularWin,
-                  loss: regularLoss,
-                  lp: 1000 + (regularWin - regularLoss) * 15,
-                  value: `**${1000 + (regularWin - regularLoss) * 15}** (0-1)`,
-                  draftPlayed: [0, 1],
-                  lpChange: [1000, 1000 + (regularWin - regularLoss) * 15],
-                  bestSeason: "**None**",
-                  previousSeason: "**None**",
-                  newPlayer: true,
-                  playedSeason: true,
-                  medals: [],
-                  recentGames: [
-                    [
-                      "**LOSS**",
-                      `${(regularWin - regularLoss) * 15}`,
-
-                      new Date().getTime(),
-                    ],
-                  ],
-                }).then(async (newPlayer) => {
-                  // Wait for data to be added to the database before sending message
-                  await new Promise((resolve) => setTimeout(resolve, 1000));
-                  setTimeout(() => {
-                    temp.push(
-                      `${prevID.join("")} \`Old MMR: 1000 (${
-                        (win - loss) * 15 > 0 ? "+" : ""
-                      }${(win - loss) * 15}) New MMR: ${
-                        1000 + (win - loss) * 15
-                      }\``
-                    );
-                  }, 500);
-                });
-              }
-            });
-          }
-        }
-
-        setTimeout(async () => {
+      try {
+        const gameChannel = msg.guild.channels.cache.get(gameScoreChannel);
+        if (gameChannel) {
+          console.log("CONTEENTS", contents);
+          console.log("regular Score before", regularScore);
           regularScore = [];
-          winnerNames = [];
-          loserNames = [];
-          regularWin = 0;
-          regularLoss = 0;
-          let updatedScoresEmbed = new Discord.MessageEmbed()
-            .setColor("#6482d0")
-            .setTitle(
-              `Score: \`${win}-${loss}\` \`${win > loss ? "WIN" : "LOSE"}\` ${
-                win > loss ? "🟢" : "🔴"
-              }`
-            )
-            .setDescription(`${temp.join("\n")}`)
-            .setTimestamp();
+          contents.forEach((playerDiscordId) =>
+            !regularScore.includes(playerDiscordId) &&
+            playerDiscordId.length > 18
+              ? regularScore.push(playerDiscordId)
+              : null
+          );
+          console.log("regular Score after", regularScore);
 
-          msg.channel.send({ embeds: [updatedScoresEmbed] });
-          // msg.channel.send("$sd");
+          let splitScore = contents[1].split("-");
 
-          try {
-            const gameChannel = msg.guild.channels.cache.get(gameScoreChannel);
-            if (gameChannel) {
-              msg.client.channels.cache
-                .get(gameScoreChannel)
-                .send({ embeds: [updatedScoresEmbed] });
-            } else {
-              msg.channel.send(
-                `Scores are updated. But, "Draft-Result" channel not found. Please recreate and type $sync to reconnect to keep track of draft records. `
-              );
+          win = parseInt(splitScore[0]);
+          loss = parseInt(splitScore[1]);
+          regularWin = win;
+          regularLoss = loss;
+
+          if (regularScore.length > 0 && win < 1000 && loss < 1000) {
+            let temp = [];
+
+            for (let j = 0; j < regularScore.length; j++) {
+              let prevID = regularScore[j].split("");
+              let newID = [];
+              prevID.map((a) => (parseInt(a) + 1 ? newID.push(a) : null));
+
+              newID = newID.join("");
+              const updatePerson = await PlayerModel.findOne({
+                userId: regularScore[j],
+                guildId: msg.guild.id,
+              });
+              if (updatePerson) {
+                msg.guild.members.fetch(newID).then((member) => {
+                  let discordName;
+
+                  if (member.nickname !== null) {
+                    discordName = member.nickname;
+                  } else if (member.nickname === null) {
+                    discordName = member.user.username;
+                  }
+
+                  discordName = discordName.toUpperCase();
+                  discordName = removeSpaceChar(discordName);
+
+                  if (regularWin > regularLoss) {
+                    winnerNames.push(discordName);
+
+                    for (p = 0; p < allServerUsers.length; p++) {
+                      if (allServerUsers[p].userId == regularScore[j]) {
+                        PlayerModel.findOneAndUpdate(
+                          {
+                            userId: regularScore[j],
+                            guildId: msg.guild.id,
+                          },
+                          {
+                            $push: {
+                              draftPlayed: allServerUsers[p].draftPlayed.length,
+                              lpChange:
+                                allServerUsers[p].lpChange[
+                                  allServerUsers[p].lpChange.length - 1
+                                ] +
+                                (regularWin - regularLoss) * 15,
+                              recentGames: [
+                                "**WIN**",
+                                `+${(regularWin - regularLoss) * 15}`,
+
+                                new Date().getTime(),
+                              ],
+                            },
+                          },
+                          { new: true }
+                        ).exec((err, data) => {
+                          if (err) throw err;
+                          playerExist = true;
+                        });
+                      }
+                    }
+
+                    PlayerModel.findOneAndUpdate(
+                      {
+                        userId: regularScore[j],
+                        guildId: msg.guild.id,
+                      },
+                      {
+                        $inc: {
+                          totalWin: 1,
+                          lp: (regularWin - regularLoss) * 15,
+                          win: regularWin,
+                          loss: regularLoss,
+                        },
+                      },
+                      { new: true }
+                    ).exec((err, data) => {
+                      if (err) throw err;
+                      playerExist = true;
+                    });
+                  } else if (regularWin < regularLoss) {
+                    loserNames.push(discordName);
+
+                    for (p = 0; p < allServerUsers.length; p++) {
+                      if (allServerUsers[p].userId == regularScore[j]) {
+                        PlayerModel.findOneAndUpdate(
+                          {
+                            userId: regularScore[j],
+                            guildId: msg.guild.id,
+                          },
+                          {
+                            $push: {
+                              draftPlayed: allServerUsers[p].draftPlayed.length,
+                              lpChange:
+                                allServerUsers[p].lpChange[
+                                  allServerUsers[p].lpChange.length - 1
+                                ] +
+                                (regularWin - regularLoss) * 15,
+                              recentGames: [
+                                "**LOSS**",
+                                `${(regularWin - regularLoss) * 15}`,
+
+                                new Date().getTime(),
+                              ],
+                            },
+                          },
+                          { new: true }
+                        ).exec((err, data) => {
+                          if (err) throw err;
+                          playerExist = true;
+                        });
+                      }
+                    }
+
+                    PlayerModel.findOneAndUpdate(
+                      {
+                        userId: regularScore[j],
+                        guildId: msg.guild.id,
+                      },
+                      {
+                        $inc: {
+                          totalLoss: 1,
+                          lp: (regularWin - regularLoss) * 15,
+                          win: regularWin,
+                          loss: regularLoss,
+                        },
+                      },
+                      { new: true }
+                    ).exec((err, data) => {
+                      if (err) throw err;
+                      playerExist = true;
+                    });
+                  }
+
+                  let newList = allServerUsers.sort((a, b) => b.lp - a.lp);
+                  let finalList = [];
+                  newList.map((a) =>
+                    a.playedSeason ? finalList.push(a) : null
+                  );
+
+                  for (let i = 0; i < allServerUsers.length; i++) {
+                    let rankZ = 0;
+                    for (let j = 0; j < finalList.length; j++) {
+                      if (finalList[j].userId == allServerUsers[i].userId) {
+                        rankZ = j + 1;
+                      }
+                    }
+                    if (rankZ > 0) {
+                      playersToEditRoles.push({
+                        id: newID,
+                        role: turnMmrToTitle2(rankZ, finalList.length),
+                      });
+                    }
+                  }
+
+                  PlayerModel.findOneAndUpdate(
+                    {
+                      userId: regularScore[j],
+                      guildId: msg.guild.id,
+                    },
+                    {
+                      $set: {
+                        name: discordName,
+                        playedSeason: true,
+                      },
+                    },
+                    { new: true }
+                  ).exec((err, data) => {
+                    if (err) throw err;
+                    playerExist = true;
+                  });
+
+                  for (let i = 0; i < allServerUsers.length; i++) {
+                    PlayerModel.findOneAndUpdate(
+                      {
+                        userId: allServerUsers[i].userId,
+                        guildId: msg.guild.id,
+                      },
+                      {
+                        $set: {
+                          value: `**${allServerUsers[i].lp}** (${allServerUsers[i].totalWin}-${allServerUsers[i].totalLoss})`,
+                        },
+                      },
+                      { new: true }
+                    ).exec((err, data) => {
+                      if (err) throw err;
+                      playerExist = true;
+                    });
+                  }
+                });
+
+                for (let i = 0; i < allServerUsers.length; i++) {
+                  if (allServerUsers[i].userId == regularScore[j]) {
+                    temp.push(
+                      `${prevID.join("")} \`Old MMR: ${allServerUsers[i].lp} (${
+                        (win - loss) * 15 > 0 ? "+" : ""
+                      }${(win - loss) * 15}) New MMR: ${
+                        allServerUsers[i].lp + (win - loss) * 15
+                      }\``
+                    );
+                  }
+                }
+              } else {
+                msg.guild.members.fetch(newID).then((member) => {
+                  let discordName;
+
+                  if (member.nickname !== null) {
+                    discordName = member.nickname;
+                  } else if (member.nickname === null) {
+                    discordName = member.user.username;
+                  }
+
+                  discordName = discordName.toUpperCase();
+                  discordName = removeSpaceChar(discordName);
+
+                  if (regularWin > regularLoss) {
+                    winnerNames.push(discordName);
+
+                    PlayerModel.create({
+                      guildId: msg.guild.id,
+                      userId: regularScore[j],
+                      name: discordName,
+                      totalWin: 1,
+                      totalLoss: 0,
+                      win: regularWin,
+                      loss: regularLoss,
+                      lp: 1000 + (regularWin - regularLoss) * 15,
+                      value: `**${
+                        1000 + (regularWin - regularLoss) * 15
+                      }** (1-0)`,
+                      draftPlayed: [0, 1],
+                      lpChange: [1000, 1000 + (regularWin - regularLoss) * 15],
+                      bestSeason: "**None**",
+                      previousSeason: "**None**",
+                      newPlayer: true,
+                      playedSeason: true,
+                      medals: [],
+                      recentGames: [
+                        [
+                          "**WIN**",
+                          `+${(regularWin - regularLoss) * 15}`,
+
+                          new Date().getTime(),
+                        ],
+                      ],
+                    }).then(async (newPlayer) => {
+                      // Wait for data to be added to the database before sending message
+                      await new Promise((resolve) => setTimeout(resolve, 1000));
+                      setTimeout(() => {
+                        temp.push(
+                          `${prevID.join("")} \`Old MMR: 1000 (${
+                            (win - loss) * 15 > 0 ? "+" : ""
+                          }${(win - loss) * 15}) New MMR: ${
+                            1000 + (win - loss) * 15
+                          }\``
+                        );
+                      }, 500);
+                    });
+                  } else if (regularWin < regularLoss) {
+                    loserNames.push(discordName);
+
+                    PlayerModel.create({
+                      guildId: msg.guild.id,
+                      userId: regularScore[j],
+                      name: discordName,
+                      totalWin: 0,
+                      totalLoss: 1,
+                      win: regularWin,
+                      loss: regularLoss,
+                      lp: 1000 + (regularWin - regularLoss) * 15,
+                      value: `**${
+                        1000 + (regularWin - regularLoss) * 15
+                      }** (0-1)`,
+                      draftPlayed: [0, 1],
+                      lpChange: [1000, 1000 + (regularWin - regularLoss) * 15],
+                      bestSeason: "**None**",
+                      previousSeason: "**None**",
+                      newPlayer: true,
+                      playedSeason: true,
+                      medals: [],
+                      recentGames: [
+                        [
+                          "**LOSS**",
+                          `${(regularWin - regularLoss) * 15}`,
+
+                          new Date().getTime(),
+                        ],
+                      ],
+                    }).then(async (newPlayer) => {
+                      // Wait for data to be added to the database before sending message
+                      await new Promise((resolve) => setTimeout(resolve, 1000));
+                      setTimeout(() => {
+                        temp.push(
+                          `${prevID.join("")} \`Old MMR: 1000 (${
+                            (win - loss) * 15 > 0 ? "+" : ""
+                          }${(win - loss) * 15}) New MMR: ${
+                            1000 + (win - loss) * 15
+                          }\``
+                        );
+                      }, 500);
+                    });
+                  }
+                });
+              }
             }
-          } catch (err) {
-            console.log(err);
-          }
-        }, 1000);
 
-        updateLeaderboard();
+            setTimeout(async () => {
+              regularScore = [];
+              winnerNames = [];
+              loserNames = [];
+              regularWin = 0;
+              regularLoss = 0;
+              let updatedScoresEmbed = new Discord.MessageEmbed()
+                .setColor("#6482d0")
+                .setTitle(
+                  `Score: \`${win}-${loss}\` \`${
+                    win > loss ? "WIN" : "LOSE"
+                  }\` ${win > loss ? "🟢" : "🔴"}`
+                )
+                .setDescription(`${temp.join("\n")}`)
+                .setTimestamp();
+
+              msg.channel.send({ embeds: [updatedScoresEmbed] });
+              // msg.channel.send("$sd");
+
+              try {
+                const gameChannel =
+                  msg.guild.channels.cache.get(gameScoreChannel);
+                if (gameChannel) {
+                  msg.client.channels.cache
+                    .get(gameScoreChannel)
+                    .send({ embeds: [updatedScoresEmbed] });
+                } else {
+                  msg.channel.send(
+                    `Scores are updated. But, "Draft-Result" channel not found. Please recreate and type $sync to reconnect to keep track of draft records. `
+                  );
+                }
+              } catch (err) {
+                console.log(err);
+              }
+            }, 1000);
+
+            updateLeaderboard();
+          }
+        } else {
+          const warningEmbed = new Discord.MessageEmbed()
+            .setColor("#0099ff")
+            .setTitle(`Warning ⚠️`)
+            .setDescription(
+              "Unable to find the 'draft-result' channel. Please create a channel named 'draft-result' and then type $sync to establish a connection for tracking each drafts. After syncing, the $sm command will become functional."
+            );
+          msg.channel.send({ embeds: [warningEmbed] });
+        }
+      } catch (err) {
+        console.log(err);
       }
     } else if (command === `${commandSymbol}sm`) {
       msg.reply(`Only someone with a "scorekeeper" role may score matches.`);
