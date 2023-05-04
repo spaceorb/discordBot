@@ -3211,9 +3211,24 @@ client.on("messageCreate", async (msg) => {
         .setDescription(sortedList.join("\n"))
         .setTimestamp();
 
-      msg.client.channels.cache
-        .get(seasonWinnersChannel)
-        .send({ embeds: [seasonEndEmbed] });
+      try {
+        const sznWinnerChannel =
+          msg.guild.channels.cache.get(seasonWinnersChannel);
+        if (sznWinnerChannel) {
+          msg.client.channels.cache
+            .get(seasonWinnersChannel)
+            .send({ embeds: [seasonEndEmbed] });
+        } else {
+          msg.channel.send(
+            `Season has been reset. But, "season-leaders" channel not found. Please recreate and type $sync to reconnect to keep track of season leaders. `
+          );
+        }
+      } catch (err) {
+        console.log(err);
+      }
+      // msg.client.channels.cache
+      //   .get(seasonWinnersChannel)
+      //   .send({ embeds: [seasonEndEmbed] });
       msg.channel.send("**Season has been reset!**");
     } else if (command === `${commandSymbol}newseason`) {
       msg.channel.send(
