@@ -3013,15 +3013,9 @@ client.on("messageCreate", async (msg) => {
         msg.member.roles.cache.some((role) => role.name === "scorekeeper"))
     ) {
       const checkOrCreateChannel = async (channelName) => {
-        const channel = msg.guild.channels.cache.filter(
+        const channel = msg.guild.channels.cache.find(
           (channel) => channel.name === channelName
         );
-        console.log(`channel ${channel}`);
-        if (channel.length > 1) {
-          msg.channel.send(
-            `There are ${channel.length} channels with the name "${channelName}". Please delete the extra channels as only one will be updated.`
-          );
-        }
         console.log("CHANNEL FOUND ID", channel.id);
         if (channelName === "draft-result") {
           gameScoreChannel = channel.id;
