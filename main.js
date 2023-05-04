@@ -2713,7 +2713,7 @@ client.on("messageCreate", async (msg) => {
           }
         }
 
-        setTimeout(() => {
+        setTimeout(async () => {
           let updatedScoresEmbed = new Discord.MessageEmbed()
             .setColor("#6482d0")
             .setTitle(
@@ -2727,17 +2727,21 @@ client.on("messageCreate", async (msg) => {
           msg.channel.send({ embeds: [updatedScoresEmbed] });
           // msg.channel.send("$sd");
           clearScores();
-          const gameChannel =
-            message.guild.channels.cache.get(gameScoreChannel);
+          try {
+            const gameChannel =
+              message.guild.channels.cache.get(gameScoreChannel);
 
-          if (gameChannel) {
-            msg.client.channels.cache
-              .get(gameScoreChannel)
-              .send({ embeds: [updatedScoresEmbed] });
-          } else {
-            msg.channel.send(
-              `Scores are updated. But, "Draft-Result" channel not found. Please recreate and type $sync to reconnect to keep track of draft records. `
-            );
+            if (gameChannel) {
+              msg.client.channels.cache
+                .get(gameScoreChannel)
+                .send({ embeds: [updatedScoresEmbed] });
+            } else {
+              msg.channel.send(
+                `Scores are updated. But, "Draft-Result" channel not found. Please recreate and type $sync to reconnect to keep track of draft records. `
+              );
+            }
+          } catch (err) {
+            console.log(err);
           }
         }, 1000);
 
