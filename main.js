@@ -2729,8 +2729,7 @@ client.on("messageCreate", async (msg) => {
           // msg.channel.send("$sd");
           clearScores();
           try {
-            const gameChannel =
-              message.guild.channels.cache.get(gameScoreChannel);
+            const gameChannel = msg.guild.channels.cache.get(gameScoreChannel);
 
             if (gameChannel) {
               msg.client.channels.cache
