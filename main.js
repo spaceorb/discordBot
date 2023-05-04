@@ -2406,6 +2406,7 @@ client.on("messageCreate", async (msg) => {
       contents.length > 1 &&
       msg.member.roles.cache.some((role) => role.name === "scorekeeper")
     ) {
+      console.log("CONTEENTS", contents);
       contents.forEach((playerDiscordId) =>
         !regularScore.includes(playerDiscordId) && playerDiscordId.length > 18
           ? regularScore.push(playerDiscordId)
