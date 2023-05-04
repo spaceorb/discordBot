@@ -3056,171 +3056,172 @@ client.on("messageCreate", async (msg) => {
       command === `${commandSymbol}newseason` &&
       msg.author.id == currentServer[0].guildOwnerId
     ) {
-      let temp = [];
-      let newList = allServerUsers.sort((a, b) => b.lp - a.lp);
-      let finalList = [];
-      let didNotPlayList = [];
-
-      newList.map((a) => (a.playedSeason ? finalList.push(a) : null));
-      newList.map((a) => (!a.playedSeason ? didNotPlayList.push(a) : null));
-
-      for (let i = 0; i < allServerUsers.length; i++) {
-        let rankZ = 0;
-        for (let j = 0; j < finalList.length; j++) {
-          if (finalList[j].userId == allServerUsers[i].userId) {
-            rankZ = j + 1;
-          }
-        }
-        console.log(`${allServerUsers[i]}'s rank: ${rankZ}`);
-        console.log(`${allServerUsers[i]}'s lp: ${allServerUsers[i].lp}`);
-        console.log(
-          `${allServerUsers[i]}'s bestSeason lp: ${
-            allServerUsers[i].bestSeason.split(" ")[2]
-          }`
-        );
-
-        if (
-          (allServerUsers[i].lp >
-            parseInt(allServerUsers[i].bestSeason.split(" ")[2]) ||
-            allServerUsers[i].newPlayer) &&
-          allServerUsers[i].playedSeason
-        ) {
-          PlayerModel.findOneAndUpdate(
-            { userId: allServerUsers[i].userId, guildId: msg.guild.id },
-            {
-              $set: {
-                bestSeason: `${turnMmrToTitle2(rankZ, finalList.length)} · ${
-                  allServerUsers[i].lp
-                } · #${rankZ}`,
-                previousSeason: allServerUsers[i].playedSeason
-                  ? `${turnMmrToTitle2(rankZ, finalList.length)} · ${
-                      allServerUsers[i].lp
-                    } · #${rankZ}`
-                  : `None`,
-                medals: [
-                  turnMmrToTitle2(rankZ, finalList.length),
-                  ...allServerUsers[i].medals,
-                ],
-                totalWin: 0,
-                totalLoss: 0,
-                win: 0,
-                loss: 0,
-                bestRank: `${rankZ} ${finalList.length}`,
-                value: `**1000** (0-0)`,
-                draftPlayed: [0],
-                lpChange: [1000],
-                lp: 1000,
-                newPlayer: false,
-                playedSeason: false,
-                recentGames: [],
-              },
-            },
-            { new: true }
-          ).exec((err, data) => {
-            if (err) throw err;
-            playerExist = true;
-          });
-        } else if (
-          allServerUsers[i].lp <=
-            parseInt(allServerUsers[i].bestSeason.split(" ")[2]) &&
-          allServerUsers[i].playedSeason
-        ) {
-          PlayerModel.findOneAndUpdate(
-            { userId: allServerUsers[i].userId, guildId: msg.guild.id },
-            {
-              $set: {
-                previousSeason: allServerUsers[i].playedSeason
-                  ? `${turnMmrToTitle2(rankZ, finalList.length)} · ${
-                      allServerUsers[i].lp
-                    } · #${rankZ}`
-                  : `None`,
-                medals: [
-                  turnMmrToTitle2(rankZ, finalList.length),
-                  ...allServerUsers[i].medals,
-                ],
-                totalWin: 0,
-                totalLoss: 0,
-                win: 0,
-                loss: 0,
-                value: `**1000** (0-0)`,
-                draftPlayed: [0],
-                lpChange: [1000],
-                lp: 1000,
-                playedSeason: false,
-                recentGames: [],
-              },
-            },
-            { new: true }
-          ).exec((err, data) => {
-            if (err) throw err;
-            playerExist = true;
-          });
-        } else {
-          PlayerModel.findOneAndUpdate(
-            { userId: allServerUsers[i].userId, guildId: msg.guild.id },
-            {
-              $set: {
-                previousSeason: `None`,
-              },
-            },
-            { new: true }
-          ).exec((err, data) => {
-            if (err) throw err;
-            playerExist = true;
-          });
-        }
-      }
-      let sortUsers = allServerUsers.sort((a, b) => b.lp - a.lp);
-      let top3Users = [];
-      sortUsers.map((a) => (a.playedSeason ? top3Users.push(a) : null));
-
-      let sortedList = [];
-
-      for (let i = 0; i < top3Users.length; i++) {
-        if (i === 0) {
-          sortedList.push(
-            ` :first_place: ${turnMmrToTitle(
-              top3Users[i].lp,
-              i,
-              top3Users.length
-            )} ${top3Users[i].userId} ${top3Users[i].value}\n`
-          );
-        } else if (i === 1) {
-          sortedList.push(
-            ` :second_place: ${turnMmrToTitle(
-              top3Users[i].lp,
-              i,
-              top3Users.length
-            )} ${top3Users[i].userId} ${top3Users[i].value}\n`
-          );
-        } else if (i === 2) {
-          sortedList.push(
-            ` :third_place: ${turnMmrToTitle(
-              top3Users[i].lp,
-              i,
-              top3Users.length
-            )} ${top3Users[i].userId} ${top3Users[i].value}\n`
-          );
-
-          // if (i === 2) sortedList.push('\n');
-        }
-      }
-      const seasonEndEmbed = new Discord.MessageEmbed()
-        .setColor("#0099ff")
-        .setTitle(`:crown: Season Winners :crown:`)
-        .setDescription(sortedList.join("\n"))
-        .setTimestamp();
-
       try {
         const sznWinnerChannel =
           msg.guild.channels.cache.get(seasonWinnersChannel);
         if (sznWinnerChannel) {
+          let temp = [];
+          let newList = allServerUsers.sort((a, b) => b.lp - a.lp);
+          let finalList = [];
+          let didNotPlayList = [];
+
+          newList.map((a) => (a.playedSeason ? finalList.push(a) : null));
+          newList.map((a) => (!a.playedSeason ? didNotPlayList.push(a) : null));
+
+          for (let i = 0; i < allServerUsers.length; i++) {
+            let rankZ = 0;
+            for (let j = 0; j < finalList.length; j++) {
+              if (finalList[j].userId == allServerUsers[i].userId) {
+                rankZ = j + 1;
+              }
+            }
+            console.log(`${allServerUsers[i]}'s rank: ${rankZ}`);
+            console.log(`${allServerUsers[i]}'s lp: ${allServerUsers[i].lp}`);
+            console.log(
+              `${allServerUsers[i]}'s bestSeason lp: ${
+                allServerUsers[i].bestSeason.split(" ")[2]
+              }`
+            );
+
+            if (
+              (allServerUsers[i].lp >
+                parseInt(allServerUsers[i].bestSeason.split(" ")[2]) ||
+                allServerUsers[i].newPlayer) &&
+              allServerUsers[i].playedSeason
+            ) {
+              PlayerModel.findOneAndUpdate(
+                { userId: allServerUsers[i].userId, guildId: msg.guild.id },
+                {
+                  $set: {
+                    bestSeason: `${turnMmrToTitle2(
+                      rankZ,
+                      finalList.length
+                    )} · ${allServerUsers[i].lp} · #${rankZ}`,
+                    previousSeason: allServerUsers[i].playedSeason
+                      ? `${turnMmrToTitle2(rankZ, finalList.length)} · ${
+                          allServerUsers[i].lp
+                        } · #${rankZ}`
+                      : `None`,
+                    medals: [
+                      turnMmrToTitle2(rankZ, finalList.length),
+                      ...allServerUsers[i].medals,
+                    ],
+                    totalWin: 0,
+                    totalLoss: 0,
+                    win: 0,
+                    loss: 0,
+                    bestRank: `${rankZ} ${finalList.length}`,
+                    value: `**1000** (0-0)`,
+                    draftPlayed: [0],
+                    lpChange: [1000],
+                    lp: 1000,
+                    newPlayer: false,
+                    playedSeason: false,
+                    recentGames: [],
+                  },
+                },
+                { new: true }
+              ).exec((err, data) => {
+                if (err) throw err;
+                playerExist = true;
+              });
+            } else if (
+              allServerUsers[i].lp <=
+                parseInt(allServerUsers[i].bestSeason.split(" ")[2]) &&
+              allServerUsers[i].playedSeason
+            ) {
+              PlayerModel.findOneAndUpdate(
+                { userId: allServerUsers[i].userId, guildId: msg.guild.id },
+                {
+                  $set: {
+                    previousSeason: allServerUsers[i].playedSeason
+                      ? `${turnMmrToTitle2(rankZ, finalList.length)} · ${
+                          allServerUsers[i].lp
+                        } · #${rankZ}`
+                      : `None`,
+                    medals: [
+                      turnMmrToTitle2(rankZ, finalList.length),
+                      ...allServerUsers[i].medals,
+                    ],
+                    totalWin: 0,
+                    totalLoss: 0,
+                    win: 0,
+                    loss: 0,
+                    value: `**1000** (0-0)`,
+                    draftPlayed: [0],
+                    lpChange: [1000],
+                    lp: 1000,
+                    playedSeason: false,
+                    recentGames: [],
+                  },
+                },
+                { new: true }
+              ).exec((err, data) => {
+                if (err) throw err;
+                playerExist = true;
+              });
+            } else {
+              PlayerModel.findOneAndUpdate(
+                { userId: allServerUsers[i].userId, guildId: msg.guild.id },
+                {
+                  $set: {
+                    previousSeason: `None`,
+                  },
+                },
+                { new: true }
+              ).exec((err, data) => {
+                if (err) throw err;
+                playerExist = true;
+              });
+            }
+          }
+          let sortUsers = allServerUsers.sort((a, b) => b.lp - a.lp);
+          let top3Users = [];
+          sortUsers.map((a) => (a.playedSeason ? top3Users.push(a) : null));
+
+          let sortedList = [];
+
+          for (let i = 0; i < top3Users.length; i++) {
+            if (i === 0) {
+              sortedList.push(
+                ` :first_place: ${turnMmrToTitle(
+                  top3Users[i].lp,
+                  i,
+                  top3Users.length
+                )} ${top3Users[i].userId} ${top3Users[i].value}\n`
+              );
+            } else if (i === 1) {
+              sortedList.push(
+                ` :second_place: ${turnMmrToTitle(
+                  top3Users[i].lp,
+                  i,
+                  top3Users.length
+                )} ${top3Users[i].userId} ${top3Users[i].value}\n`
+              );
+            } else if (i === 2) {
+              sortedList.push(
+                ` :third_place: ${turnMmrToTitle(
+                  top3Users[i].lp,
+                  i,
+                  top3Users.length
+                )} ${top3Users[i].userId} ${top3Users[i].value}\n`
+              );
+
+              // if (i === 2) sortedList.push('\n');
+            }
+          }
+          const seasonEndEmbed = new Discord.MessageEmbed()
+            .setColor("#0099ff")
+            .setTitle(`:crown: Season Winners :crown:`)
+            .setDescription(sortedList.join("\n"))
+            .setTimestamp();
+
           msg.client.channels.cache
             .get(seasonWinnersChannel)
             .send({ embeds: [seasonEndEmbed] });
         } else {
           msg.channel.send(
-            `Season has been reset. But, "season-leaders" channel not found. Please recreate and type $sync to reconnect to keep track of season leaders. `
+            `"season-leaders" channel not found. Please create a "season-leaders" channel and type $sync to reconnect it to keep track of season leaders.\nOnce synced $newseason command will work. `
           );
         }
       } catch (err) {
