@@ -2727,9 +2727,14 @@ client.on("messageCreate", async (msg) => {
           msg.channel.send({ embeds: [updatedScoresEmbed] });
           // msg.channel.send("$sd");
           clearScores();
-          msg.client.channels.cache
-            .get(gameScoreChannel)
-            .send({ embeds: [updatedScoresEmbed] });
+          const gameChannel =
+            message.guild.channels.cache.get(gameScoreChannel);
+
+          if (gameChannel) {
+            msg.client.channels.cache
+              .get(gameScoreChannel)
+              .send({ embeds: [updatedScoresEmbed] });
+          }
         }, 1000);
 
         updateLeaderboard();
