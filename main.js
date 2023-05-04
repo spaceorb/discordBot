@@ -2347,7 +2347,7 @@ client.on("messageCreate", async (msg) => {
       command === `$help`
     ) {
       msg.channel.send(`
-**»» Draft List Commands ««**
+\`»» Draft List Commands ««\`
 **${commandSymbol}in**: Puts you or other players in the draft.
 **${commandSymbol}out**: Takes you or other players out of the draft.
 **${commandSymbol}randomize**: Randomizes players into new teams.
@@ -2372,7 +2372,7 @@ client.on("messageCreate", async (msg) => {
 `);
       msg.channel.send(" ");
       msg.channel.send(`\n
-**»» MMR Commands ««**
+\`»» MMR Commands ««\`
 **${commandSymbol}ranks**: Shows leaderboard.
 **${commandSymbol}stats**: Shows players stats.
 **${commandSymbol}sm**: Short for "Score Match". scorekeeper's may score players using format below.
@@ -2381,11 +2381,11 @@ client.on("messageCreate", async (msg) => {
       msg.channel.send(" ");
 
       msg.channel.send(`
-**»» Special Commands ««**
+\`»» Special Commands ««\`
 **${commandSymbol}lock**: Captains or scorekeeper's may lock a draft when captains begin to pick players.
 **${commandSymbol}unlock**: Captains or scorekeeper's may unlock a draft incase of an emergency.
 **${commandSymbol}ban/unban**: scorekeeper's may ban or unban a member from interacting with the bot.
-**${commandSymbol}resetseason**: Server owner, you may end the season and reset leaderboard and scores.
+**${commandSymbol}newseason**: Server owner, you may end the season and reset leaderboard and scores.
 **${commandSymbol}sync**: scorekeeper's, if any of the 3 required channels are deleted, recreate them and type $sync to reconnect those channels.
 **Required Channels for $sync**: "season-leaders" and "draft-result".
 \n**Please note I will only work in the main channel and the 3 required channels to avoid clutter.**
@@ -3056,7 +3056,7 @@ client.on("messageCreate", async (msg) => {
     }
 
     if (
-      command === `${commandSymbol}resetseason` &&
+      command === `${commandSymbol}newseason` &&
       msg.author.id == currentServer[0].guildOwnerId
     ) {
       let temp = [];
@@ -3218,10 +3218,12 @@ client.on("messageCreate", async (msg) => {
         .get(seasonWinnersChannel)
         .send({ embeds: [seasonEndEmbed] });
       msg.channel.send("**Season has been reset!**");
-    } else if (command === `${commandSymbol}resetseason`) {
+    } else if (command === `${commandSymbol}newseason`) {
       msg.channel.send(
         `Only <@${currentServer[0].guildOwnerId}> (Server Owner) can reset season.`
       );
+    } else if (command === `${commandSymbol}resetseason`) {
+      msg.channel.send("Command has changed to $newseason.");
     }
 
     if (command === `${commandSymbol}bottom10`) {
