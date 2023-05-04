@@ -2376,7 +2376,7 @@ client.on("messageCreate", async (msg) => {
 **${commandSymbol}ranks**: Shows leaderboard.
 **${commandSymbol}stats**: Shows players stats.
 **${commandSymbol}sm**: Short for "Score Match". scorekeeper's may score players using format below.
-**Score Match Format**: Example: $sm 9-0 @winnernames and $sm 0-9 @losernames.
+**Score Match Format**: e.g. $sm 9-0 @winnernames and $sm 0-9 @losernames.
 `);
       msg.channel.send(" ");
 
