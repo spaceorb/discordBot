@@ -2407,11 +2407,14 @@ client.on("messageCreate", async (msg) => {
       msg.member.roles.cache.some((role) => role.name === "scorekeeper")
     ) {
       console.log("CONTEENTS", contents);
+      console.log("regular Score before", regularScore);
+
       contents.forEach((playerDiscordId) =>
         !regularScore.includes(playerDiscordId) && playerDiscordId.length > 18
           ? regularScore.push(playerDiscordId)
           : null
       );
+      console.log("regular Score after", regularScore);
 
       let splitScore = contents[1].split("-");
 
