@@ -230,6 +230,7 @@ client.on("messageCreate", async (msg) => {
       leaverNames = [];
       team1Score = [];
       team2Score = [];
+      regularScore = [];
       team1ScoreCopy = [];
       team2ScoreCopy = [];
       dqScore = [];
