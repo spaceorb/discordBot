@@ -2734,6 +2734,10 @@ client.on("messageCreate", async (msg) => {
             msg.client.channels.cache
               .get(gameScoreChannel)
               .send({ embeds: [updatedScoresEmbed] });
+          } else {
+            msg.channel.send(
+              `Scores are updated. But, "Draft-Result" channel not found. Please recreate and type $sync to reconnect to keep track of draft records. `
+            );
           }
         }, 1000);
 
