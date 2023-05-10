@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const BotDataSchema = new mongoose.Schema({
   guildId: { type: String, required: true, unique: true },
   channelId: { type: String, require: true },
-  gameScoreChannel: { type: String, require: true, unique: true },
-  leaderboardChannel: { type: String, require: true, unique: true },
-  seasonWinnersChannel: { type: String, require: true, unique: true },
+  gameScoreChannel: { type: String, require: true },
+  leaderboardChannel: { type: String, require: true },
+  seasonWinnersChannel: { type: String, require: true },
 
   voted: { type: Array, default: [] },
   votedCopy: { type: Array, default: [] },

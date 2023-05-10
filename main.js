@@ -983,10 +983,10 @@ client.on("messageCreate", async (msg) => {
         })
         .catch((lastMsg = []));
     }
-    function removeSpaceChar(name) {
+    const removeSpaceChar = (name) => {
       return name.replace(/[^\w]/gi, "");
-    }
-    function swapNames(x, y) {
+    };
+    const swapNames = (x, y) => {
       const arraysToSearch = [inDraft, team1, team2, captains];
       let xArray, yArray;
 
@@ -1004,7 +1004,7 @@ client.on("messageCreate", async (msg) => {
         xArray[xIndex] = yArray[yIndex];
         yArray[yIndex] = temp;
       }
-    }
+    };
 
     await PlayerModel.find().then(async (allUsers) => {
       if (allUsers.length > 0) {
