@@ -1,3 +1,5 @@
+// Please note that the codebase may exhibit some inconsistencies due to my evolving knowledge of JavaScript. While I have made efforts to refactor the older code, not every part has been updated yet.
+
 const Discord = require("discord.js");
 const QuickChart = require("quickchart-js");
 const mongoose = require("mongoose");
@@ -12,7 +14,6 @@ require("dotenv").config();
 const chart = new QuickChart();
 const guildData = {};
 const botData = {};
-const discordBotId = "881341335355920415";
 
 client.on("ready", async () => {
   await mongoose
