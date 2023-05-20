@@ -1,4 +1,4 @@
-![MMR-based Discord Bot Image](https://raw.githubusercontent.com/spaceorb/kswlee.com/main/build/static/media/project2.8f139943a375ca6ec419.png)(https://raw.githubusercontent.com/spaceorb/kswlee.com/main/build/static/media/project2.8f139943a375ca6ec419.png)
+![MMR-based Discord Bot Image](https://raw.githubusercontent.com/spaceorb/kswlee.com/main/build/static/media/project2.8f139943a375ca6ec419.png)
 # MMR-based Discord Bot
 #### Invite to Discord! <br> https://discord.com/api/oauth2/authorize?client_id=881341335355920415&permissions=8&scope=bot
 
